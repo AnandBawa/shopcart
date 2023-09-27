@@ -1,5 +1,11 @@
+import { Hero } from "@/components";
+
 const LandingPage = () => {
-  return <h1 className="text-4xl">Landing Page</h1>;
+  return (
+    <div className="mx-auto w-full md:max-w-[90vw]">
+      <Hero />
+    </div>
+  );
 };
 
 export default LandingPage;
