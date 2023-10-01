@@ -1,10 +1,10 @@
 import Joi from "joi";
-import { CATEGORY, SUBCATEGORY } from "../utils/constants.js";
+import { CATEGORY, SUB_CATEGORY } from "../utils/constants.js";
 
 const productSchema = Joi.object({
   name: Joi.string().min(3).max(50).required(),
   category: Joi.valid(...Object.values(CATEGORY)).required(),
-  subcategory: Joi.valid(...Object.values(SUBCATEGORY)).required(),
+  subcategory: Joi.valid(...Object.values(SUB_CATEGORY)).required(),
   price: Joi.number().min(1).max(9999999).required(),
   style: Joi.string(),
   switches: Joi.string(),
@@ -37,13 +37,13 @@ const productSchema = Joi.object({
   memory: Joi.number(),
   length: Joi.number(),
   screen_size: Joi.number(),
-  resolution: Joi.array().items(Joi.number()),
+  resolution: Joi.array().unique().items(Joi.number()),
   refresh_rate: Joi.number(),
   response_time: Joi.number(),
   panel_type: Joi.string(),
   aspect_ratio: Joi.string(),
-  speed: Joi.array().items(Joi.number()),
-  modules: Joi.array().items(Joi.number()),
+  speed: Joi.array().unique().items(Joi.number()),
+  modules: Joi.array().unique().items(Joi.number()),
   first_word_latency: Joi.number(),
   cas_latency: Joi.number(),
   mode: Joi.number(),
@@ -59,22 +59,22 @@ const productSchema = Joi.object({
   hand_orientation: Joi.string(),
   capacity_w: Joi.number(),
   capacity_va: Joi.number(),
-  resolutions: Joi.array().items(Joi.string()),
+  resolutions: Joi.array().unique().items(Joi.string()),
   connection: Joi.string(),
   focus_type: Joi.string(),
-  os: Joi.array().items(Joi.string()),
+  os: Joi.array().unique().items(Joi.string()),
   fov: Joi.number(),
   protocol: Joi.string(),
-  frequency_response: Joi.array().items(Joi.number()),
+  frequency_response: Joi.array().unique().items(Joi.number()),
   microphone: Joi.boolean(),
   wireless: Joi.boolean(),
   enclosure_type: Joi.string(),
   configuration: Joi.number(),
   wattage: Joi.number(),
   size: Joi.number(),
-  rpm: Joi.array().items(Joi.number()),
-  airflow: Joi.array().items(Joi.number()),
-  noise_level: Joi.array().items(Joi.number()),
+  rpm: Joi.array().unique().items(Joi.number()),
+  airflow: Joi.array().unique().items(Joi.number()),
+  noise_level: Joi.array().unique().items(Joi.number()),
 });
 
 export default productSchema;

@@ -1,11 +1,24 @@
 import mongoose from "mongoose";
-import { CATEGORY, SUBCATEGORY } from "../utils/constants.js";
+import { CATEGORY, SUB_CATEGORY } from "../utils/constants.js";
 
 const ProductModel = new mongoose.Schema(
   {
-    name: String,
+    addedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    reviews: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Review",
+        },
+      ],
+      default: undefined,
+    },
     category: { type: String, enum: Object.values(CATEGORY) },
-    subcategory: { type: String, enum: Object.values(SUBCATEGORY) },
+    subcategory: { type: String, enum: Object.values(SUB_CATEGORY) },
+    name: String,
     price: Number,
     style: String,
     switches: String,

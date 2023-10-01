@@ -1,3 +1,5 @@
+export const ROLES = ["admin", "user"];
+
 export const GENERAL = {
   VIDEO_CARDS: "Video Cards",
   CPUS: "CPUs",
@@ -42,7 +44,7 @@ export const CATEGORY = {
   EXPANSIONCARDS_NETWORKING: "Expansion Cards / Networking",
 };
 
-export const SUBCATEGORY = {
+export const SUB_CATEGORY = {
   VIDEO_CARDS: "Video Cards",
   CPUS: "CPUs",
   CPU_COOLERS: "CPU Coolers",
@@ -68,6 +70,13 @@ export const SUBCATEGORY = {
   WIRELESS_NETWORK_ADAPTERS: "Wireless Network Adapters",
   SOUND_CARDS: "Sound Cards",
   WIRED_NETWORK_ADAPTERS: "Wired Network Adapters",
+};
+
+export const SORT_BY = {
+  NEW: "New",
+  UPDATED: "Recently Updated",
+  PRICE_LOW: "Price Ascending",
+  PRICE_HIGH: "Price Descending",
 };
 
 const PRODUCT_FIELDS = {

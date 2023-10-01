@@ -1,24 +1,34 @@
 import { Router } from "express";
-import { validateProductInput } from "../middleware/validationMiddleware.js";
-
-const productRouter = Router();
-
+import {
+  validateProductInput,
+  validateProductId,
+} from "../middleware/validationMiddleware.js";
+import { isAdmin, isLoggedIn } from "../middleware/authMiddleware.js";
 import {
   getAllProducts,
   createProduct,
   updateProduct,
   deleteProduct,
-  getSingleProduct,
+  getProduct,
 } from "../controllers/productController.js";
+
+const productRouter = Router();
 
 productRouter
   .route("/")
   .get(getAllProducts)
-  .post(validateProductInput, createProduct);
+  .post(isLoggedIn, isAdmin, validateProductInput, createProduct);
+
 productRouter
   .route("/:id")
-  .get(getSingleProduct)
-  .patch(updateProduct)
-  .delete(deleteProduct);
+  .get(validateProductId, getProduct)
+  .patch(
+    isLoggedIn,
+    isAdmin,
+    validateProductId,
+    validateProductInput,
+    updateProduct
+  )
+  .delete(isLoggedIn, isAdmin, validateProductId, deleteProduct);
 
 export default productRouter;
