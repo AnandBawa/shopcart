@@ -8,7 +8,7 @@ const Error = () => {
 
   if (error.status === 404) {
     return (
-      <main className="grid min-h-[90vh] place-items-center">
+      <main className="grid min-h-[90vh] place-items-center ">
         <div className="text-center">
           <img
             src={img404}

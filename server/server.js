@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
+import cloudinary from "cloudinary";
 import { Strategy as LocalStrategy } from "passport-local";
 import { localAuthStrategy } from "./utils/passportConfig.js";
 
@@ -25,6 +26,13 @@ import User from "./models/userModel.js";
 
 dotenv.config();
 const app = express();
+
+// Cloudinary config
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // MongoDB connection
 const port = process.env.PORT || 3000;
@@ -87,7 +95,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Routes
-app.use("/api/v1/auth", authRouter);
+app.use("/api/v1", authRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/products/:id/reviews", reviewRouter);
 app.use("/api/v1/users", isLoggedIn, userRouter);

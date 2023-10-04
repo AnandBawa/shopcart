@@ -12,14 +12,16 @@ export const register = async (req, res) => {
     if (err) {
       throw new Error("Error logging in, please try again");
     }
-    res
-      .status(StatusCodes.CREATED)
-      .json({ msg: "User registered successfully and logged in" });
+    res.status(StatusCodes.CREATED).json({
+      msg: `Welcome, ${req.user.firstName}`,
+    });
   });
 };
 
 export const login = async (req, res) => {
-  res.status(StatusCodes.OK).json({ msg: "User logged in successfully" });
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: `Welcome back, ${req.user.firstName}` });
 };
 
 export const logout = async (req, res) => {
@@ -27,6 +29,6 @@ export const logout = async (req, res) => {
     if (err) {
       throw new Error("Error logging out, please try again");
     }
-    res.status(StatusCodes.OK).json({ msg: "User logged out successfully" });
+    res.status(StatusCodes.OK).json({ msg: `User logged out successfully` });
   });
 };

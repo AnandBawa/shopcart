@@ -1,21 +1,34 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import { createContext } from "react";
-import { useContext } from "react";
+import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
+import { createContext, useContext } from "react";
+import { toast } from "react-toastify";
+import fetchData from "@/utils/fetchData";
+import { Navbar } from "@/components";
+
+export const homeLoader = async () => {
+  try {
+    const { data } = await fetchData.get("/users/current-user");
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 
 const HomeContext = createContext();
 
 const Home = () => {
-  const user = { name: "Anand" };
+  const { user } = useLoaderData();
+  const navigate = useNavigate();
 
-  const logoutUser = async () => {
-    console.log("Logout user");
+  const logout = async () => {
+    await fetchData.post("/logout");
+    navigate("/");
+    toast.success("Logging out...");
   };
 
   return (
-    <HomeContext.Provider value={{ user, logoutUser }}>
+    <HomeContext.Provider value={{ user, logout }}>
       <Navbar />
-      <Outlet />
+      <Outlet context={{ user }} />
     </HomeContext.Provider>
   );
 };

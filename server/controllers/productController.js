@@ -3,7 +3,7 @@ import Product from "../models/productModel.js";
 
 // Get all products
 export const getAllProducts = async (req, res) => {
-  const products = await Product.find({}).limit(100);
+  const products = await Product.find({}).limit(12);
   res.status(StatusCodes.OK).json({ products });
 };
 

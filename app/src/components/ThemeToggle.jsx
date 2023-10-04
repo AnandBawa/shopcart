@@ -7,7 +7,11 @@ const ThemeToggle = () => {
 
   return (
     <>
-      <Button variant="ghost" className="px-2" onClick={toggleDarkTheme}>
+      <Button
+        variant="ghost"
+        className="px-2 transition-all ease-in hover:scale-105 hover:text-primary"
+        onClick={toggleDarkTheme}
+      >
         {isDarkTheme ? (
           <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
         ) : (

@@ -18,6 +18,15 @@ const ProductModel = new mongoose.Schema(
     },
     category: { type: String, enum: Object.values(CATEGORY) },
     subcategory: { type: String, enum: Object.values(SUB_CATEGORY) },
+    images: {
+      type: [
+        {
+          url: String,
+          publicId: String,
+        },
+      ],
+      default: undefined,
+    },
     name: String,
     price: Number,
     style: String,

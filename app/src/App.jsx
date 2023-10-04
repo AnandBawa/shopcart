@@ -16,16 +16,28 @@ import {
   SingleOrder,
   SingleProduct,
 } from "./pages";
+import { ErrorElement } from "./components";
+
+// Loaders
+import { homeLoader } from "./pages/Home";
+import { landingLoader } from "./pages/LandingPage";
+
+// Actions
+import { registerAction } from "./pages/Register";
+import { loginAction } from "./pages/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
     errorElement: <Error />,
+    loader: homeLoader,
     children: [
       {
         index: true,
         element: <LandingPage />,
+        errorElement: <ErrorElement />,
+        loader: landingLoader,
       },
       {
         path: "products",
@@ -73,11 +85,13 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
     errorElement: <Error />,
+    action: loginAction,
   },
   {
     path: "/register",
     element: <Register />,
     errorElement: <Error />,
+    action: registerAction,
   },
 ]);
 

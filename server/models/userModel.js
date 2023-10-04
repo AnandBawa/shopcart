@@ -25,6 +25,13 @@ const UserModel = new mongoose.Schema(
       enum: [...ROLES],
       default: "user",
     },
+    image: {
+      type: {
+        url: String,
+        publicId: String,
+      },
+      default: undefined,
+    },
   },
   { timestamps: true }
 );

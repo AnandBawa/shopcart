@@ -12,6 +12,6 @@ authRouter.route("/register").post(validateRegisterInput, register);
 authRouter.route("/login").post(authenticateLocal, login);
 
 // Logout
-authRouter.route("/logout").get(logout);
+authRouter.route("/logout").post(logout);
 
 export default authRouter;

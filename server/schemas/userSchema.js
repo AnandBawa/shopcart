@@ -5,11 +5,11 @@ export const userSchema = Joi.object({
   lastName: Joi.string().alphanum().max(15).required(),
   password: Joi.string()
     .regex(
-      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#-_])[a-zA-Z0-9!@#-_]{8,20}$/
+      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#-_]{8,20}$/
     )
     .required()
     .messages({
-      "string.pattern.base": `Password should be between 8 to 20 characters. It can contain letters, numbers or any of the five special characters [!,@,#,-,_]. It should include at-least one uppercase alphabet, one lowercase alphabet, one digit and one special character`,
+      "string.pattern.base": `Password should be between 8 to 20 characters. It can contain letters, numbers or these special characters: !, @, #, $, %, ^, &, or *. It should include at-least one uppercase alphabet, one lowercase alphabet, one digit and one special character`,
       "string.empty": `Password cannot be empty`,
       "any.required": `Password is required`,
     }),

@@ -35,7 +35,6 @@ export const updateAddress = async (req, res) => {
 };
 
 export const deleteAddress = async (req, res) => {
-  console.log(req.user._id, req.params.id);
   await User.findByIdAndUpdate(req.user._id, {
     $pull: { address: { _id: req.params.id } },
   });

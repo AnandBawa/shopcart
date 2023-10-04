@@ -1,27 +1,41 @@
 import { ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { NavLink } from "react-router-dom";
-import { AccountDropdown, Logo, ThemeToggle, NavDropdown } from ".";
+import { Logo, ThemeToggle } from ".";
+import AccountDropdown from "./AccountDropdown";
+import NavDropdown from "./NavDropdown";
 import { useHomeContext } from "@/pages/Home";
 
 const Navbar = () => {
-  const { user, logoutUser } = useHomeContext();
+  const { user } = useHomeContext();
 
   return (
-    <header className="sticky top-0 z-50 w-full border">
+    <header className="sticky top-0 z-50 w-full border bg-secondary">
       <div className="flex mx-auto w-full md:max-w-[90vw] h-16 items-center md:justify-between">
-        <div className="flex gap-4 items-center justify-start w-[50%]">
-          <div className="flex md:hidden">
+        <div className="flex gap-4 items-center justify-start sm:w-[20%] md:w-[10%] lg:w-[50%]">
+          <div className="flex lg:hidden">
             <NavDropdown />
           </div>
-          <div className="hidden md:flex">
-            <Button variant="ghost" asChild className="text-base">
+          <div className="hidden lg:flex">
+            <Button
+              variant="ghost"
+              asChild
+              className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
+            >
               <NavLink to="/">Home</NavLink>
             </Button>
-            <Button variant="ghost" asChild className="text-base">
+            <Button
+              variant="ghost"
+              asChild
+              className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
+            >
               <NavLink to="/products">Products</NavLink>
             </Button>
-            <Button variant="ghost" asChild className="text-base">
+            <Button
+              variant="ghost"
+              asChild
+              className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
+            >
               <NavLink to="/about">About</NavLink>
             </Button>
           </div>
@@ -32,13 +46,20 @@ const Navbar = () => {
         <div className="flex gap-1 md:gap-4 items-center justify-end w-[50%]">
           {user && (
             <div className="hidden flex-shrink-0 xl:flex">
-              <Button variant="ghost" asChild className="text-base">
+              <Button
+                variant="ghost"
+                asChild
+                className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
+              >
                 <NavLink to="/orders">Orders</NavLink>
               </Button>
             </div>
           )}
           <NavLink to="/cart">
-            <Button variant="ghost" className="px-0">
+            <Button
+              variant="ghost"
+              className="px-0 transition-all ease-in hover:scale-105 hover:text-primary"
+            >
               <ShoppingCart />
             </Button>
           </NavLink>
