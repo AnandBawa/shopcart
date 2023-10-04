@@ -6,6 +6,7 @@ export const singleProductLoader = async ({ params }) => {
   try {
     const response = await fetchData.get(`/products/${params.id}`);
     const { product } = response.data;
+    console.log(product);
     return product;
   } catch (error) {
     toast.error(error?.response?.data?.msg || "Product not found");

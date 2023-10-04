@@ -5,11 +5,15 @@ import fetchData from "@/utils/fetchData";
 import { Navbar } from "@/components";
 
 export const homeLoader = async () => {
-  const { data } = await fetchData.get("/users/current-user");
-  const { user } = data;
-  const response = await fetchData.get("/products");
-  const { products } = response.data;
-  return { user, products };
+  try {
+    const { data } = await fetchData.get("/users/current-user");
+    const { user } = data;
+    const response = await fetchData.get("/products");
+    const { products } = response.data;
+    return { user, products };
+  } catch (error) {
+    return error;
+  }
 };
 
 const HomeContext = createContext();
