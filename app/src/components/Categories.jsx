@@ -62,7 +62,7 @@ const Categories = () => {
                 <div className="overflow-hidden rounded-xl w-[200px] h-[200px] mb-4">
                   <Button
                     variant="secondary"
-                    className="overflow h-full w-full transition-all hover:scale-110 text-xl tracking-wide hover:text-primary"
+                    className="overflow h-full w-full transition-all ease-in duration-200 hover:scale-110 text-xl tracking-wide hover:text-primary"
                   >
                     {sub}
                   </Button>

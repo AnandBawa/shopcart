@@ -34,6 +34,8 @@ const updatedProducts = products.map((product) => {
     Math.ceil(product.price + (randomNumber(5, 25) * product.price) / 100) -
     0.01;
   product.origPrice = origPrice;
+  let discount = +((origPrice - product.price) * 100 / origPrice).toFixed(2);
+  product.discount = discount;
   return product;
 });
 

@@ -8,9 +8,11 @@ export const homeLoader = async () => {
   try {
     const { data } = await fetchData.get("/users/current-user");
     const { user } = data;
-    const response = await fetchData.get("/products");
-    const { products } = response.data;
-    return { user, products };
+    const response1 = await fetchData.get("/products");
+    const featured = response1.data.products;
+    const response2 = await fetchData.get("/products/max-discount");
+    const maxDiscount = response2.data.products;
+    return { user, featured, maxDiscount };
   } catch (error) {
     return error;
   }
@@ -19,7 +21,7 @@ export const homeLoader = async () => {
 const HomeContext = createContext();
 
 const Home = () => {
-  const { user, products } = useLoaderData();
+  const { user, featured, maxDiscount } = useLoaderData();
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -31,7 +33,7 @@ const Home = () => {
   return (
     <HomeContext.Provider value={{ logout }}>
       <Navbar />
-      <Outlet context={{ user, products }} />
+      <Outlet context={{ user, featured, maxDiscount }} />
     </HomeContext.Provider>
   );
 };

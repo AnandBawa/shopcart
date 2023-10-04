@@ -1,12 +1,11 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 
-const ProductsScroll = () => {
-  const { products } = useOutletContext();
+const ProductsScroll = ({ products }) => {
   const ref = useRef(null);
   let scrollRef = {};
 
@@ -37,7 +36,7 @@ const ProductsScroll = () => {
                 <img
                   src={images[0].url}
                   alt={name}
-                  className="overflow h-full w-full transition-all hover:scale-110"
+                  className="overflow h-full w-full transition-all ease-in duration-300 hover:scale-110"
                 />
               </div>
               <div className="grid grid-cols-3 items-center">

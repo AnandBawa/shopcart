@@ -30,6 +30,7 @@ const ProductModel = new mongoose.Schema(
     name: String,
     price: Number,
     origPrice: Number,
+    discount: Number,
     style: String,
     switches: String,
     backlit: String,

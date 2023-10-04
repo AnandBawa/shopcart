@@ -10,6 +10,7 @@ import {
   updateProduct,
   deleteProduct,
   getProduct,
+  maxDiscountInCategory,
 } from "../controllers/productController.js";
 
 const productRouter = Router();
@@ -18,6 +19,8 @@ productRouter
   .route("/")
   .get(getAllProducts)
   .post(isLoggedIn, isAdmin, validateProductInput, createProduct);
+
+productRouter.route("/max-discount").get(maxDiscountInCategory);
 
 productRouter
   .route("/:id")

@@ -6,4 +6,5 @@ export { default as ErrorElement } from "./ErrorElement";
 export { default as Hero } from "./Hero";
 export { default as Navbar } from "./Navbar";
 export { default as Featured } from "./Featured";
+export { default as MaxDiscount } from "./MaxDiscount";
 export { default as Categories } from "./Categories";
