@@ -6,6 +6,7 @@ const productSchema = Joi.object({
   category: Joi.valid(...Object.values(CATEGORY)).required(),
   subcategory: Joi.valid(...Object.values(SUB_CATEGORY)).required(),
   price: Joi.number().min(1).max(9999999).required(),
+  origPrice: Joi.number().min(1).max(9999999).required(),
   style: Joi.string(),
   switches: Joi.string(),
   backlit: Joi.string(),

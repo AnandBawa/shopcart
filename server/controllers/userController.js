@@ -2,8 +2,11 @@ import { StatusCodes } from "http-status-codes";
 import User from "../models/userModel.js";
 
 export const getCurrentUser = (req, res) => {
-  const user = { ...req.user._doc };
-  delete user.password;
+  let user = null;
+  if (req.user) {
+    user = { ...req.user._doc };
+    delete user.password;
+  }
   res.status(StatusCodes.OK).json({ user: user });
 };
 

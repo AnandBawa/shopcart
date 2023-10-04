@@ -29,6 +29,7 @@ const ProductModel = new mongoose.Schema(
     },
     name: String,
     price: Number,
+    origPrice: Number,
     style: String,
     switches: String,
     backlit: String,

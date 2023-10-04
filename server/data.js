@@ -17,24 +17,29 @@ import fs from "fs";
 //   console.log("JSON file has been saved.");
 // });
 
+// import { wirelessNetworkAdapters } from "./utils/imageLinks.js";
+
 const products = JSON.parse(
-  await readFile(new URL("./newOutput.json", import.meta.url))
+  await readFile(new URL("./data.json", import.meta.url))
 );
 
-import { wirelessNetworkAdapters } from "./utils/imageLinks.js";
+function randomNumber(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 const updatedProducts = products.map((product) => {
-  if (product.images === undefined) product.images= [];
-  if (product.subcategory === "Wireless Network Adapters") {
-    const random = Math.floor(Math.random() * wirelessNetworkAdapters.length);
-    product.images.push(wirelessNetworkAdapters[random]);
-  }
+  let origPrice =
+    Math.ceil(product.price + (randomNumber(5, 25) * product.price) / 100) -
+    0.01;
+  product.origPrice = origPrice;
   return product;
 });
 
 const jsonContent = JSON.stringify(updatedProducts);
 
-fs.writeFile("newOutput.json", jsonContent, "utf8", function (err) {
+fs.writeFile("newData.json", jsonContent, "utf8", function (err) {
   if (err) {
     console.log("An error occurred while writing JSON Object to File.");
     return console.log(err);

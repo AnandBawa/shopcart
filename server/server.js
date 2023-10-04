@@ -98,7 +98,7 @@ passport.deserializeUser(async (id, done) => {
 app.use("/api/v1", authRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/products/:id/reviews", reviewRouter);
-app.use("/api/v1/users", isLoggedIn, userRouter);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/orders", isLoggedIn, orderRouter);
 
 app.use("*", (req, res) => {
