@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLoaderData } from "react-router-dom";
 import {
   Menu,
   Map,
@@ -11,7 +11,6 @@ import {
   Info,
   Home,
 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -25,7 +24,8 @@ import {
 import { useHomeContext } from "@/pages/Home";
 
 const NavDropdown = () => {
-  const { user, logout } = useHomeContext();
+  const { logout } = useHomeContext();
+  const { user } = useLoaderData();
 
   return (
     <DropdownMenu>

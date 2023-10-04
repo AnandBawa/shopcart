@@ -20,7 +20,7 @@ import { ErrorElement } from "./components";
 
 // Loaders
 import { homeLoader } from "./pages/Home";
-import { landingLoader } from "./pages/LandingPage";
+import { singleProductLoader } from "./pages/SingleProduct";
 
 // Actions
 import { registerAction } from "./pages/Register";
@@ -37,7 +37,6 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
         errorElement: <ErrorElement />,
-        loader: landingLoader,
       },
       {
         path: "products",
@@ -46,6 +45,8 @@ const router = createBrowserRouter([
       {
         path: "products/:id",
         element: <SingleProduct />,
+        errorElement: <ErrorElement />,
+        loader: singleProductLoader,
       },
       {
         path: "checkout",
@@ -79,19 +80,19 @@ const router = createBrowserRouter([
         path: "payment-methods",
         element: <Payments />,
       },
+      {
+        path: "login",
+        element: <Login />,
+        // errorElement: <Error />,
+        action: loginAction,
+      },
+      {
+        path: "register",
+        element: <Register />,
+        // errorElement: <Error />,
+        action: registerAction,
+      },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <Error />,
-    action: loginAction,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-    errorElement: <Error />,
-    action: registerAction,
   },
 ]);
 

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import {
   Map,
   ListOrdered,
@@ -8,7 +8,6 @@ import {
   UserCircle,
   ChevronDown,
 } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,7 +21,8 @@ import {
 import { useHomeContext } from "@/pages/Home";
 
 const AccountDropdown = () => {
-  const { user, logout } = useHomeContext();
+  const { logout } = useHomeContext();
+  const { user } = useLoaderData();
 
   if (user) {
     return (

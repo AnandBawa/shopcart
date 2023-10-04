@@ -1,22 +1,21 @@
-import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import { createContext, useContext } from "react";
 import { toast } from "react-toastify";
 import fetchData from "@/utils/fetchData";
 import { Navbar } from "@/components";
 
 export const homeLoader = async () => {
-  try {
-    const { data } = await fetchData.get("/users/current-user");
-    return data;
-  } catch (error) {
-    return error;
-  }
+  const { data } = await fetchData.get("/users/current-user");
+  const { user } = data;
+  const response = await fetchData.get("/products");
+  const { products } = response.data;
+  return { user, products };
 };
 
 const HomeContext = createContext();
 
 const Home = () => {
-  const { user } = useLoaderData();
+  const { user, products } = useLoaderData();
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -26,9 +25,9 @@ const Home = () => {
   };
 
   return (
-    <HomeContext.Provider value={{ user, logout }}>
+    <HomeContext.Provider value={{ logout }}>
       <Navbar />
-      <Outlet context={{ user }} />
+      <Outlet context={{ user, products }} />
     </HomeContext.Provider>
   );
 };

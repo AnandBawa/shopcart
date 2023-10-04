@@ -1,4 +1,11 @@
-import { Link, Form, redirect, useNavigation } from "react-router-dom";
+import {
+  Link,
+  Form,
+  redirect,
+  useNavigation,
+  useOutletContext,
+  Navigate,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -28,8 +35,14 @@ export const loginAction = async ({ request }) => {
 };
 
 const Login = () => {
+  const { user } = useOutletContext();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+
+  if (user) {
+    toast.error("You are already logged in");
+    return <Navigate to="/" replace={true} />;
+  }
 
   return (
     <div className="min-h-[90vh] grid place-items-center">

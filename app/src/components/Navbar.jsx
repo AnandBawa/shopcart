@@ -4,14 +4,14 @@ import { NavLink } from "react-router-dom";
 import { Logo, ThemeToggle } from ".";
 import AccountDropdown from "./AccountDropdown";
 import NavDropdown from "./NavDropdown";
-import { useHomeContext } from "@/pages/Home";
+import { useLoaderData } from "react-router-dom";
 
 const Navbar = () => {
-  const { user } = useHomeContext();
+  const { user } = useLoaderData();
 
   return (
     <header className="sticky top-0 z-50 w-full border bg-secondary">
-      <div className="flex mx-auto w-full md:max-w-[90vw] h-16 items-center md:justify-between">
+      <div className="flex mx-auto w-full md:max-w-[80vw] h-16 items-center md:justify-between">
         <div className="flex gap-4 items-center justify-start sm:w-[20%] md:w-[10%] lg:w-[50%]">
           <div className="flex lg:hidden">
             <NavDropdown />

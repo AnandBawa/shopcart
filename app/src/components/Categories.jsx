@@ -51,14 +51,7 @@ const Categories = () => {
     <div className="px-4">
       <SectionTitle text="Shop by Category" />
       <ScrollArea ref={ref}>
-        <div className="flex gap-4 items-center">
-          <Button
-            variant="ghost"
-            className="justify-start h-20 w-20 absolute left-0 p-0 m-0 transition-all ease-in hover:bg-transparent hover:scale-125"
-            onClick={() => scroll(-200)}
-          >
-            <ChevronLeft className="h-10 w-10 lg:h-14 lg:w-14 text-primary" />
-          </Button>
+        <div className="flex gap-4">
           {subCategories.sort().map((sub) => {
             return (
               <Link
@@ -79,10 +72,17 @@ const Categories = () => {
           })}
           <Button
             variant="ghost"
-            className="justify-end h-20 w-20 absolute right-0 p-0 m-0 transition-all ease-in hover:bg-transparent hover:scale-125"
+            className="justify-start h-20 w-20 absolute left-0 top-[4rem] p-0 m-0 transition-all ease-in hover:bg-transparent hover:scale-125"
+            onClick={() => scroll(-200)}
+          >
+            <ChevronLeft className="h-10 w-10 lg:h-12 lg:w-12 xl:h-14 xl:w-14 text-primary hover:bg-secondary" />
+          </Button>
+          <Button
+            variant="ghost"
+            className="justify-end h-20 w-20 absolute right-0 top-[4rem] p-0 m-0 transition-all ease-in hover:bg-transparent hover:scale-125"
             onClick={() => scroll(200)}
           >
-            <ChevronRight className="h-10 w-10 lg:h-14 lg:w-14 text-primary" />
+            <ChevronRight className="h-10 w-10 lg:h-12 lg:w-12 xl:h-14 xl:w-14 text-primary hover:bg-secondary" />
           </Button>
         </div>
         <ScrollBar orientation="horizontal" />
