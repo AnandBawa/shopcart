@@ -11,11 +11,24 @@ const UserModel = new mongoose.Schema(
     address: {
       type: [
         {
-          name: String,
+          nickname: String,
           add1: String,
           add2: String,
           pin: Number,
           location: String,
+        },
+      ],
+      default: undefined,
+    },
+    address: {
+      type: [
+        {
+          nickname: String,
+          name:String,
+          number: String,
+          expiryMonth: String,
+          expiryYear: String,
+cvc:String,
         },
       ],
       default: undefined,

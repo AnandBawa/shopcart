@@ -1,4 +1,3 @@
-export { default as ThemeToggle } from "./ThemeToggle";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as FormRow } from "./FormRow";
 export { default as Logo } from "./Logo";
@@ -8,3 +7,5 @@ export { default as Navbar } from "./Navbar";
 export { default as Featured } from "./Featured";
 export { default as MaxDiscount } from "./MaxDiscount";
 export { default as Categories } from "./Categories";
+export { default as SearchProducts } from "./SearchProducts";
+export { default as ProductsGrid } from "./ProductsGrid";

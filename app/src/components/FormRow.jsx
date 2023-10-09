@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const FormRow = ({ type, name, label, defaultValue, required }) => {
+const FormRow = ({ type, name, label, defaultValue, required, onChange }) => {
   if (required) {
     return (
       <div className="grid w-full items-center gap-1">
@@ -14,6 +14,7 @@ const FormRow = ({ type, name, label, defaultValue, required }) => {
           name={name}
           defaultValue={defaultValue || ""}
           required
+          onChange={onChange}
         />
       </div>
     );
@@ -29,6 +30,7 @@ const FormRow = ({ type, name, label, defaultValue, required }) => {
         id={name}
         name={name}
         defaultValue={defaultValue || ""}
+        onChange={onChange}
       />
     </div>
   );

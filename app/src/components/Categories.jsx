@@ -4,34 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { Button } from "./ui/button";
-
-const subCategories = [
-  "Video Cards",
-  "CPUs",
-  "CPU Coolers",
-  "Optical Drives",
-  "Memory",
-  "Monitors",
-  "Storage",
-  "Cases",
-  "Motherboards",
-  "Operating Systems",
-  "External Storage",
-  "Power Supplies",
-  "Speakers",
-  "Headphones",
-  "Mice",
-  "Webcams",
-  "Keyboards",
-  "Fan Controllers",
-  "Case Accessories",
-  "Case Fans",
-  "Thermal Compound",
-  "UPS Systems",
-  "Wireless Network Adapters",
-  "Sound Cards",
-  "Wired Network Adapters",
-];
+import { SUB_CATEGORY } from "@/lib/constants";
 
 const Categories = () => {
   const ref = useRef(null);
@@ -51,25 +24,27 @@ const Categories = () => {
     <div className="px-4">
       <SectionTitle text="Shop by Category" />
       <ScrollArea ref={ref}>
-        <div className="flex gap-4">
-          {subCategories.sort().map((sub) => {
-            return (
-              <Link
-                to={`/products?subcategory="${sub}"`}
-                key={sub}
-                className="space-y-3"
-              >
-                <div className="overflow-hidden rounded-xl w-[200px] h-[200px] mb-4">
-                  <Button
-                    variant="secondary"
-                    className="overflow h-full w-full transition-all ease-in duration-200 hover:scale-110 text-xl tracking-wide hover:text-primary"
-                  >
-                    {sub}
-                  </Button>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="flex gap-4 mt-2">
+          {Object.values(SUB_CATEGORY)
+            .sort()
+            .map((sub) => {
+              return (
+                <Link
+                  to={`/products?subcategory="${sub}"`}
+                  key={sub}
+                  className="space-y-3"
+                >
+                  <div className="overflow-hidden rounded-xl w-[200px] h-[200px] mb-4">
+                    <Button
+                      variant="secondary"
+                      className="overflow h-full w-full transition-all ease-in duration-200 hover:scale-110 text-xl tracking-wide hover:text-primary"
+                    >
+                      {sub}
+                    </Button>
+                  </div>
+                </Link>
+              );
+            })}
           <Button
             variant="ghost"
             className="justify-start h-20 w-20 absolute left-0 top-[4rem] p-0 m-0 transition-all ease-in hover:bg-transparent hover:scale-125"

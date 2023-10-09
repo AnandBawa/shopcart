@@ -1,10 +1,10 @@
+import { NavLink, Link, useLoaderData } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
-import { NavLink } from "react-router-dom";
-import { Logo, ThemeToggle } from ".";
+import { Logo } from ".";
 import AccountDropdown from "./AccountDropdown";
 import NavDropdown from "./NavDropdown";
-import { useLoaderData } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { user } = useLoaderData();
@@ -40,9 +40,9 @@ const Navbar = () => {
             </Button>
           </div>
         </div>
-        <div className="gap-4 items-center">
+        <Link to="/" className="gap-4 items-center">
           <Logo width="200px" />
-        </div>
+        </Link>
         <div className="flex gap-1 md:gap-4 items-center justify-end w-[50%]">
           {user && (
             <div className="hidden flex-shrink-0 xl:flex">

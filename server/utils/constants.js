@@ -74,9 +74,12 @@ export const SUB_CATEGORY = {
 
 export const SORT_BY = {
   NEW: "New",
-  UPDATED: "Recently Updated",
-  PRICE_LOW: "Price Ascending",
-  PRICE_HIGH: "Price Descending",
+  A_Z: "A - Z",
+  Z_A: "Z - A",
+  PRICE_LOW: "Price Low",
+  PRICE_HIGH: "Price High",
+  DISCOUNT_LOW: "Discount Low",
+  DISCOUNT_HIGH: "Discount High",
 };
 
 const PRODUCT_FIELDS = {

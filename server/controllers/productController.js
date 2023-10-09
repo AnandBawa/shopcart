@@ -3,8 +3,59 @@ import Product from "../models/productModel.js";
 
 // Get all products
 export const getAllProducts = async (req, res) => {
-  const products = await Product.find({}).limit(12);
-  res.status(StatusCodes.OK).json({ products });
+  const {
+    search,
+    category,
+    subcategory,
+    minPrice,
+    maxPrice,
+    sort,
+    pageNo,
+    viewCount,
+  } = req.query;
+
+  const query = {};
+
+  if (search) query.name = { $regex: search, $options: "i" };
+  if (category && category !== "All") query.category = category;
+  if (subcategory && subcategory !== "All") query.subcategory = subcategory;
+
+  if (minPrice || maxPrice) {
+    query.price = {
+      $lte: maxPrice || Number.MAX_SAFE_INTEGER,
+      $gte: minPrice || 0,
+    };
+  }
+
+  const sortBy = {
+    New: "-createdAt",
+    "A - Z": "name",
+    "Z - A": "-name",
+    "Price Low": "price",
+    "Price High": "-price",
+    "Discount Low": "discount",
+    "Discount High": "-discount",
+  };
+  const sortValue = sortBy[sort] || sortBy.New;
+
+  const page = Number(pageNo) || 1;
+  const limit = Number(viewCount) || 12;
+  const skip = (page - 1) * limit;
+
+  const products = await Product.find(query)
+    .sort(sortValue)
+    .skip(skip)
+    .limit(limit);
+
+  const totalProducts = await Product.countDocuments(query);
+  const numPages = Math.ceil(totalProducts / limit);
+
+  res.status(StatusCodes.OK).json({
+    totalProducts,
+    numPages,
+    currentPage: page,
+    products,
+  });
 };
 
 // Create a new product
