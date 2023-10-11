@@ -18,10 +18,6 @@ export const updateUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Profile updated" });
 };
 
-export const getAllAddresses = async (req, res) => {
-  res.status(StatusCodes.OK).json({ address: req.user.address });
-};
-
 export const addAddress = async (req, res) => {
   await User.findByIdAndUpdate(req.user._id, { $push: { address: req.body } });
   res
@@ -42,4 +38,26 @@ export const deleteAddress = async (req, res) => {
     $pull: { address: { _id: req.params.id } },
   });
   res.status(StatusCodes.OK).json({ msg: "Address deleted" });
+};
+
+export const addPayment = async (req, res) => {
+  await User.findByIdAndUpdate(req.user._id, { $push: { payments: req.body } });
+  res
+    .status(StatusCodes.CREATED)
+    .json({ msg: "Payment added", payments: req.body });
+};
+
+export const updatePayment = async (req, res) => {
+  await User.updateOne(
+    { "payments._id": req.params.id },
+    { "payments.$": req.body }
+  );
+  res.status(StatusCodes.OK).json({ msg: "Payment updated" });
+};
+
+export const deletePayment = async (req, res) => {
+  await User.findByIdAndUpdate(req.user._id, {
+    $pull: { payments: { _id: req.params.id } },
+  });
+  res.status(StatusCodes.OK).json({ msg: "Payment deleted" });
 };

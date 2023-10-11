@@ -31,11 +31,26 @@ export const userSchema = Joi.object({
 });
 
 export const addressSchema = Joi.object({
-  name: Joi.string().required(),
+  nickname: Joi.string().required(),
   add1: Joi.string().required(),
   add2: Joi.string().required(),
   pin: Joi.string()
-    .regex(/^(?=.*[0-9])[0-9]{4,8}$/)
+    .regex(/^(?=.*[0-9])[0-9-]{4,10}$/)
     .required(),
   location: Joi.string().required(),
+});
+
+const d = new Date();
+const year = d.getFullYear();
+const years = Array.from({ length: 10 }, (_, i) => year + i);
+
+export const paymentSchema = Joi.object({
+  nickname: Joi.string().required(),
+  name: Joi.string().required(),
+  number: Joi.string()
+    .regex(/^(?=.*[0-9])[0-9]{16}$/)
+    .required(),
+  expiryMonth: Joi.number().valid(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+  expiryYear: Joi.number().valid(...years),
+  cvc: Joi.number().min(100).max(999),
 });

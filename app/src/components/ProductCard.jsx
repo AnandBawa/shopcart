@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
           <h2 className="capitalize truncate tracking-wide font-semibold">
             {name}
           </h2>
-          <Separator className="my-1" />
+          <Separator className="my-1 bg-background" />
         </div>
         <div className="font-semibold tracking-wide text-primary mb-4">
           ${price}

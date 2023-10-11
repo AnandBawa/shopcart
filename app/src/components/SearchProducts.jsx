@@ -37,12 +37,12 @@ const SearchProducts = () => {
   };
 
   return (
-    <Form className="bg-secondary rounded-lg p-4">
+    <Form className="bg-secondary rounded-lg p-4 mt-4">
       <div className="grid lg:grid-cols-3 gap-4">
         <FormRow
           type="search"
           name="search"
-          label="Search"
+          label="Search by Name"
           defaultValue={search}
           onChange={delaySubmit}
         />

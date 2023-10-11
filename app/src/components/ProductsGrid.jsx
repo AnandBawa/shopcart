@@ -19,7 +19,7 @@ const ProductsGrid = () => {
         <h2 className=" text-base font-medium tracking-wide">
           {totalProducts} product{totalProducts > 1 && "s"} found
         </h2>
-        <PageButtons />
+        {numPages > 1 && <PageButtons />}
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 my-1 bg-secondary rounded-xl">
         {products.map((product) => {
@@ -30,9 +30,11 @@ const ProductsGrid = () => {
           );
         })}
       </div>
-      <div className="grid justify-items-end px-1">
-        <PageButtons />
-      </div>
+      {numPages > 1 && (
+        <div className="grid justify-items-end px-1">
+          <PageButtons />
+        </div>
+      )}
     </>
   );
 };

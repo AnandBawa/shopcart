@@ -26,7 +26,12 @@ import { singleProductLoader } from "./pages/SingleProduct";
 // Actions
 import { registerAction } from "./pages/Register";
 import { loginAction } from "./pages/Login";
-
+import { addressAction } from "./pages/AddressBook";
+import { editAddressAction } from "./pages/EditAddress";
+import { deleteAddressAction } from "./pages/DeleteAddress";
+import { paymentAction } from "./pages/Payments";
+import { editPaymentAction } from "./pages/EditPayment";
+import { deletePaymentAction } from "./pages/DeletePayment";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,10 +83,28 @@ const router = createBrowserRouter([
       {
         path: "address-book",
         element: <AddressBook />,
+        action: addressAction,
+      },
+      {
+        path: "edit-address/:id",
+        action: editAddressAction,
+      },
+      {
+        path: "delete-address/:id",
+        action: deleteAddressAction,
       },
       {
         path: "payment-methods",
         element: <Payments />,
+        action: paymentAction,
+      },
+      {
+        path: "edit-payment/:id",
+        action: editPaymentAction,
+      },
+      {
+        path: "delete-payment/:id",
+        action: deletePaymentAction,
       },
       {
         path: "login",

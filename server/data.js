@@ -17,10 +17,10 @@ import fs from "fs";
 //   console.log("JSON file has been saved.");
 // });
 
-// import { wirelessNetworkAdapters } from "./utils/imageLinks.js";
+import { cases } from "./utils/imageLinks.js";
 
 const products = JSON.parse(
-  await readFile(new URL("./data.json", import.meta.url))
+  await readFile(new URL("./newData.json", import.meta.url))
 );
 
 function randomNumber(min, max) {
@@ -30,12 +30,11 @@ function randomNumber(min, max) {
 }
 
 const updatedProducts = products.map((product) => {
-  let origPrice =
-    Math.ceil(product.price + (randomNumber(5, 25) * product.price) / 100) -
-    0.01;
-  product.origPrice = origPrice;
-  let discount = +((origPrice - product.price) * 100 / origPrice).toFixed(2);
-  product.discount = discount;
+  if (product.subcategory === "Cases") {
+    product.images = [];
+    let random = randomNumber(0,4)
+    product.images.push(cases[random]);
+  }
   return product;
 });
 

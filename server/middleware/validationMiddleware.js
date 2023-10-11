@@ -3,7 +3,11 @@ import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
 import Product from "../models/productModel.js";
 import productSchema from "../schemas/productSchema.js";
 import User from "../models/userModel.js";
-import { userSchema, addressSchema } from "../schemas/userSchema.js";
+import {
+  userSchema,
+  addressSchema,
+  paymentSchema,
+} from "../schemas/userSchema.js";
 import Review from "../models/reviewModel.js";
 import reviewSchema from "../schemas/reviewSchema.js";
 
@@ -104,6 +108,15 @@ export const validateUpdateUserInput = async (req, res, next) => {
 // Validate Address Input
 export const validateAddressInput = async (req, res, next) => {
   const { error } = addressSchema.validate(req.body, { abortEarly: false });
+  if (error) {
+    let msg = errorMessages(error.details);
+    throw new BadRequestError(msg);
+  }
+  next();
+};
+
+export const validatePaymentInput = async (req, res, next) => {
+  const { error } = paymentSchema.validate(req.body, { abortEarly: false });
   if (error) {
     let msg = errorMessages(error.details);
     throw new BadRequestError(msg);

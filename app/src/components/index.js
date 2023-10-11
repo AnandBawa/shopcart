@@ -9,3 +9,4 @@ export { default as MaxDiscount } from "./MaxDiscount";
 export { default as Categories } from "./Categories";
 export { default as SearchProducts } from "./SearchProducts";
 export { default as ProductsGrid } from "./ProductsGrid";
+export { default as Loading } from "./Loading";

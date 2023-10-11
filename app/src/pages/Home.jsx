@@ -1,8 +1,13 @@
-import { Outlet, useLoaderData, useNavigate } from "react-router-dom";
+import {
+  Outlet,
+  useLoaderData,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import { createContext, useContext } from "react";
 import { toast } from "react-toastify";
 import fetchData from "@/utils/fetchData";
-import { Navbar } from "@/components";
+import { Loading, Navbar } from "@/components";
 
 export const homeLoader = async () => {
   try {
@@ -23,6 +28,8 @@ const HomeContext = createContext();
 const Home = () => {
   const { user, featured, maxDiscount } = useLoaderData();
   const navigate = useNavigate();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   const logout = async () => {
     await fetchData.post("/logout");
@@ -33,7 +40,11 @@ const Home = () => {
   return (
     <HomeContext.Provider value={{ logout }}>
       <Navbar />
-      <Outlet context={{ user, featured, maxDiscount }} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Outlet context={{ user, featured, maxDiscount }} />
+      )}
     </HomeContext.Provider>
   );
 };

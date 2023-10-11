@@ -14,21 +14,21 @@ const UserModel = new mongoose.Schema(
           nickname: String,
           add1: String,
           add2: String,
-          pin: Number,
+          pin: String,
           location: String,
         },
       ],
       default: undefined,
     },
-    address: {
+    payments: {
       type: [
         {
           nickname: String,
-          name:String,
+          name: String,
           number: String,
-          expiryMonth: String,
-          expiryYear: String,
-cvc:String,
+          expiryMonth: Number,
+          expiryYear: Number,
+          cvc: Number,
         },
       ],
       default: undefined,

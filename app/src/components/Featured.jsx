@@ -6,7 +6,7 @@ const Featured = () => {
   const { featured } = useOutletContext();
 
   return (
-    <div className="px-4 lg:py-8">
+    <div className="px-4 lg:pt-8">
       <SectionTitle text="Featured Parts" />
       <ProductsScroll key={featured} products={featured} />
     </div>
