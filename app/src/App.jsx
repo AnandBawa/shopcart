@@ -32,6 +32,8 @@ import { deleteAddressAction } from "./pages/DeleteAddress";
 import { paymentAction } from "./pages/Payments";
 import { editPaymentAction } from "./pages/EditPayment";
 import { deletePaymentAction } from "./pages/DeletePayment";
+import { profileAction } from "./pages/Profile";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -79,6 +81,7 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+        action: profileAction,
       },
       {
         path: "address-book",

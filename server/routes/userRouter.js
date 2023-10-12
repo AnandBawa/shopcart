@@ -15,6 +15,7 @@ import {
   validatePaymentInput,
 } from "../middleware/validationMiddleware.js";
 import { isLoggedIn } from "../middleware/authMiddleware.js";
+import { upload } from "../middleware/multerMiddleware.js";
 
 const userRouter = Router();
 
@@ -22,7 +23,12 @@ userRouter.route("/current-user").get(getCurrentUser);
 
 userRouter
   .route("/update-user")
-  .patch(isLoggedIn, validateUpdateUserInput, updateUser);
+  .patch(
+    isLoggedIn,
+    upload.single("image"),
+    validateUpdateUserInput,
+    updateUser
+  );
 
 userRouter
   .route("/address-book")

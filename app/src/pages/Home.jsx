@@ -33,7 +33,7 @@ const Home = () => {
 
   const logout = async () => {
     await fetchData.post("/logout");
-    navigate("/");
+    navigate(0);
     toast.success("Logging out...");
   };
 

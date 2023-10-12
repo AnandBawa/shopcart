@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useHomeContext } from "@/pages/Home";
 
 const AccountDropdown = () => {
@@ -32,7 +33,14 @@ const AccountDropdown = () => {
             variant="ghost"
             className="flex gap-4 text-base transition-all ease-in hover:scale-105 hover:text-primary"
           >
-            <UserCircle />
+            {user?.image?.url ? (
+              <Avatar>
+                <AvatarImage src={user.image.url} />
+                <AvatarFallback>U</AvatarFallback>
+              </Avatar>
+            ) : (
+              <UserCircle />
+            )}
             {user.firstName}
             <ChevronDown />
           </Button>

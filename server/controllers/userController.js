@@ -1,5 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import User from "../models/userModel.js";
+import { hashPassword } from "../utils/passwordUtils.js";
+import cloudinary from "cloudinary";
+import { formatImage } from "../middleware/multerMiddleware.js";
 
 export const getCurrentUser = (req, res) => {
   let user = null;
@@ -12,9 +15,37 @@ export const getCurrentUser = (req, res) => {
 
 export const updateUser = async (req, res) => {
   const newUser = { ...req.body };
+  console.log(newUser);
+
+  if (newUser.newPassword) {
+    newUser.password = await hashPassword(newUser.password);
+  } else {
+    delete newUser.password;
+  }
+
   delete newUser.role;
   delete newUser.address;
+  delete newUser.payments;
+  delete newUser.newPassword;
+  delete newUser.repeatNewPassword;
+
+  if (req.file) {
+    const file = formatImage(req.file);
+    const response = await cloudinary.v2.uploader.upload(file, {
+      folder: "ShopCart/users",
+    });
+    console.log(response);
+    newUser.image = { url: "", publicId: "" };
+    newUser.image.url = response.secure_url;
+    newUser.image.publicId = response.public_id;
+  }
+
   const updatedUser = await User.findByIdAndUpdate(req.user._id, newUser);
+
+  if (req.file && updatedUser.image.publicId) {
+    await cloudinary.v2.uploader.destroy(updatedUser.image.publicId);
+  }
+
   res.status(StatusCodes.OK).json({ msg: "Profile updated" });
 };
 

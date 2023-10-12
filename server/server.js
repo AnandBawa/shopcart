@@ -9,6 +9,9 @@ import passport from "passport";
 import cloudinary from "cloudinary";
 import { Strategy as LocalStrategy } from "passport-local";
 import { localAuthStrategy } from "./utils/passportConfig.js";
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 // Routers
 import authRouter from "./routes/authRouter.js";
@@ -46,8 +49,6 @@ try {
   process.exit(1);
 }
 
-app.use(express.json());
-
 // Express Session config
 const store = MongoStore.create({
   mongoUrl: process.env.MONGO_DB_URL,
@@ -75,6 +76,11 @@ const sessionConfig = {
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+app.use(express.static(path.resolve(__dirname, "./public")));
+app.use(express.json());
 
 app.use(session(sessionConfig));
 

@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
-import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthenticatedError,
+} from "../errors/customErrors.js";
 import Product from "../models/productModel.js";
 import productSchema from "../schemas/productSchema.js";
 import User from "../models/userModel.js";
@@ -10,6 +14,7 @@ import {
 } from "../schemas/userSchema.js";
 import Review from "../models/reviewModel.js";
 import reviewSchema from "../schemas/reviewSchema.js";
+import { comparePassword } from "../utils/passwordUtils.js";
 
 // Function to map error messages
 const errorMessages = (errors) => {
@@ -88,8 +93,28 @@ export const validateReviewInput = async (req, res, next) => {
 
 // Validate User Profile changes
 export const validateUpdateUserInput = async (req, res, next) => {
+  const isMatch = await comparePassword(req.user.password, req.body.password);
+  if (!isMatch) {
+    throw new UnauthenticatedError("Incorrect current password");
+  }
+  const userByEmail = await User.findOne({ email: req.body.email });
+  if (userByEmail && userByEmail._id.equals(req.user._id) === false) {
+    throw new BadRequestError("Email already in use");
+  }
+  const userByPhone = await User.findOne({ phone: req.body.phone });
+  if (userByPhone && userByPhone._id.equals(req.user._id) === false) {
+    throw new BadRequestError("Phone already in use");
+  }
+  if (req.body.newPassword === "" || req.body.repeatNewPassword === "") {
+    delete req.body.newPassword;
+    delete req.body.repeatNewPassword;
+  }
+  const data = { ...req.body };
+  delete data.password;
+  delete data.repeatNewPassword;
+
   let errorMessage = [];
-  for (const [key, value] of Object.entries(req.body)) {
+  for (const [key, value] of Object.entries(data)) {
     const subSchema = userSchema.extract(key);
     const { error } = subSchema.validate(value);
     if (error) {

@@ -7,7 +7,7 @@ const Featured = () => {
 
   return (
     <div className="px-4 lg:pt-8">
-      <SectionTitle text="Featured Parts" />
+      <SectionTitle text="Featured Products" />
       <ProductsScroll key={featured} products={featured} />
     </div>
   );

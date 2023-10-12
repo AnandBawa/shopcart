@@ -41,15 +41,14 @@ export const addressAction = async ({ request }) => {
 
 const AddressBook = () => {
   const { user } = useOutletContext();
-  console.log(user);
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/login" replace={true} />;
+    return <Navigate to="/" />;
   }
 
   return (
-    <div className="mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
+    <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Address Book" />
       <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2 mt-4 place-items-center ">
         <div className="w-[250px] lg:w-[300px] h-[300px] flex flex-col justify-center items-center bg-secondary rounded-xl">
@@ -71,25 +70,41 @@ const AddressBook = () => {
                       id="nickname"
                       name="nickname"
                       className="col-span-3"
+                      required
                     />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="add1" className="text-right">
                       Line 1:
                     </Label>
-                    <Input id="add1" name="add1" className="col-span-3" />
+                    <Input
+                      id="add1"
+                      name="add1"
+                      className="col-span-3"
+                      required
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="add2" className="text-right">
                       Line 2:
                     </Label>
-                    <Input id="add2" name="add2" className="col-span-3" />
+                    <Input
+                      id="add2"
+                      name="add2"
+                      className="col-span-3"
+                      required
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="pin" className="text-right">
                       PIN:
                     </Label>
-                    <Input id="pin" name="pin" className="col-span-3" />
+                    <Input
+                      id="pin"
+                      name="pin"
+                      className="col-span-3"
+                      required
+                    />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="location" className="text-right">
@@ -99,6 +114,7 @@ const AddressBook = () => {
                       id="location"
                       name="location"
                       className="col-span-3"
+                      required
                     />
                   </div>
                 </div>
@@ -108,7 +124,7 @@ const AddressBook = () => {
               </Form>
             </DialogContent>
           </Dialog>
-          <h1 className="">Add Address</h1>
+          <h1 className="text-sm">Add Address</h1>
         </div>
         {user.address.map((address, index) => {
           return (
@@ -116,14 +132,14 @@ const AddressBook = () => {
               key={address._id}
               className="w-[250px] lg:w-[300px] h-[300px] grid px-4 items-center bg-secondary rounded-xl"
             >
-              <h1 className="font-semibold tracking-wide">
+              <h1 className="text-sm font-semibold tracking-wide">
                 #{index + 1}: {address.nickname}
               </h1>
               <Separator className="bg-background" />
-              <h1 className="">{address.add1}</h1>
-              <h1 className="">{address.add2}</h1>
-              <h1 className="">{address.pin}</h1>
-              <h1 className="">{address.location}</h1>
+              <h1 className="text-sm">{address.add1}</h1>
+              <h1 className="text-sm">{address.add2}</h1>
+              <h1 className="text-sm">{address.pin}</h1>
+              <h1 className="text-sm">{address.location}</h1>
               <Separator className="bg-background" />
               <div className="grid gap-6 grid-cols-2 place-items-center">
                 <Dialog>
@@ -150,6 +166,7 @@ const AddressBook = () => {
                             name="nickname"
                             defaultValue={address.nickname}
                             className="col-span-3"
+                            required
                           />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
@@ -161,6 +178,7 @@ const AddressBook = () => {
                             name="add1"
                             defaultValue={address.add1}
                             className="col-span-3"
+                            required
                           />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
@@ -172,6 +190,7 @@ const AddressBook = () => {
                             name="add2"
                             defaultValue={address.add2}
                             className="col-span-3"
+                            required
                           />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
@@ -183,6 +202,7 @@ const AddressBook = () => {
                             name="pin"
                             defaultValue={address.pin}
                             className="col-span-3"
+                            required
                           />
                         </div>
                         <div className="grid grid-cols-4 items-center gap-4">
@@ -194,6 +214,7 @@ const AddressBook = () => {
                             name="location"
                             defaultValue={address.location}
                             className="col-span-3"
+                            required
                           />
                         </div>
                       </div>

@@ -5,12 +5,20 @@ import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { SimilarProducts } from "@/components";
 
 export const singleProductLoader = async ({ params }) => {
   try {
     const response = await fetchData.get(`/products/${params.id}`);
+    console.log(response);
+
     const { product } = response.data;
-    return product;
+    const response2 = await fetchData.get(
+      `/products/?subcategory=${product.subcategory}`
+    );
+    console.log(response2);
+    const { products: similarProducts } = response2.data;
+    return { product, similarProducts };
   } catch (error) {
     toast.error(error?.response?.data?.msg || "Product not found");
     return redirect("/");
@@ -18,7 +26,7 @@ export const singleProductLoader = async ({ params }) => {
 };
 
 const SingleProduct = () => {
-  const product = useLoaderData();
+  const { product } = useLoaderData();
   const {
     _id,
     reviews,
@@ -120,15 +128,25 @@ const SingleProduct = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-2">
                 {details.map((detail) => {
                   let [key, value] = detail;
-                  if (!value) {
+                  if (typeof value === "boolean" && value) {
+                    value = "Yes";
+                  } else if (typeof value === "boolean" && !value) {
+                    value = "No";
+                  }
+                  if (!value || value.length === 0) {
                     value = "n/a";
                   }
                   if (Array.isArray(value)) {
                     value = value.join(", ");
                   }
+                  if (typeof value === "boolean" && value) {
+                    value = "Yes";
+                  } else if (typeof value === "boolean" && !value) {
+                    value = "No";
+                  }
                   key = key.replace("_", " ");
                   return (
-                    <li key={key} className="capitalize">
+                    <li key={key} className="capitalize text-sm tracking-wide">
                       {key}: {value}
                     </li>
                   );
@@ -140,6 +158,7 @@ const SingleProduct = () => {
       </section>
       <Separator className="mt-1 lg:mt-2" />
       {/* <section>{Similar Products}</section> */}
+      <SimilarProducts />
       {/* <section>{Reviews}</section> */}
     </div>
   );

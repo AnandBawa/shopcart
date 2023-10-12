@@ -48,15 +48,14 @@ export const paymentAction = async ({ request }) => {
 
 const Payments = () => {
   const { user } = useOutletContext();
-  console.log(user);
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/login" replace={true} />;
+    return <Navigate to="/" />;
   }
 
   return (
-    <div className="mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
+    <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Payment Methods" />
       <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2 mt-4 place-items-center ">
         <div className="w-[250px] lg:w-[300px] h-[300px] flex flex-col justify-center items-center bg-secondary rounded-xl">
@@ -135,7 +134,7 @@ const Payments = () => {
               </Form>
             </DialogContent>
           </Dialog>
-          <h1 className="">Add Payment</h1>
+          <h1 className="text-sm">Add Payment</h1>
         </div>
         {user.payments.map((payment, index) => {
           return (
@@ -143,19 +142,19 @@ const Payments = () => {
               key={payment._id}
               className="w-[250px] lg:w-[300px] h-[300px] grid px-4 items-center bg-secondary rounded-xl"
             >
-              <h1 className="font-semibold tracking-wide">
+              <h1 className="text-sm font-semibold tracking-wide">
                 #{index + 1}: {payment.nickname}
               </h1>
               <Separator className="bg-background" />
-              <h1 className="">Name: {payment.name}</h1>
-              <h1 className="">
+              <h1 className="text-sm">Name: {payment.name}</h1>
+              <h1 className="text-sm">
                 Card Number:{" "}
                 {`${"*".repeat(12)}${payment.number.toString().slice(12)}`}
               </h1>
-              <h1 className="">
+              <h1 className="text-sm">
                 Expiry: {payment.expiryMonth} / {payment.expiryYear}
               </h1>
-              <h1 className="">
+              <h1 className="text-sm">
                 CVC: {`${"*".repeat(payment.cvc.toString().length)}`}
               </h1>
               <Separator className="bg-background" />
