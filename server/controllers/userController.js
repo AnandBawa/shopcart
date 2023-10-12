@@ -15,7 +15,6 @@ export const getCurrentUser = (req, res) => {
 
 export const updateUser = async (req, res) => {
   const newUser = { ...req.body };
-  console.log(newUser);
 
   if (newUser.newPassword) {
     newUser.password = await hashPassword(newUser.password);
@@ -34,7 +33,6 @@ export const updateUser = async (req, res) => {
     const response = await cloudinary.v2.uploader.upload(file, {
       folder: "ShopCart/users",
     });
-    console.log(response);
     newUser.image = { url: "", publicId: "" };
     newUser.image.url = response.secure_url;
     newUser.image.publicId = response.public_id;

@@ -10,18 +10,15 @@ import { SimilarProducts } from "@/components";
 export const singleProductLoader = async ({ params }) => {
   try {
     const response = await fetchData.get(`/products/${params.id}`);
-    console.log(response);
-
     const { product } = response.data;
     const response2 = await fetchData.get(
       `/products/?subcategory=${product.subcategory}`
     );
-    console.log(response2);
     const { products: similarProducts } = response2.data;
     return { product, similarProducts };
   } catch (error) {
     toast.error(error?.response?.data?.msg || "Product not found");
-    return redirect("/");
+    return redirect("/products");
   }
 };
 
