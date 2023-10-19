@@ -12,3 +12,4 @@ export { default as ProductsGrid } from "./ProductsGrid";
 export { default as Loading } from "./Loading";
 export { default as SectionTitle } from "./SectionTitle";
 export { default as SimilarProducts } from "./SimilarProducts";
+export { default as Reviews } from "./Reviews";

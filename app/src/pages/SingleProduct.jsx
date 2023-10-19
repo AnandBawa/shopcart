@@ -1,11 +1,18 @@
-import { redirect, useLoaderData } from "react-router-dom";
+import {
+  redirect,
+  useLoaderData,
+  Link,
+  useOutletContext,
+  Form,
+} from "react-router-dom";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import fetchData from "@/utils/fetchData";
-import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { SimilarProducts } from "@/components";
+import { Reviews, SimilarProducts } from "@/components";
+import { generateSelectOptions } from "@/utils/utils";
 
 export const singleProductLoader = async ({ params }) => {
   try {
@@ -43,9 +50,21 @@ const SingleProduct = () => {
 
   const details = Object.entries(rest);
 
+  const { addItem } = useOutletContext();
+
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantity = (e) => {
+    setQuantity(parseInt(e.target.value));
+  };
+
+  const handleClick = () => {
+    addItem(product, quantity);
+  };
+
   return (
     <div className="mx-auto w-full md:max-w-[80vw]">
-      <section className="p-4">
+      <section className="p-1 mt-2 lg:mt-4">
         <div>
           <ul className="flex flex-wrap text-sm font-medium tracking-wide items-center">
             <li>
@@ -111,15 +130,15 @@ const SingleProduct = () => {
                 <select
                   name="quantity"
                   id="quantity"
-                  className="bg-secondary h-10 w-20 rounded-lg text-center font-semibold"
+                  value={quantity}
+                  onChange={handleQuantity}
+                  className="bg-secondary h-9 w-20 rounded-lg text-center font-semibold"
                 >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
+                  {generateSelectOptions(10)}
                 </select>
-                <Button className="ml-4 text-lg">Add to Cart</Button>
+                <Button onClick={handleClick} className="ml-4 text-base">
+                  Add to Cart
+                </Button>
               </div>
               <Separator className="my-4" />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-2">
@@ -157,6 +176,7 @@ const SingleProduct = () => {
       {/* <section>{Similar Products}</section> */}
       <SimilarProducts />
       {/* <section>{Reviews}</section> */}
+      <Reviews />
     </div>
   );
 };

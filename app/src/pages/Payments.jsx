@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dialog";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -61,7 +60,7 @@ const Payments = () => {
         <div className="w-[250px] lg:w-[300px] h-[300px] flex flex-col justify-center items-center bg-secondary rounded-xl">
           <Dialog>
             <DialogTrigger asChild>
-              <Plus className="h-16 w-16 cursor-pointer" />
+              <Plus className="h-16 w-16 cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary" />
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
@@ -271,7 +270,10 @@ const Payments = () => {
                 </Dialog>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant="outline" className="h-8 w-20">
+                    <Button
+                      variant="outline"
+                      className="h-8 w-20 text-destructive hover:text-destructive"
+                    >
                       Delete
                     </Button>
                   </AlertDialogTrigger>
@@ -290,12 +292,13 @@ const Payments = () => {
                         method="post"
                         action={`../delete-payment/${payment._id}`}
                       >
-                        <AlertDialogAction
+                        <Button
                           type="submit"
-                          className="w-full bg-destructive"
+                          variant="outline"
+                          className="w-full text-destructive hover:text-destructive"
                         >
                           Delete
-                        </AlertDialogAction>
+                        </Button>
                       </Form>
                     </AlertDialogFooter>
                   </AlertDialogContent>

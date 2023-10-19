@@ -6,7 +6,7 @@ const SimilarProducts = () => {
   const { similarProducts } = useLoaderData();
 
   return (
-    <div className="px-4 pt-4 lg:pt-8">
+    <div className="px-1 pt-4 lg:pt-8">
       <SectionTitle text="Similar Products" />
       <ProductsScroll key={similarProducts} products={similarProducts} />
     </div>

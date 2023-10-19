@@ -5,9 +5,13 @@ import { Logo } from ".";
 import AccountDropdown from "./AccountDropdown";
 import NavDropdown from "./NavDropdown";
 import ThemeToggle from "./ThemeToggle";
+import { useHomeContext } from "@/pages/Home";
 
 const Navbar = () => {
   const { user } = useLoaderData();
+  const { getCartQuantity } = useHomeContext();
+
+  const totalQuantity = getCartQuantity();
 
   return (
     <header className="sticky top-0 z-50 w-full border bg-secondary">
@@ -58,9 +62,14 @@ const Navbar = () => {
           <NavLink to="/cart">
             <Button
               variant="ghost"
-              className="px-0 transition-all ease-in hover:scale-105 hover:text-primary"
+              className="px-1 transition-all ease-in hover:scale-105 hover:text-primary relative"
             >
               <ShoppingCart />
+              {totalQuantity > 0 && (
+                <h1 className="absolute top-0 right-0 text-sm bg-background font-semibold tracking-wide text-primary px-[1px] rounded-sm">
+                  {totalQuantity}
+                </h1>
+              )}
             </Button>
           </NavLink>
           <ThemeToggle />

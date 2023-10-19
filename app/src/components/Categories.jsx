@@ -21,7 +21,7 @@ const Categories = () => {
   };
 
   return (
-    <div className="px-4 pt-4">
+    <div className="px-1 pt-4">
       <SectionTitle text="Shop by Category" />
       <ScrollArea ref={ref}>
         <div className="flex gap-4 mt-2">
