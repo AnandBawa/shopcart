@@ -23,6 +23,7 @@ import { homeLoader } from "./pages/Home";
 import { productsLoader } from "./pages/Products";
 import { singleProductLoader } from "./pages/SingleProduct";
 import { ordersLoader } from "./pages/Orders";
+import { singleOrderLoader } from "./pages/SingleOrder";
 
 // Actions
 import { registerAction } from "./pages/Register";
@@ -78,6 +79,8 @@ const router = createBrowserRouter([
       {
         path: "orders/:id",
         element: <SingleOrder />,
+        errorElement: <ErrorElement />,
+        loader: singleOrderLoader,
       },
       {
         path: "about",

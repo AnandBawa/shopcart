@@ -13,4 +13,7 @@ export const createOrder = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ order });
 };
 
-export const getSingleOrder = async (req, res) => {};
+export const getOrder = async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  res.status(StatusCodes.OK).json({ order });
+};

@@ -1,8 +1,6 @@
 import { Link, useOutletContext } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { SectionTitle } from "@/components";
-import CartItems from "@/components/CartItems";
-import CartTotal from "@/components/CartTotal";
+import { SectionTitle, CartItems, CartTotal } from "@/components";
 
 const ShoppingCart = () => {
   const { user, cart, clearCart } = useOutletContext();
@@ -23,7 +21,7 @@ const ShoppingCart = () => {
   return (
     <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Shopping Cart" />
-      <div className="mt-8 grid gap-8 lg:grid-cols-12">
+      <div className="mt-4 grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-4 lg:pl-4">
           <CartTotal cart={cart} />
           {user ? (

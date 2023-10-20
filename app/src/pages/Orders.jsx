@@ -1,10 +1,15 @@
-import { Link, useLoaderData } from "react-router-dom";
+import {
+  Link,
+  useLoaderData,
+  Navigate,
+  useOutletContext,
+} from "react-router-dom";
 import { toast } from "react-toastify";
 import day from "dayjs";
-import { SectionTitle } from "@/components";
-import { Button } from "@/components/ui/button";
-import fetchData from "@/utils/fetchData";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { SectionTitle } from "@/components";
+import fetchData from "@/utils/fetchData";
 
 export const ordersLoader = async () => {
   try {
@@ -18,6 +23,13 @@ export const ordersLoader = async () => {
 };
 
 const Orders = () => {
+  const { user } = useOutletContext();
+
+  if (!user) {
+    toast.error("You are not logged in");
+    return <Navigate to="/" />;
+  }
+
   const orders = useLoaderData();
 
   if (orders?.length === 0) {
@@ -53,23 +65,26 @@ const Orders = () => {
               key={order._id}
               className="p-1 grid gap-1 bg-secondary rounded-lg"
             >
-              <h1 className="text-base font-medium text-primary">
+              <p className="text-base font-medium text-primary">
                 # {index + 1}
-              </h1>
-              <h1 className="text-sm tracking-wide">
-                <span className="font-medium">Order ID:</span> {order._id}
-              </h1>
-              <Separator />
-              <h1 className="text-sm tracking-wide">
-                <span className="font-medium">Date:</span> {date}
-              </h1>
-              <h1 className="text-sm ">{`${name}${
-                quantity > 1 ? ` & ${quantity - 1} items` : ""
-              }`}</h1>
-              <Separator />
-              <h1 className="text-sm tracking-wide">
-                <span className="font-medium">Total:</span> ${total.toFixed(2)}
-              </h1>
+              </p>
+              <p className="flex justify-between text-sm tracking-wide">
+                <span className="font-medium">Order ID:</span>
+                <span>{order._id}</span>
+              </p>
+              <Separator className="bg-background" />
+              <p className="flex justify-between text-sm tracking-wide">
+                <span className="font-medium">Date:</span>
+                <span>{date}</span>
+              </p>
+              <p className="text-sm ">{`${name}${
+                quantity > 1 ? ` + ${quantity - 1} items` : ""
+              }`}</p>
+              <Separator className="bg-background" />
+              <p className="flex justify-between text-sm tracking-wide mb-1 font-medium">
+                <span>Total:</span>
+                <span>$ {total.toFixed(2)}</span>
+              </p>
             </Link>
           );
         })}

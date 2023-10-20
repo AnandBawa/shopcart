@@ -28,6 +28,11 @@ const CartItems = ({ cart, isOrder }) => {
                 >
                   {name}
                 </Link>
+                {isOrder && (
+                  <h2 className="text-sm font-medium tracking-wide">
+                    Quantity: {quantity}
+                  </h2>
+                )}
                 <select
                   name="quantity"
                   id="quantity"
@@ -39,7 +44,7 @@ const CartItems = ({ cart, isOrder }) => {
                     isOrder ? "hidden" : ""
                   }`}
                 >
-                  {generateSelectOptions(quantity + 5)}
+                  {generateSelectOptions(quantity + 10)}
                 </select>
                 <Button
                   variant="link"

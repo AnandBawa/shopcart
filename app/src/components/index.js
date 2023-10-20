@@ -13,3 +13,6 @@ export { default as Loading } from "./Loading";
 export { default as SectionTitle } from "./SectionTitle";
 export { default as SimilarProducts } from "./SimilarProducts";
 export { default as Reviews } from "./Reviews";
+export { default as CartItems } from "./CartItems";
+export { default as CartTotal } from "./CartTotal";
+export { default as OrderDetails } from "./OrderDetails";

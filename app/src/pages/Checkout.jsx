@@ -7,9 +7,8 @@ import {
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
-import { SectionTitle } from "@/components";
-import CartTotal from "@/components/CartTotal";
 import { Separator } from "@/components/ui/separator";
+import { SectionTitle, CartTotal } from "@/components";
 import fetchData from "@/utils/fetchData";
 
 export const checkoutAction = async ({ request }) => {
@@ -54,7 +53,7 @@ const Checkout = () => {
   return (
     <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Checkout" />
-      <div className="mt-8 grid gap-8 lg:grid-cols-12">
+      <div className="mt-4 grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-4 lg:pl-4">
           <CartTotal cart={cart} />
           <Button asChild variant="outline" className="grid">

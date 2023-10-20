@@ -13,6 +13,7 @@ import {
   paymentSchema,
 } from "../schemas/userSchema.js";
 import Review from "../models/reviewModel.js";
+import Order from "../models/orderModel.js";
 import reviewSchema from "../schemas/reviewSchema.js";
 import { comparePassword } from "../utils/passwordUtils.js";
 
@@ -27,7 +28,7 @@ const errorMessages = (errors) => {
   return msg;
 };
 
-// Validate ProductID
+// Validate Product ID
 export const validateProductId = async (req, res, next) => {
   const { id } = req.params;
   const isValidId = mongoose.Types.ObjectId.isValid(id);
@@ -140,11 +141,29 @@ export const validateAddressInput = async (req, res, next) => {
   next();
 };
 
+// Validate Payment Input
 export const validatePaymentInput = async (req, res, next) => {
   const { error } = paymentSchema.validate(req.body, { abortEarly: false });
   if (error) {
     let msg = errorMessages(error.details);
     throw new BadRequestError(msg);
+  }
+  next();
+};
+
+// Validate Order ID
+export const validateOrderId = async (req, res, next) => {
+  const { id } = req.params;
+  const isValidId = mongoose.Types.ObjectId.isValid(id);
+  if (!isValidId) {
+    throw new BadRequestError("Invalid MongoDB ID");
+  }
+  const order = await Order.findById(id);
+  if (!order) {
+    throw new NotFoundError(`No order found with id ${id}`);
+  }
+  if (!order.user.equals(req.user._id)) {
+    throw new UnauthorizedError("You are not authorized to view this order");
   }
   next();
 };
