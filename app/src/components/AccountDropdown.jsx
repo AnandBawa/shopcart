@@ -53,25 +53,25 @@ const AccountDropdown = () => {
           <DropdownMenuGroup>
             <Link to="/orders">
               <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                <ListOrdered className="mr-2 h-4 w-4" />
+                <ListOrdered className="text-primary mr-2 h-4 w-4" />
                 <span>Order History</span>
               </DropdownMenuItem>
             </Link>
             <Link to="/profile">
               <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                <User className="mr-2 h-4 w-4" />
+                <User className="text-primary mr-2 h-4 w-4" />
                 Profile
               </DropdownMenuItem>
             </Link>
             <Link to="/payment-methods">
               <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                <CreditCard className="mr-2 h-4 w-4" />
+                <CreditCard className="text-primary mr-2 h-4 w-4" />
                 Payment Methods
               </DropdownMenuItem>
             </Link>
             <Link to="/address-book">
               <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                <Map className="mr-2 h-4 w-4" />
+                <Map className="text-primary mr-2 h-4 w-4" />
                 Address Book
               </DropdownMenuItem>
             </Link>
@@ -81,7 +81,7 @@ const AccountDropdown = () => {
             onClick={logout}
             className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary"
           >
-            <LogOut className="mr-2 h-4 w-4" />
+            <LogOut className="text-destructive mr-2 h-4 w-4" />
             <span>Log out</span>
           </DropdownMenuItem>
         </DropdownMenuContent>

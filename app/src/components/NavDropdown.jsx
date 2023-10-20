@@ -42,13 +42,13 @@ const NavDropdown = () => {
         <DropdownMenuGroup>
           <NavLink to="/">
             <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-              <Home className="mr-2 h-4 w-4" />
+              <Home className="text-primary mr-2 h-4 w-4" />
               Home
             </DropdownMenuItem>
           </NavLink>
           <NavLink to="/products">
             <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-              <ShoppingBag className="mr-2 h-4 w-4" />
+              <ShoppingBag className="text-primary mr-2 h-4 w-4" />
               All Products
             </DropdownMenuItem>
           </NavLink>
@@ -59,25 +59,25 @@ const NavDropdown = () => {
             <DropdownMenuGroup>
               <NavLink to="/orders">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                  <ListOrdered className="mr-2 h-4 w-4" />
+                  <ListOrdered className="text-primary mr-2 h-4 w-4" />
                   Order History
                 </DropdownMenuItem>
               </NavLink>
               <NavLink to="/profile">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                  <User className="mr-2 h-4 w-4" />
+                  <User className="text-primary mr-2 h-4 w-4" />
                   Profile
                 </DropdownMenuItem>
               </NavLink>
               <NavLink to="/payment-methods">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                  <CreditCard className="mr-2 h-4 w-4" />
+                  <CreditCard className="text-primary mr-2 h-4 w-4" />
                   Payment Methods
                 </DropdownMenuItem>
               </NavLink>
               <NavLink to="/address-book">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                  <Map className="mr-2 h-4 w-4" />
+                  <Map className="text-primary mr-2 h-4 w-4" />
                   Address Book
                 </DropdownMenuItem>
               </NavLink>
@@ -88,7 +88,7 @@ const NavDropdown = () => {
         <DropdownMenuGroup>
           <NavLink to="/about">
             <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-              <Info className="mr-2 h-4 w-4" />
+              <Info className="text-primary mr-2 h-4 w-4" />
               About
             </DropdownMenuItem>
           </NavLink>
@@ -97,13 +97,13 @@ const NavDropdown = () => {
               className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary"
               onClick={logout}
             >
-              <LogOut className="mr-2 h-4 w-4" />
+              <LogOut className="text-destructive mr-2 h-4 w-4" />
               <span>Log out</span>
             </DropdownMenuItem>
           ) : (
             <NavLink to="/login">
               <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
-                <LogIn className="mr-2 h-4 w-4" />
+                <LogIn className="text-primary mr-2 h-4 w-4" />
                 Log In
               </DropdownMenuItem>
             </NavLink>
