@@ -7,7 +7,6 @@ export const getAllOrders = async (req, res) => {
 };
 
 export const createOrder = async (req, res) => {
-  console.log(req.body);
   req.body.user = req.user._id;
   const order = await Order.create(req.body);
   res.status(StatusCodes.CREATED).json({ order });

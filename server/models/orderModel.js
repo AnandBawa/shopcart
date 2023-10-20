@@ -1,7 +1,4 @@
 import mongoose from "mongoose";
-import { ProductModel } from "./productModel.js";
-
-console.log();
 
 const OrderModel = new mongoose.Schema(
   {

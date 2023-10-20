@@ -6,7 +6,7 @@ const OrderDetails = ({ order }) => {
   const date = day(createdAt).format("DD/MMM/YYYY");
 
   return (
-    <div className="p-2 xl:p-4 w-full bg-secondary rounded-lg tracking-wide">
+    <div className="p-2 xl:p-4 w-full bg-secondary rounded-xl tracking-wide">
       <p className="flex justify-between text-sm font-medium">
         <span>Order ID:</span>
         <span>{_id}</span>

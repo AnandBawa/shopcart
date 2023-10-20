@@ -109,7 +109,7 @@ const SingleProduct = () => {
             <img
               src={images[0].url}
               alt={name}
-              className="w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] 2xl:w-[500px] 2xl:h-[500px] rounded-lg place-self-center"
+              className="w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] 2xl:w-[500px] 2xl:h-[500px] rounded-xl place-self-center"
             />
             <div>
               <h1 className="text-xl font-semibold capitalize tracking-wider">
@@ -132,7 +132,7 @@ const SingleProduct = () => {
                   id="quantity"
                   value={quantity}
                   onChange={handleQuantity}
-                  className="bg-secondary h-9 w-20 rounded-lg text-center font-semibold"
+                  className="bg-secondary h-9 w-20 rounded-xl text-center font-semibold"
                 >
                   {generateSelectOptions(10)}
                 </select>

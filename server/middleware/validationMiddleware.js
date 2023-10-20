@@ -119,7 +119,6 @@ export const validateUpdateUserInput = async (req, res, next) => {
     const subSchema = userSchema.extract(key);
     const { error } = subSchema.validate(value);
     if (error) {
-      // console.log(error.details[0]);
       const err = error.details[0];
       err.message = `${key} ${error.message}`;
       errorMessage.push(err);

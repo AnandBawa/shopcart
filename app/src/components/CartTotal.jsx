@@ -4,7 +4,7 @@ const CartTotal = ({ cart }) => {
   const { baseTotal, tax, taxAmount, shippingCost, total } = cart;
 
   return (
-    <div className="p-2 xl:p-4 w-full bg-secondary rounded-lg tracking-wide">
+    <div className="p-2 xl:p-4 w-full bg-secondary rounded-xl tracking-wide">
       <p className="flex justify-between text-sm font-medium">
         <span>Subtotal</span>
         <span>$ {baseTotal.toFixed(2)}</span>

@@ -18,7 +18,7 @@ const CartItems = ({ cart, isOrder }) => {
                 <img
                   src={images[0].url}
                   alt={name}
-                  className="h-24 w-24 rounded-lg object-cover"
+                  className="h-24 w-24 rounded-xl object-cover"
                 />
               </Link>
               <div className="grid gap-2">
@@ -40,7 +40,7 @@ const CartItems = ({ cart, isOrder }) => {
                   onChange={(e) => {
                     editItem(_id, e.target.value);
                   }}
-                  className={`bg-secondary h-8 w-16 rounded-lg text-center text-sm font-semibold ${
+                  className={`bg-secondary h-8 w-16 rounded-xl text-center text-sm font-semibold ${
                     isOrder ? "hidden" : ""
                   }`}
                 >

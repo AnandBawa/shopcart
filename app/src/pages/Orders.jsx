@@ -63,7 +63,7 @@ const Orders = () => {
             <Link
               to={`/orders/${order._id}`}
               key={order._id}
-              className="p-1 grid gap-1 bg-secondary rounded-lg"
+              className="p-1 grid gap-1 bg-secondary rounded-xl"
             >
               <p className="text-base font-medium text-primary">
                 # {index + 1}
