@@ -3,11 +3,11 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { generateSelectOptions } from "@/utils/utils";
 
-const CartItems = () => {
-  const { cart, editItem, removeItem } = useOutletContext();
+const CartItems = ({ cart, isOrder }) => {
+  const { editItem, removeItem } = useOutletContext();
   return (
     <div>
-      {cart.map((cartItem) => {
+      {cart.items.map((cartItem) => {
         const { _id, name, price, images } = cartItem.product;
         const quantity = cartItem.quantity;
         const total = price * quantity;
@@ -35,21 +35,27 @@ const CartItems = () => {
                   onChange={(e) => {
                     editItem(_id, e.target.value);
                   }}
-                  className="bg-secondary h-8 w-16 rounded-lg text-center text-sm font-semibold"
+                  className={`bg-secondary h-8 w-16 rounded-lg text-center text-sm font-semibold ${
+                    isOrder ? "hidden" : ""
+                  }`}
                 >
                   {generateSelectOptions(quantity + 5)}
                 </select>
                 <Button
                   variant="link"
-                  className="p-0 h-2 text-sm justify-start"
+                  className={`p-0 h-2 text-sm justify-start ${
+                    isOrder ? "hidden" : ""
+                  }`}
                   onClick={() => removeItem(_id)}
                 >
                   Remove
                 </Button>
               </div>
               <div className="text-end">
-                <h1 className="font-medium text-lg">$ {total.toFixed(2)}</h1>
-                <h2 className="text-sm">$ {price.toFixed(2)} ea</h2>
+                <h1 className="font-medium tracking-wide text-base">
+                  $ {total.toFixed(2)}
+                </h1>
+                <h2 className="text-sm mt-1">$ {price.toFixed(2)} ea</h2>
               </div>
             </div>
             <Separator className="my-4" />

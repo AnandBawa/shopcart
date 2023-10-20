@@ -45,18 +45,6 @@ const UserModel = new mongoose.Schema(
       },
       default: undefined,
     },
-    cart: {
-      type: [
-        {
-          item: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product",
-          },
-          quantity: Number,
-        },
-      ],
-      default: undefined,
-    },
   },
   { timestamps: true }
 );

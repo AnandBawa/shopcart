@@ -8,7 +8,6 @@ import {
   addPayment,
   updatePayment,
   deletePayment,
-  updateCart,
 } from "../controllers/userController.js";
 import {
   validateUpdateUserInput,
@@ -30,8 +29,6 @@ userRouter
     validateUpdateUserInput,
     updateUser
   );
-
-userRouter.route("/cart").patch(isLoggedIn, updateCart);
 
 userRouter
   .route("/address-book")

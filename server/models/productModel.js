@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { CATEGORY, SUB_CATEGORY } from "../utils/constants.js";
 
-const ProductModel = new mongoose.Schema(
+export const ProductModel = new mongoose.Schema(
   {
     addedBy: {
       type: mongoose.Schema.Types.ObjectId,

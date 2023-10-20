@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import { ProductModel } from "./productModel.js";
+
+console.log();
 
 const OrderModel = new mongoose.Schema(
   {
@@ -6,19 +9,9 @@ const OrderModel = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    total: Number,
-    discount: Number,
-    tax: Number,
-    products: {
-      type: [
-        {
-          product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-          price: Number,
-          quantity: Number,
-        },
-      ],
-      default: undefined,
-    },
+    address: mongoose.Mixed,
+    payment: mongoose.Mixed,
+    cart: mongoose.Mixed,
   },
   { timestamps: true }
 );

@@ -3,21 +3,11 @@ import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components";
 import CartItems from "@/components/CartItems";
 import CartTotal from "@/components/CartTotal";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 
 const ShoppingCart = () => {
   const { user, cart, clearCart } = useOutletContext();
 
-  if (cart?.length === 0) {
+  if (cart?.items?.length === 0) {
     return (
       <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8 text-center">
         <h1 className="text-lg font-semibold tracking-wide mt-4">
@@ -35,7 +25,7 @@ const ShoppingCart = () => {
       <SectionTitle text="Shopping Cart" />
       <div className="mt-8 grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-4 lg:pl-4">
-          <CartTotal />
+          <CartTotal cart={cart} />
           {user ? (
             <Button asChild className="grid">
               <Link to="/checkout" className="mt-2 tracking-wide">
@@ -51,35 +41,14 @@ const ShoppingCart = () => {
           )}
         </div>
         <div className="grid lg:col-span-8 place-items-center">
-          <CartItems />
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
-                variant="outline"
-                className="text-destructive hover:text-destructive"
-              >
-                Clear Cart
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <Button
-                  variant="outline"
-                  className="text-destructive hover:text-destructive"
-                  onClick={clearCart}
-                >
-                  Clear Cart
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+          <CartItems cart={cart} isOrder={false} />
+          <Button
+            variant="outline"
+            className="text-destructive hover:text-destructive"
+            onClick={clearCart}
+          >
+            Clear Cart
+          </Button>
         </div>
       </div>
     </div>

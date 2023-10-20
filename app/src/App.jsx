@@ -22,6 +22,7 @@ import { ErrorElement } from "./components";
 import { homeLoader } from "./pages/Home";
 import { productsLoader } from "./pages/Products";
 import { singleProductLoader } from "./pages/SingleProduct";
+import { ordersLoader } from "./pages/Orders";
 
 // Actions
 import { registerAction } from "./pages/Register";
@@ -33,6 +34,7 @@ import { paymentAction } from "./pages/Payments";
 import { editPaymentAction } from "./pages/EditPayment";
 import { deletePaymentAction } from "./pages/DeletePayment";
 import { profileAction } from "./pages/Profile";
+import { checkoutAction } from "./pages/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,7 @@ const router = createBrowserRouter([
       {
         path: "checkout",
         element: <Checkout />,
+        action: checkoutAction,
       },
       {
         path: "cart",
@@ -69,6 +72,8 @@ const router = createBrowserRouter([
       {
         path: "orders",
         element: <Orders />,
+        errorElement: <ErrorElement />,
+        loader: ordersLoader,
       },
       {
         path: "orders/:id",

@@ -90,8 +90,3 @@ export const deletePayment = async (req, res) => {
   });
   res.status(StatusCodes.OK).json({ msg: "Payment deleted" });
 };
-
-export const updateCart = async (req, res) => {
-  await User.findByIdAndUpdate(req.user._id, { cart: req.body });
-  res.status(StatusCodes.OK).json({ msg: "Payment deleted" });
-};

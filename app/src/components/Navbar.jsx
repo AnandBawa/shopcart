@@ -9,9 +9,9 @@ import { useHomeContext } from "@/pages/Home";
 
 const Navbar = () => {
   const { user } = useLoaderData();
-  const { getCartQuantity } = useHomeContext();
+  const { cart } = useHomeContext();
 
-  const totalQuantity = getCartQuantity();
+  const { totalQuantity } = cart;
 
   return (
     <header className="sticky top-0 z-50 w-full border bg-secondary">
