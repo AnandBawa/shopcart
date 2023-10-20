@@ -15,7 +15,7 @@ const ProductsGrid = () => {
 
   return (
     <>
-      <div className="flex flex-wrap gap-1 justify-between mt-5 px-1">
+      <div className="flex flex-wrap gap-1 justify-between mt-5 ">
         <h2 className=" text-base font-medium tracking-wide">
           {totalProducts} product{totalProducts > 1 && "s"} found
         </h2>
@@ -31,7 +31,7 @@ const ProductsGrid = () => {
         })}
       </div>
       {numPages > 1 && (
-        <div className="grid justify-items-end px-1">
+        <div className="grid justify-items-end">
           <PageButtons />
         </div>
       )}

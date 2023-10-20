@@ -34,7 +34,7 @@ const Orders = () => {
 
   if (orders?.length === 0) {
     return (
-      <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8 text-center">
+      <div className="px-2 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8 text-center">
         <h1 className="text-lg font-semibold tracking-wide mt-4">
           No Orders Placed
         </h1>
@@ -46,7 +46,7 @@ const Orders = () => {
   }
 
   return (
-    <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
+    <div className="px-2 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Order History" />
       <h1 className="my-2 text-sm font-semibold tracking-wide">
         Total Orders: {orders.length}

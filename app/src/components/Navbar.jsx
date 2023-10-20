@@ -66,7 +66,7 @@ const Navbar = () => {
             >
               <ShoppingCart />
               {totalQuantity > 0 && (
-                <h1 className="absolute top-0 right-0 text-sm bg-background font-semibold tracking-wide text-primary px-[1px] rounded-sm">
+                <h1 className="absolute top-0 right-0 text-sm bg-background font-semibold tracking-wide text-primary px-[2px] rounded-lg">
                   {totalQuantity}
                 </h1>
               )}

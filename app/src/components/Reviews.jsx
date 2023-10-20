@@ -5,7 +5,7 @@ import { Textarea } from "./ui/textarea";
 
 const Reviews = () => {
   return (
-    <div className="px-1 pt-4 lg:pt-8">
+    <div className="pt-4 lg:pt-8">
       <SectionTitle text="Reviews" />
       <div className="mt-4 grid w-full gap-3">
         <Label htmlFor="review" className="tracking-wide">

@@ -24,7 +24,7 @@ export const productsLoader = async ({ request }) => {
 
 const Products = () => {
   return (
-    <div className="mx-auto w-full md:max-w-[80vw] mt-4 lg:mt-8 px-1">
+    <div className="mx-auto w-full md:max-w-[80vw] mt-4 lg:mt-8 px-2">
       <SectionTitle text="Search Products" />
       <SearchProducts />
       <ProductsGrid />

@@ -41,7 +41,7 @@ const Register = () => {
   const isSubmitting = navigation.state === "submitting";
 
   return (
-    <div className="min-h-[90vh] grid place-items-center">
+    <div className="min-h-[90vh] grid place-items-center px-2 mt-2">
       <Card className=" px-2 sm:w-[450px] bg-secondary">
         <CardHeader>
           <CardTitle className="grid place-items-center">

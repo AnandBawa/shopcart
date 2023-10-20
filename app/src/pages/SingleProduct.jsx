@@ -63,8 +63,8 @@ const SingleProduct = () => {
   };
 
   return (
-    <div className="mx-auto w-full md:max-w-[80vw]">
-      <section className="p-1 mt-2 lg:mt-4">
+    <div className="mx-auto w-full md:max-w-[80vw] px-2">
+      <section className="mt-2 lg:mt-4">
         <div>
           <ul className="flex flex-wrap text-sm font-medium tracking-wide items-center">
             <li>

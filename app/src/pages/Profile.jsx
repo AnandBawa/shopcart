@@ -53,7 +53,7 @@ const Profile = () => {
   const { firstName, lastName, email, phone } = user;
 
   return (
-    <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
+    <div className="px-2 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Profile" />
       <Form method="post" className="mt-4" encType="multipart/form-data">
         <div className="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4 bg-secondary rounded-lg">

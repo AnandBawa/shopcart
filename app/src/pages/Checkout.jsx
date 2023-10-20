@@ -39,7 +39,7 @@ const Checkout = () => {
 
   if (cart?.items?.length === 0) {
     return (
-      <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8 text-center">
+      <div className="px-2 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8 text-center">
         <h1 className="text-lg font-semibold tracking-wide mt-4">
           Your Cart is Empty
         </h1>
@@ -51,7 +51,7 @@ const Checkout = () => {
   }
 
   return (
-    <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
+    <div className="px-2 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Checkout" />
       <div className="mt-4 grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-4 lg:pl-4">

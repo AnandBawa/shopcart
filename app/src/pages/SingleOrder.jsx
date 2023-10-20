@@ -32,7 +32,7 @@ const SingleOrder = () => {
   const { cart } = order;
 
   return (
-    <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
+    <div className="px-2 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Order Details" />
       <div className="mt-4 grid gap-8 lg:grid-cols-12">
         <div className="lg:col-span-4 lg:pl-4 grid gap-2">
