@@ -38,6 +38,19 @@ const Checkout = () => {
     return <Navigate to="/" />;
   }
 
+  if (cart?.items?.length === 0) {
+    return (
+      <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8 text-center">
+        <h1 className="text-lg font-semibold tracking-wide mt-4">
+          Your Cart is Empty
+        </h1>
+        <Button asChild className="mt-4">
+          <Link to="/products">Shop Products</Link>
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="p-1 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Checkout" />
@@ -107,7 +120,7 @@ const Checkout = () => {
           </div>
           <Separator className="my-1" />
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button type="submit" className="mt-2" onClick={clearCart}>
+          <Button type="submit" className="mt-2">
             Place Order
           </Button>
         </Form>
