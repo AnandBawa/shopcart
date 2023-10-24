@@ -79,7 +79,7 @@ if (process.env.NODE_ENV === "development") {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(express.static(path.resolve(__dirname, "./public")));
+app.use(express.static(path.resolve(__dirname, "../app/dist")));
 app.use(express.json());
 
 app.use(session(sessionConfig));
@@ -106,6 +106,10 @@ app.use("/api/v1/products", productRouter);
 app.use("/api/v1/products/:id/reviews", reviewRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/orders", isLoggedIn, orderRouter);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../app/dist", "index.html"));
+});
 
 app.use("*", (req, res) => {
   res.status(404).json({ msg: "Not found" });
