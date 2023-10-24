@@ -13,11 +13,9 @@ export const homeLoader = async () => {
   try {
     const { data } = await fetchData.get("/users/current-user");
     const { user } = data;
-    const response1 = await fetchData.get("/products");
-    const featured = response1.data.products;
-    const response2 = await fetchData.get("/products/max-discount");
-    const maxDiscount = response2.data.products;
-    return { user, featured, maxDiscount };
+    const response1 = await fetchData.get("/products/max-discount");
+    const maxDiscount = response1.data.products;
+    return { user, maxDiscount };
   } catch (error) {
     return error;
   }
@@ -36,7 +34,7 @@ const baseCart = {
 };
 
 const Home = () => {
-  const { user, featured, maxDiscount } = useLoaderData();
+  const { user, maxDiscount } = useLoaderData();
   const [cart, setCart] = useState(
     localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
@@ -138,7 +136,6 @@ const Home = () => {
         <Outlet
           context={{
             user,
-            featured,
             maxDiscount,
             addItem,
             editItem,

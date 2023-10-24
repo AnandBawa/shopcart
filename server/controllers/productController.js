@@ -1,5 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import Product from "../models/productModel.js";
+import orderModel from "../models/orderModel.js";
+import mongoose from "mongoose";
 
 // Get all products
 export const getAllProducts = async (req, res) => {
@@ -68,7 +70,21 @@ export const createProduct = async (req, res) => {
 // Get a single product
 export const getProduct = async (req, res) => {
   const product = await Product.findById(req.params.id);
-  res.status(StatusCodes.OK).json({ product });
+  if (product.reviews) {
+    await product.populate({
+      path: "reviews",
+      populate: { path: "author", select: "firstName" },
+    });
+  }
+  let hasOrdered = null;
+  if (req.user) {
+    const filter = {
+      "cart.items.product._id": req.params.id,
+      user: req.user._id,
+    };
+    hasOrdered = await orderModel.findOne(filter);
+  }
+  res.status(StatusCodes.OK).json({ product, hasOrdered });
 };
 
 // Update a product

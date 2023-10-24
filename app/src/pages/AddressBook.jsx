@@ -29,13 +29,41 @@ import fetchData from "@/utils/fetchData";
 export const addressAction = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  try {
-    await fetchData.post(`/users/address-book`, data);
-    toast.success(`Address added successfully`);
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
+  const { action, id } = data;
+
+  if (action === "add") {
+    delete data.action;
+    delete data.id;
+    try {
+      await fetchData.post(`/users/address-book`, data);
+      toast.success(`Address added successfully`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect("/address-book");
   }
-  return redirect("/address-book");
+
+  if (action === "edit") {
+    delete data.action;
+    delete data.id;
+    try {
+      await fetchData.patch(`/users/address-book/${id}`, data);
+      toast.success(`Address edited successfully`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect("/address-book");
+  }
+
+  if (action === "delete") {
+    try {
+      await fetchData.delete(`/users/address-book/${id}`);
+      toast.success(`Address deleted`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect("/address-book");
+  }
 };
 
 const AddressBook = () => {
@@ -118,7 +146,9 @@ const AddressBook = () => {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit">Save changes</Button>
+                  <Button type="submit" name="action" value="add">
+                    Add
+                  </Button>
                 </DialogFooter>
               </Form>
             </DialogContent>
@@ -151,10 +181,8 @@ const AddressBook = () => {
                     <DialogHeader>
                       <DialogTitle>Edit Address</DialogTitle>
                     </DialogHeader>
-                    <Form
-                      method="post"
-                      action={`../edit-address/${address._id}`}
-                    >
+                    <Form method="post">
+                      <input type="hidden" name="id" value={address._id} />
                       <div className="grid gap-4 py-4">
                         <div className="grid grid-cols-4 items-center gap-4">
                           <Label htmlFor="nickname" className="text-right">
@@ -218,7 +246,9 @@ const AddressBook = () => {
                         </div>
                       </div>
                       <DialogFooter>
-                        <Button type="submit">Save changes</Button>
+                        <Button type="submit" name="action" value="edit">
+                          Save
+                        </Button>
                       </DialogFooter>
                     </Form>
                   </DialogContent>
@@ -243,12 +273,12 @@ const AddressBook = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <Form
-                        method="post"
-                        action={`../delete-address/${address._id}`}
-                      >
+                      <Form method="post">
+                        <input type="hidden" name="id" value={address._id} />
                         <Button
                           type="submit"
+                          name="action"
+                          value="delete"
                           variant="outline"
                           className="w-full text-destructive hover:text-destructive"
                         >

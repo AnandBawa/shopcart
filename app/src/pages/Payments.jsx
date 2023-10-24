@@ -36,13 +36,40 @@ import fetchData from "@/utils/fetchData";
 export const paymentAction = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  try {
-    await fetchData.post(`/users/payment-method`, data);
-    toast.success(`Payment added successfully`);
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
+  const { action, id } = data;
+
+  if (action === "add") {
+    delete data.action;
+    delete data.id;
+    try {
+      await fetchData.post(`/users/payment-method`, data);
+      toast.success(`Payment added successfully`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect("/payment-methods");
   }
-  return redirect("/payment-methods");
+
+  if (action === "edit") {
+    delete data.action;
+    delete data.id;
+    try {
+      await fetchData.patch(`/users/payment-method/${id}`, data);
+      toast.success(`Payment method edited successfully`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect("/payment-methods");
+  }
+  if (action === "delete") {
+    try {
+      await fetchData.delete(`/users/payment-method/${id}`);
+      toast.success(`Payment method deleted`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect("/payment-methods");
+  }
 };
 
 const Payments = () => {
@@ -127,7 +154,9 @@ const Payments = () => {
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button type="submit">Add</Button>
+                    <Button type="submit" name="action" value="add">
+                      Add
+                    </Button>
                   </DialogFooter>
                 </div>
               </Form>
@@ -168,10 +197,7 @@ const Payments = () => {
                     <DialogHeader>
                       <DialogTitle>Edit Payment</DialogTitle>
                     </DialogHeader>
-                    <Form
-                      method="post"
-                      action={`../edit-payment/${payment._id}`}
-                    >
+                    <Form method="post">
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="nickname">Nickname</Label>
@@ -262,7 +288,10 @@ const Payments = () => {
                           </div>
                         </div>
                         <DialogFooter>
-                          <Button type="submit">Save</Button>
+                          <input type="hidden" name="id" value={payment._id} />
+                          <Button type="submit" name="action" value="edit">
+                            Save
+                          </Button>
                         </DialogFooter>
                       </div>
                     </Form>
@@ -288,12 +317,12 @@ const Payments = () => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <Form
-                        method="post"
-                        action={`../delete-payment/${payment._id}`}
-                      >
+                      <Form method="post">
+                        <input type="hidden" name="id" value={payment._id} />
                         <Button
                           type="submit"
+                          name="action"
+                          value="delete"
                           variant="outline"
                           className="w-full text-destructive hover:text-destructive"
                         >

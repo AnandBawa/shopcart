@@ -3,7 +3,6 @@ import {
   useLoaderData,
   Link,
   useOutletContext,
-  Form,
 } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -17,20 +16,58 @@ import { generateSelectOptions } from "@/utils/utils";
 export const singleProductLoader = async ({ params }) => {
   try {
     const response = await fetchData.get(`/products/${params.id}`);
-    const { product } = response.data;
+    const { product, hasOrdered } = response.data;
     const response2 = await fetchData.get(
       `/products/?subcategory=${product.subcategory}`
     );
     const { products: similarProducts } = response2.data;
-    return { product, similarProducts };
+    return { product, similarProducts, hasOrdered };
   } catch (error) {
     toast.error(error?.response?.data?.msg || "Product not found");
     return redirect("/products");
   }
 };
 
+export const singleProductAction = async ({ request, params }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  const { action, id } = data;
+
+  if (action === "add") {
+    delete data.action;
+    delete data.id;
+    try {
+      await fetchData.post(`/products/${params.id}/reviews`, data);
+      toast.success(`Review added successfully`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect(`/products/${params.id}`);
+  }
+  if (action === "edit") {
+    delete data.action;
+    delete data.id;
+    try {
+      await fetchData.patch(`/products/${params.id}/reviews/${id}`, data);
+      toast.success(`Review updated`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect(`/products/${params.id}`);
+  }
+  if (action === "delete") {
+    try {
+      await fetchData.delete(`/products/${params.id}/reviews/${id}`, data);
+      toast.success(`Review deleted`);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+    return redirect(`/products/${params.id}`);
+  }
+};
+
 const SingleProduct = () => {
-  const { product } = useLoaderData();
+  const { product, hasOrdered } = useLoaderData();
   const {
     _id,
     reviews,
@@ -173,10 +210,8 @@ const SingleProduct = () => {
         </div>
       </section>
       <Separator className="mt-1 lg:mt-2" />
-      {/* <section>{Similar Products}</section> */}
       <SimilarProducts />
-      {/* <section>{Reviews}</section> */}
-      <Reviews />
+      <Reviews reviews={reviews} hasOrdered={hasOrdered} />
     </div>
   );
 };

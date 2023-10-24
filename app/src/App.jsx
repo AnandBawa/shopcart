@@ -29,13 +29,10 @@ import { singleOrderLoader } from "./pages/SingleOrder";
 import { registerAction } from "./pages/Register";
 import { loginAction } from "./pages/Login";
 import { addressAction } from "./pages/AddressBook";
-import { editAddressAction } from "./pages/EditAddress";
-import { deleteAddressAction } from "./pages/DeleteAddress";
 import { paymentAction } from "./pages/Payments";
-import { editPaymentAction } from "./pages/EditPayment";
-import { deletePaymentAction } from "./pages/DeletePayment";
 import { profileAction } from "./pages/Profile";
 import { checkoutAction } from "./pages/Checkout";
+import { singleProductAction } from "./pages/SingleProduct";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +57,7 @@ const router = createBrowserRouter([
         element: <SingleProduct />,
         errorElement: <ErrorElement />,
         loader: singleProductLoader,
+        action: singleProductAction,
       },
       {
         path: "checkout",
@@ -97,25 +95,9 @@ const router = createBrowserRouter([
         action: addressAction,
       },
       {
-        path: "edit-address/:id",
-        action: editAddressAction,
-      },
-      {
-        path: "delete-address/:id",
-        action: deleteAddressAction,
-      },
-      {
         path: "payment-methods",
         element: <Payments />,
         action: paymentAction,
-      },
-      {
-        path: "edit-payment/:id",
-        action: editPaymentAction,
-      },
-      {
-        path: "delete-payment/:id",
-        action: deletePaymentAction,
       },
       {
         path: "login",
