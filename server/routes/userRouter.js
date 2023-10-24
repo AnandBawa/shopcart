@@ -8,6 +8,7 @@ import {
   addPayment,
   updatePayment,
   deletePayment,
+  updateCart,
 } from "../controllers/userController.js";
 import {
   validateUpdateUserInput,
@@ -47,5 +48,7 @@ userRouter
   .route("/payment-method/:id")
   .patch(isLoggedIn, validatePaymentInput, updatePayment)
   .delete(isLoggedIn, deletePayment);
+
+userRouter.route("/update-cart").patch(isLoggedIn, updateCart);
 
 export default userRouter;

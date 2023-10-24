@@ -23,7 +23,7 @@ export const homeLoader = async () => {
 
 const HomeContext = createContext();
 
-const baseCart = {
+export const baseCart = {
   items: [],
   totalQuantity: 0,
   baseTotal: 0,

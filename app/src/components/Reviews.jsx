@@ -9,7 +9,7 @@ import { Textarea } from "./ui/textarea";
 
 const Reviews = ({ reviews, hasOrdered }) => {
   const { user } = useOutletContext();
-  let otherReviews = [...reviews] ?? null;
+  let otherReviews = reviews ? [...reviews] : [];
   let hasReviewed = null;
   let userReviewDate = null;
   if (reviews && user) {
@@ -91,34 +91,38 @@ const Reviews = ({ reviews, hasOrdered }) => {
         <Label htmlFor="reviews" className="text-base tracking-wide">
           User Reviews
         </Label>
-        <div className="mt-1 grid gap-2">
-          {otherReviews.map((review) => {
-            const date = day(review.updatedAt).format("DD/MMM/YYYY");
-            return (
-              <div
-                key={review._id}
-                className="grid my-1 bg-secondary p-2 rounded-2xl"
-              >
-                <div className="flex justify-between">
-                  <h1 className="text-sm font-semibold">
-                    {review.author.firstName}
-                  </h1>
-                  <h1 className="text-sm">{date}</h1>
+        {otherReviews.length === 0 ? (
+          <h1 className="mt-1 text-sm">No reviews found</h1>
+        ) : (
+          <div className="mt-1 grid gap-2">
+            {otherReviews.map((review) => {
+              const date = day(review.updatedAt).format("DD/MMM/YYYY");
+              return (
+                <div
+                  key={review._id}
+                  className="grid my-1 bg-secondary p-2 rounded-2xl"
+                >
+                  <div className="flex justify-between">
+                    <h1 className="text-sm font-semibold">
+                      {review.author.firstName}
+                    </h1>
+                    <h1 className="text-sm">{date}</h1>
+                  </div>
+                  <div className="">
+                    <Rating
+                      initialValue={review.rating}
+                      readOnly
+                      emptyStyle={{ display: "flex" }}
+                      fillStyle={{ display: "-webkit-inline-box" }}
+                      size={15}
+                    />
+                    <h1 className="mt-1 text-sm">{review.review}</h1>
+                  </div>
                 </div>
-                <div className="">
-                  <Rating
-                    initialValue={review.rating}
-                    readOnly
-                    emptyStyle={{ display: "flex" }}
-                    fillStyle={{ display: "-webkit-inline-box" }}
-                    size={15}
-                  />
-                  <h1 className="mt-1 text-sm">{review.review}</h1>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -67,42 +67,36 @@ const Register = () => {
                 type="text"
                 name="firstName"
                 label="First Name"
-                defaultValue="Anand"
                 required={true}
               />
               <FormRow
                 type="text"
                 name="lastName"
                 label="Last Name"
-                defaultValue="B"
                 required={true}
               />
               <FormRow
                 type="email"
                 name="email"
                 label="Email"
-                defaultValue="anand@gmail.com"
                 required={true}
               />
               <FormRow
                 type="text"
                 name="phone"
                 label="Phone Number"
-                defaultValue="1234567890"
                 required={true}
               />
               <FormRow
                 type="password"
                 name="password"
                 label="Password"
-                defaultValue="Anand!23"
                 required={true}
               />
               <FormRow
                 type="password"
                 name="repeatPassword"
                 label="Repeat Password"
-                defaultValue="Anand!23"
                 required={true}
               />
             </div>

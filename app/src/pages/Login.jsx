@@ -62,14 +62,12 @@ const Login = () => {
                 type="text"
                 name="phone"
                 label="Email / Phone Number"
-                defaultValue="anand@gmail.com"
                 required={true}
               />
               <FormRow
                 type="password"
                 name="password"
                 label="Password"
-                defaultValue="Anand!23"
                 required={true}
               />
             </div>
