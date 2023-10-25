@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import about from "../assets/images/about.svg";
 
 const About = () => {
