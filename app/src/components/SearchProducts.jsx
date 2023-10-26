@@ -67,14 +67,16 @@ const SearchProducts = () => {
         />
         <div className="grid grid-cols-2 gap-2">
           <FormRow
-            type="search"
+            type="number"
+            min={0}
             name="minPrice"
             label="Minimum Price"
             defaultValue={minPrice}
             onChange={delaySubmit}
           />
           <FormRow
-            type="search"
+            type="number"
+            min={0}
             name="maxPrice"
             label="Maximum Price"
             defaultValue={maxPrice}

@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Menu,
   Map,
@@ -24,8 +24,10 @@ import {
 import { useHomeContext } from "@/pages/Home";
 
 const NavDropdown = () => {
-  const { logout } = useHomeContext();
-  const { user } = useLoaderData();
+  const location = useLocation();
+  const pathname = location.pathname;
+  const search = location.search;
+  const { user, logout } = useHomeContext();
 
   return (
     <DropdownMenu>
@@ -40,58 +42,58 @@ const NavDropdown = () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <NavLink to="/">
+          <Link to="/">
             <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
               <Home className="text-primary mr-2 h-4 w-4" />
               Home
             </DropdownMenuItem>
-          </NavLink>
-          <NavLink to="/products">
+          </Link>
+          <Link to="/products">
             <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
               <ShoppingBag className="text-primary mr-2 h-4 w-4" />
               All Products
             </DropdownMenuItem>
-          </NavLink>
+          </Link>
         </DropdownMenuGroup>
         {user && (
           <div>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <NavLink to="/orders">
+              <Link to="/orders">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
                   <ListOrdered className="text-primary mr-2 h-4 w-4" />
                   Order History
                 </DropdownMenuItem>
-              </NavLink>
-              <NavLink to="/profile">
+              </Link>
+              <Link to="/profile">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
                   <User className="text-primary mr-2 h-4 w-4" />
                   Profile
                 </DropdownMenuItem>
-              </NavLink>
-              <NavLink to="/payment-methods">
+              </Link>
+              <Link to="/payment-methods">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
                   <CreditCard className="text-primary mr-2 h-4 w-4" />
                   Payment Methods
                 </DropdownMenuItem>
-              </NavLink>
-              <NavLink to="/address-book">
+              </Link>
+              <Link to="/address-book">
                 <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
                   <Map className="text-primary mr-2 h-4 w-4" />
                   Address Book
                 </DropdownMenuItem>
-              </NavLink>
+              </Link>
             </DropdownMenuGroup>
           </div>
         )}
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <NavLink to="/about">
+          <Link to="/about">
             <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
               <Info className="text-primary mr-2 h-4 w-4" />
               About
             </DropdownMenuItem>
-          </NavLink>
+          </Link>
           {user ? (
             <DropdownMenuItem
               className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary"
@@ -101,12 +103,12 @@ const NavDropdown = () => {
               <span>Log out</span>
             </DropdownMenuItem>
           ) : (
-            <NavLink to="/login">
+            <Link to="/login" state={{ from: pathname + search }}>
               <DropdownMenuItem className="flex place-items-center w-full cursor-pointer transition-all ease-in hover:scale-105 hover:text-primary">
                 <LogIn className="text-primary mr-2 h-4 w-4" />
                 Log In
               </DropdownMenuItem>
-            </NavLink>
+            </Link>
           )}
         </DropdownMenuGroup>
       </DropdownMenuContent>

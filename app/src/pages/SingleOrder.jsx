@@ -1,34 +1,50 @@
 import {
   Link,
-  useLoaderData,
   useOutletContext,
   Navigate,
+  useLocation,
 } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { SectionTitle, CartItems, CartTotal, OrderDetails } from "@/components";
 import { Button } from "@/components/ui/button";
 import fetchData from "@/utils/fetchData";
 
-export const singleOrderLoader = async ({ params }) => {
-  try {
-    const response = await fetchData.get(`/orders/${params.id}`);
-    const { order } = response.data;
-    return order;
-  } catch (error) {
-    toast.error(error?.response?.data?.msg || "Order not found");
-    return error;
-  }
+const singleOrderQuery = (id) => {
+  return {
+    queryKey: ["singleOrder", id],
+    queryFn: async () => {
+      const { data } = await fetchData.get(`/orders/${id}`);
+      return data;
+    },
+  };
 };
 
+export const singleOrderLoader =
+  (queryClient) =>
+  async ({ params }) => {
+    try {
+      const orderData = await queryClient.ensureQueryData(
+        singleOrderQuery(params.id)
+      );
+      return null;
+    } catch (error) {
+      toast.error(error?.response?.data?.msg || "Order not found");
+      return error;
+    }
+  };
+
 const SingleOrder = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
   const { user } = useOutletContext();
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace={true} />;
   }
 
-  const order = useLoaderData();
+  const { order } = useQuery(singleOrderQuery(id)).data;
   const { cart } = order;
 
   return (

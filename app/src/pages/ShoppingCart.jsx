@@ -1,8 +1,11 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useOutletContext, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { SectionTitle, CartItems, CartTotal } from "@/components";
 
 const ShoppingCart = () => {
+  const location = useLocation();
+  const pathname = location.pathname;
+  const search = location.search;
   const { user, cart, clearCart } = useOutletContext();
 
   if (cart?.items?.length === 0) {
@@ -26,13 +29,17 @@ const ShoppingCart = () => {
           <CartTotal cart={cart} />
           {user ? (
             <Button asChild className="grid">
-              <Link to="/checkout" className="mt-2 tracking-wide">
+              <Link to="/checkout" className="mt-3 tracking-wide">
                 Proceed to Checkout
               </Link>
             </Button>
           ) : (
             <Button asChild className="grid">
-              <Link to="/login" className="mt-2 tracking-wide">
+              <Link
+                to="/login"
+                state={{ from: pathname + search }}
+                className="mt-2 tracking-wide"
+              >
                 Please Login
               </Link>
             </Button>

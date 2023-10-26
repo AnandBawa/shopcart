@@ -26,52 +26,57 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import fetchData from "@/utils/fetchData";
 
-export const addressAction = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  const { action, id } = data;
+export const addressAction =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    const { action, id } = data;
 
-  if (action === "add") {
-    delete data.action;
-    delete data.id;
-    try {
-      await fetchData.post(`/users/address-book`, data);
-      toast.success(`Address added successfully`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
+    if (action === "add") {
+      delete data.action;
+      delete data.id;
+      try {
+        await fetchData.post(`/users/address-book`, data);
+        queryClient.invalidateQueries("user");
+        toast.success(`Address added successfully`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect(`/address-book`);
     }
-    return redirect("/address-book");
-  }
 
-  if (action === "edit") {
-    delete data.action;
-    delete data.id;
-    try {
-      await fetchData.patch(`/users/address-book/${id}`, data);
-      toast.success(`Address edited successfully`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
+    if (action === "edit") {
+      delete data.action;
+      delete data.id;
+      try {
+        await fetchData.patch(`/users/address-book/${id}`, data);
+        queryClient.invalidateQueries("user");
+        toast.success(`Address edited successfully`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect("/address-book");
     }
-    return redirect("/address-book");
-  }
 
-  if (action === "delete") {
-    try {
-      await fetchData.delete(`/users/address-book/${id}`);
-      toast.success(`Address deleted`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
+    if (action === "delete") {
+      try {
+        await fetchData.delete(`/users/address-book/${id}`);
+        queryClient.invalidateQueries("user");
+        toast.success(`Address deleted`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect("/address-book");
     }
-    return redirect("/address-book");
-  }
-};
+  };
 
 const AddressBook = () => {
   const { user } = useOutletContext();
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace={true} />;
   }
 
   return (

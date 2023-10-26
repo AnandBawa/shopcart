@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Map,
   ListOrdered,
@@ -22,8 +22,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useHomeContext } from "@/pages/Home";
 
 const AccountDropdown = () => {
-  const { logout } = useHomeContext();
-  const { user } = useLoaderData();
+  const { user, logout } = useHomeContext();
+  const location = useLocation();
+  const pathname = location.pathname;
+  const search = location.search;
 
   if (user) {
     return (
@@ -91,7 +93,9 @@ const AccountDropdown = () => {
 
   return (
     <Button asChild>
-      <Link to="/login">Login</Link>
+      <Link to="/login" state={{ from: pathname + search }}>
+        Login
+      </Link>
     </Button>
   );
 };

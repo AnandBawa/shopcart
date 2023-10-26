@@ -1,10 +1,6 @@
-import {
-  redirect,
-  useLoaderData,
-  Link,
-  useOutletContext,
-} from "react-router-dom";
+import { redirect, Link, useOutletContext } from "react-router-dom";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import fetchData from "@/utils/fetchData";
 import { ChevronRight } from "lucide-react";
@@ -12,62 +8,107 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Reviews, SimilarProducts } from "@/components";
 import { generateSelectOptions } from "@/utils/utils";
+import { useLocation } from "react-router-dom";
 
-export const singleProductLoader = async ({ params }) => {
-  try {
-    const response = await fetchData.get(`/products/${params.id}`);
-    const { product, hasOrdered } = response.data;
-    const response2 = await fetchData.get(
-      `/products/?subcategory=${product.subcategory}`
-    );
-    const { products: similarProducts } = response2.data;
-    return { product, similarProducts, hasOrdered };
-  } catch (error) {
-    toast.error(error?.response?.data?.msg || "Product not found");
-    return redirect("/products");
-  }
+const singleProductQuery = (id) => {
+  return {
+    queryKey: ["singleProduct", id],
+    queryFn: async () => {
+      const { data } = await fetchData.get(`/products/${id}`);
+      return data;
+    },
+  };
 };
 
-export const singleProductAction = async ({ request, params }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  const { action, id } = data;
-
-  if (action === "add") {
-    delete data.action;
-    delete data.id;
-    try {
-      await fetchData.post(`/products/${params.id}/reviews`, data);
-      toast.success(`Review added successfully`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-    }
-    return redirect(`/products/${params.id}`);
-  }
-  if (action === "edit") {
-    delete data.action;
-    delete data.id;
-    try {
-      await fetchData.patch(`/products/${params.id}/reviews/${id}`, data);
-      toast.success(`Review updated`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-    }
-    return redirect(`/products/${params.id}`);
-  }
-  if (action === "delete") {
-    try {
-      await fetchData.delete(`/products/${params.id}/reviews/${id}`, data);
-      toast.success(`Review deleted`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-    }
-    return redirect(`/products/${params.id}`);
-  }
+const similarProductsQuery = (subcategory) => {
+  return {
+    queryKey: ["similarProducts", subcategory],
+    queryFn: async () => {
+      const { data } = await fetchData.get(
+        `/products/?subcategory=${subcategory}`
+      );
+      return data;
+    },
+  };
 };
+
+export const singleProductLoader =
+  (queryClient) =>
+  async ({ params }) => {
+    try {
+      const productData = await queryClient.ensureQueryData(
+        singleProductQuery(params.id)
+      );
+      const { product } = productData;
+      const similarProductsData = await queryClient.ensureQueryData(
+        similarProductsQuery(product.subcategory)
+      );
+      return null;
+    } catch (error) {
+      toast.error(error?.response?.data?.msg || "Product not found");
+      return redirect("/products");
+    }
+  };
+
+export const singleProductAction =
+  (queryClient) =>
+  async ({ request, params }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    const { action, id } = data;
+
+    if (action === "add") {
+      delete data.action;
+      delete data.id;
+      try {
+        await fetchData.post(`/products/${params.id}/reviews`, data);
+        queryClient.invalidateQueries({
+          queryKey: ["singleProduct", params.id],
+          exact: true,
+        });
+        toast.success(`Review added successfully`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect(`/products/${params.id}`);
+    }
+    if (action === "edit") {
+      delete data.action;
+      delete data.id;
+      try {
+        await fetchData.patch(`/products/${params.id}/reviews/${id}`, data);
+        queryClient.invalidateQueries({
+          queryKey: ["singleProduct", params.id],
+          exact: true,
+        });
+        toast.success(`Review updated`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect(`/products/${params.id}`);
+    }
+    if (action === "delete") {
+      try {
+        await fetchData.delete(`/products/${params.id}/reviews/${id}`, data);
+        queryClient.invalidateQueries({
+          queryKey: ["singleProduct", params.id],
+          exact: true,
+        });
+        toast.success(`Review deleted`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect(`/products/${params.id}`);
+    }
+  };
 
 const SingleProduct = () => {
-  const { product, hasOrdered } = useLoaderData();
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const { product, hasOrdered } = useQuery(singleProductQuery(id)).data;
+  const { products: similarProducts } = useQuery(
+    similarProductsQuery(product.subcategory)
+  ).data;
   const {
     _id,
     reviews,
@@ -210,7 +251,7 @@ const SingleProduct = () => {
         </div>
       </section>
       <Separator className="mt-1 lg:mt-2" />
-      <SimilarProducts />
+      <SimilarProducts similarProducts={similarProducts} />
       <Reviews reviews={reviews} hasOrdered={hasOrdered} />
     </div>
   );

@@ -1,4 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   About,
   AddressBook,
@@ -34,12 +36,20 @@ import { profileAction } from "./pages/Profile";
 import { checkoutAction } from "./pages/Checkout";
 import { singleProductAction } from "./pages/SingleProduct";
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+    },
+  },
+});
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Home queryClient={queryClient} />,
     errorElement: <Error />,
-    loader: homeLoader,
+    loader: homeLoader(queryClient),
     children: [
       {
         index: true,
@@ -50,65 +60,64 @@ const router = createBrowserRouter([
         path: "products",
         element: <Products />,
         errorElement: <ErrorElement />,
-        loader: productsLoader,
+        loader: productsLoader(queryClient),
       },
       {
         path: "products/:id",
         element: <SingleProduct />,
-        errorElement: <ErrorElement />,
-        loader: singleProductLoader,
-        action: singleProductAction,
+        loader: singleProductLoader(queryClient),
+        action: singleProductAction(queryClient),
       },
       {
         path: "checkout",
         element: <Checkout />,
-        action: checkoutAction,
+        action: checkoutAction(queryClient),
       },
       {
         path: "cart",
+        errorElement: <ErrorElement />,
         element: <ShoppingCart />,
       },
       {
         path: "orders",
         element: <Orders />,
         errorElement: <ErrorElement />,
-        loader: ordersLoader,
+        loader: ordersLoader(queryClient),
       },
       {
         path: "orders/:id",
         element: <SingleOrder />,
         errorElement: <ErrorElement />,
-        loader: singleOrderLoader,
+        loader: singleOrderLoader(queryClient),
       },
       {
         path: "about",
+        errorElement: <ErrorElement />,
         element: <About />,
       },
       {
         path: "profile",
         element: <Profile />,
-        action: profileAction,
+        action: profileAction(queryClient),
       },
       {
         path: "address-book",
         element: <AddressBook />,
-        action: addressAction,
+        action: addressAction(queryClient),
       },
       {
         path: "payment-methods",
         element: <Payments />,
-        action: paymentAction,
+        action: paymentAction(queryClient),
       },
       {
         path: "login",
         element: <Login />,
-        // errorElement: <Error />,
-        action: loginAction,
+        action: loginAction(queryClient),
       },
       {
         path: "register",
         element: <Register />,
-        // errorElement: <Error />,
         action: registerAction,
       },
     ],
@@ -116,7 +125,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 };
 
 export default App;

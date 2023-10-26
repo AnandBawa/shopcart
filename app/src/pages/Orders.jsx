@@ -1,9 +1,5 @@
-import {
-  Link,
-  useLoaderData,
-  Navigate,
-  useOutletContext,
-} from "react-router-dom";
+import { Link, Navigate, useOutletContext } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import day from "dayjs";
 import { Separator } from "@/components/ui/separator";
@@ -11,13 +7,20 @@ import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components";
 import fetchData from "@/utils/fetchData";
 
-export const ordersLoader = async () => {
+const ordersQuery = {
+  queryKey: ["orders"],
+  queryFn: async () => {
+    const { data } = await fetchData.get(`/orders/`);
+    return data;
+  },
+};
+
+export const ordersLoader = (queryClient) => async () => {
   try {
-    const response = await fetchData.get(`/orders/`);
-    const { orders } = response.data;
-    return orders;
+    const ordersData = await queryClient.ensureQueryData(ordersQuery);
+    return null;
   } catch (error) {
-    toast.error(error?.response?.data?.msg || "Product not found");
+    toast.error(error?.response?.data?.msg);
     return error;
   }
 };
@@ -27,10 +30,10 @@ const Orders = () => {
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace={true} />;
   }
 
-  const orders = useLoaderData();
+  const { orders } = useQuery(ordersQuery).data;
 
   if (orders?.length === 0) {
     return (

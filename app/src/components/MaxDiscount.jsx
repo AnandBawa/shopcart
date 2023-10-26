@@ -3,12 +3,15 @@ import ProductsScroll from "./ProductsScroll";
 import SectionTitle from "./SectionTitle";
 
 const Featured = () => {
-  const { maxDiscount } = useOutletContext();
+  const { maxDiscountProducts } = useOutletContext();
 
   return (
     <div className="px-1 lg:pt-4">
       <SectionTitle text="Top Discounts" />
-      <ProductsScroll key={maxDiscount} products={maxDiscount} />
+      <ProductsScroll
+        key={maxDiscountProducts}
+        products={maxDiscountProducts}
+      />
     </div>
   );
 };

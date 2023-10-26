@@ -33,51 +33,56 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import fetchData from "@/utils/fetchData";
 
-export const paymentAction = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  const { action, id } = data;
+export const paymentAction =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    const { action, id } = data;
 
-  if (action === "add") {
-    delete data.action;
-    delete data.id;
-    try {
-      await fetchData.post(`/users/payment-method`, data);
-      toast.success(`Payment added successfully`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
+    if (action === "add") {
+      delete data.action;
+      delete data.id;
+      try {
+        await fetchData.post(`/users/payment-method`, data);
+        queryClient.invalidateQueries("user");
+        toast.success(`Payment added successfully`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect("/payment-methods");
     }
-    return redirect("/payment-methods");
-  }
 
-  if (action === "edit") {
-    delete data.action;
-    delete data.id;
-    try {
-      await fetchData.patch(`/users/payment-method/${id}`, data);
-      toast.success(`Payment method edited successfully`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
+    if (action === "edit") {
+      delete data.action;
+      delete data.id;
+      try {
+        await fetchData.patch(`/users/payment-method/${id}`, data);
+        queryClient.invalidateQueries("user");
+        toast.success(`Payment method edited successfully`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect("/payment-methods");
     }
-    return redirect("/payment-methods");
-  }
-  if (action === "delete") {
-    try {
-      await fetchData.delete(`/users/payment-method/${id}`);
-      toast.success(`Payment method deleted`);
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
+    if (action === "delete") {
+      try {
+        await fetchData.delete(`/users/payment-method/${id}`);
+        queryClient.invalidateQueries("user");
+        toast.success(`Payment method deleted`);
+      } catch (error) {
+        toast.error(error?.response?.data?.msg);
+      }
+      return redirect("/payment-methods");
     }
-    return redirect("/payment-methods");
-  }
-};
+  };
 
 const Payments = () => {
   const { user } = useOutletContext();
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace={true} />;
   }
 
   return (

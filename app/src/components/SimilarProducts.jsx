@@ -1,10 +1,7 @@
-import { useLoaderData } from "react-router-dom";
 import ProductsScroll from "./ProductsScroll";
 import SectionTitle from "./SectionTitle";
 
-const SimilarProducts = () => {
-  const { similarProducts } = useLoaderData();
-
+const SimilarProducts = ({ similarProducts }) => {
   return (
     <div className="pt-4 lg:pt-8">
       <SectionTitle text="Similar Products" />

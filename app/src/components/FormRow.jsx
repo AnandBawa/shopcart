@@ -9,6 +9,8 @@ const FormRow = ({
   required,
   onChange,
   accept,
+  min,
+  max,
 }) => {
   if (required) {
     return (
@@ -23,6 +25,8 @@ const FormRow = ({
           defaultValue={defaultValue || ""}
           onChange={onChange}
           accept={accept}
+          min={min}
+          max={max}
           required
         />
       </div>
@@ -41,6 +45,8 @@ const FormRow = ({
         defaultValue={defaultValue || ""}
         onChange={onChange}
         accept={accept}
+        min={min}
+        max={max}
       />
     </div>
   );

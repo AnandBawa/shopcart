@@ -5,6 +5,7 @@ import {
   useNavigation,
   useOutletContext,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
@@ -20,21 +21,28 @@ import {
 import { FormRow, Logo } from "@/components";
 import fetchData from "@/utils/fetchData";
 
-export const loginAction = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
+export const loginAction =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    const redirectTo = data.redirectTo;
 
-  try {
-    const response = await fetchData.post("/login", data);
-    toast.success(response?.data?.msg || "Welcome!");
-    return redirect("/");
-  } catch (error) {
-    toast.error(error?.response?.data?.msg || "Please try again");
-    return error;
-  }
-};
+    try {
+      delete data.redirectTo;
+      const response = await fetchData.post("/login", data);
+      queryClient.invalidateQueries();
+      toast.success(response?.data?.msg || "Welcome!");
+      return redirect(redirectTo);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg || "Please try again");
+      return error;
+    }
+  };
 
 const Login = () => {
+  const location = useLocation();
+  const redirectTo = location.state?.from || "/";
   const { user } = useOutletContext();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -73,6 +81,7 @@ const Login = () => {
             </div>
           </CardContent>
           <CardFooter className="grid gap-4 text-center">
+            <input type="hidden" name="redirectTo" value={redirectTo} />
             {isSubmitting ? (
               <Button disabled className="text-base tracking-wide">
                 <Loader2 className="mr-2 animate-spin" />

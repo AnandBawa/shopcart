@@ -1,40 +1,46 @@
-import {
-  Form,
-  useOutletContext,
-  Navigate,
-  redirect,
-  Link,
-} from "react-router-dom";
+import { Form, useOutletContext, Navigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SectionTitle, CartTotal } from "@/components";
 import fetchData from "@/utils/fetchData";
+import { useActionData } from "react-router-dom";
 
-export const checkoutAction = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  const parsedData = { ...data };
-  parsedData.address = JSON.parse(parsedData.address);
-  parsedData.payment = JSON.parse(parsedData.payment);
-  parsedData.cart = JSON.parse(parsedData.cart);
+export const checkoutAction =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    const parsedData = { ...data };
+    parsedData.address = JSON.parse(parsedData.address);
+    parsedData.payment = JSON.parse(parsedData.payment);
+    parsedData.cart = JSON.parse(parsedData.cart);
 
-  try {
-    await fetchData.post(`/orders`, parsedData);
-    toast.success(`Order placed successfully`);
-    return redirect("/orders");
-  } catch (error) {
-    toast.error("There was an error. Please try again");
-    return redirect("/");
-  }
-};
+    try {
+      await fetchData.post(`/orders`, parsedData);
+      queryClient.invalidateQueries("orders");
+      toast.success(`Order placed successfully`);
+      return "success";
+    } catch (error) {
+      toast.error("There was an error. Please try again");
+      return "error";
+    }
+  };
 
 const Checkout = () => {
-  const { user, cart, clearCart } = useOutletContext();
+  const { user, clearCart, cart } = useOutletContext();
+
+  const result = useActionData();
+  if (result === "success") {
+    clearCart();
+    return <Navigate to="/orders" />;
+  } else if (result === "error") {
+    return <Navigate to="/cart" />;
+  }
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace={true} />;
   }
 
   if (cart?.items?.length === 0) {
@@ -57,7 +63,7 @@ const Checkout = () => {
         <div className="lg:col-span-4 lg:pl-4">
           <CartTotal cart={cart} />
           <Button asChild variant="outline" className="grid">
-            <Link to="/cart" className="mt-2 text-primary tracking-wide">
+            <Link to="/cart" className="mt-3 text-primary tracking-wide">
               Back to Cart
             </Link>
           </Button>
@@ -66,62 +72,100 @@ const Checkout = () => {
           <div>
             <h1 className="font-semibold">Delivery Address</h1>
             <Separator className="my-2" />
-            {user.address.map((address) => {
-              return (
-                <div key={address._id} className="px-2 my-1">
-                  <input
-                    type="radio"
-                    id={address.nickname}
-                    name="address"
-                    value={JSON.stringify(address)}
-                    required="required"
-                    className=" align-bottom"
-                  />
-                  <label
-                    htmlFor={address.nickname}
-                    className="ml-2 text-sm align-top"
-                  >
-                    <span className="font-medium">{address.nickname}: </span>
-                    <br></br>
-                    <span className="ml-5">{`${address.add1}, ${address.add2}, ${address.location}, ${address.pin}`}</span>
-                  </label>
-                </div>
-              );
-            })}
+            {user.address.length < 1 && (
+              <div className="grid place-items-center">
+                <Button variant="outline" asChild>
+                  <Link to="/address-book" className="mt-2 text-primary">
+                    Add an address
+                  </Link>
+                </Button>
+              </div>
+            )}
+            {user.address.length > 0 &&
+              user.address.map((address) => {
+                return (
+                  <div key={address._id} className="px-2 my-1">
+                    <input
+                      type="radio"
+                      id={address.nickname}
+                      name="address"
+                      value={JSON.stringify(address)}
+                      required="required"
+                      className=" align-bottom"
+                    />
+                    <label
+                      htmlFor={address.nickname}
+                      className="ml-2 text-sm align-top"
+                    >
+                      <span className="font-medium">{address.nickname}: </span>
+                      <br></br>
+                      <span className="ml-5">{`${address.add1}, ${address.add2}, ${address.location}, ${address.pin}`}</span>
+                    </label>
+                  </div>
+                );
+              })}
           </div>
           <div className="mt-2">
             <h1 className="font-semibold">Payment Method</h1>
             <Separator className="my-2" />
-            {user.payments.map((payment) => {
-              return (
-                <div key={payment._id} className="px-2 my-1">
-                  <input
-                    type="radio"
-                    id={payment.nickname}
-                    name="payment"
-                    value={JSON.stringify(payment)}
-                    required="required"
-                    className=" align-bottom"
-                  />
-                  <label
-                    htmlFor={payment.nickname}
-                    className="ml-2 text-sm align-top"
-                  >
-                    <span className="font-medium">Card Number: </span>
-                    {`${"*".repeat(12)}${payment.number.toString().slice(12)}`}
-                    <br></br>
-                    <span className="font-medium ml-5">Expiry: </span>
-                    {payment.expiryMonth} / {payment.expiryYear}
-                  </label>
-                </div>
-              );
-            })}
+            {user.payments.length < 1 && (
+              <div className="grid place-items-center">
+                <Button variant="outline" asChild>
+                  <Link to="/payment-methods" className="mt-2 text-primary">
+                    Add a payment
+                  </Link>
+                </Button>
+              </div>
+            )}
+            {user.payments.length > 0 &&
+              user.payments.map((payment) => {
+                return (
+                  <div key={payment._id} className="px-2 my-1">
+                    <input
+                      type="radio"
+                      id={payment.nickname}
+                      name="payment"
+                      value={JSON.stringify(payment)}
+                      required="required"
+                      className=" align-bottom"
+                    />
+                    <label
+                      htmlFor={payment.nickname}
+                      className="ml-2 text-sm align-top"
+                    >
+                      <span className="font-medium">Card Number: </span>
+                      {`${"*".repeat(12)}${payment.number
+                        .toString()
+                        .slice(12)}`}
+                      <br></br>
+                      <span className="font-medium ml-5">Expiry: </span>
+                      {payment.expiryMonth} / {payment.expiryYear}
+                    </label>
+                  </div>
+                );
+              })}
           </div>
-          <Separator className="my-1" />
+          <Separator className="my-4" />
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button type="submit" className="mt-2">
-            Place Order
-          </Button>
+          {user.address.length < 1 || user.payments.length < 1 ? (
+            <Button
+              disabled
+              variant="outline"
+              className="text-destructive font-semibold"
+            >
+              Please add{" "}
+              {user.address.length < 1 && user.payments.length < 1
+                ? "an address & payment"
+                : user.address.length < 1
+                ? "an address"
+                : "a payment"}{" "}
+              to place order
+            </Button>
+          ) : (
+            <Button type="submit" className="mt-1">
+              Place Order
+            </Button>
+          )}
         </Form>
       </div>
     </div>

@@ -1,21 +1,31 @@
-import {
-  Outlet,
-  useLoaderData,
-  useNavigate,
-  useNavigation,
-} from "react-router-dom";
+import { Outlet, useNavigate, useNavigation } from "react-router-dom";
 import { useState, createContext, useContext, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import fetchData from "@/utils/fetchData";
 import { Loading, Navbar } from "@/components";
 
-export const homeLoader = async () => {
-  try {
+const maxDiscountQuery = {
+  queryKey: ["maxDiscount"],
+  queryFn: async () => {
+    const { data } = await fetchData.get("/products/max-discount");
+    return data;
+  },
+};
+
+const userQuery = {
+  queryKey: ["user"],
+  queryFn: async () => {
     const { data } = await fetchData.get("/users/current-user");
-    const { user } = data;
-    const response1 = await fetchData.get("/products/max-discount");
-    const maxDiscount = response1.data.products;
-    return { user, maxDiscount };
+    return data;
+  },
+};
+
+export const homeLoader = (queryClient) => async () => {
+  try {
+    const userData = await queryClient.ensureQueryData(userQuery);
+    const maxDiscountData = await queryClient.ensureQueryData(maxDiscountQuery);
+    return null;
   } catch (error) {
     return error;
   }
@@ -33,8 +43,10 @@ export const baseCart = {
   total: 0,
 };
 
-const Home = () => {
-  const { user, maxDiscount } = useLoaderData();
+const Home = ({ queryClient }) => {
+  const { user } = useQuery(userQuery).data;
+  const maxDiscountProducts = useQuery(maxDiscountQuery).data.products;
+
   const [cart, setCart] = useState(
     localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
@@ -47,7 +59,8 @@ const Home = () => {
 
   const logout = async () => {
     await fetchData.post("/logout");
-    navigate(0);
+    queryClient.invalidateQueries();
+    navigate("/");
     toast.success("Logging out...");
   };
 
@@ -97,7 +110,7 @@ const Home = () => {
 
   const clearCart = () => {
     setCart(baseCart);
-    toast.success(`Cart cleared successfully`);
+    toast.success(`Cart cleared`);
   };
 
   const calculateCartTotals = (cart) => {
@@ -128,7 +141,7 @@ const Home = () => {
   }, []);
 
   return (
-    <HomeContext.Provider value={{ logout, cart }}>
+    <HomeContext.Provider value={{ user, logout, cart }}>
       <Navbar />
       {isLoading ? (
         <Loading />
@@ -136,7 +149,7 @@ const Home = () => {
         <Outlet
           context={{
             user,
-            maxDiscount,
+            maxDiscountProducts,
             addItem,
             editItem,
             removeItem,

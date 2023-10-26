@@ -11,34 +11,37 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import fetchData from "@/utils/fetchData";
 
-export const profileAction = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
+export const profileAction =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
 
-  if (data.newPassword === data.password) {
-    toast.error("New and old password cannot be same");
-    return null;
-  }
+    if (data.newPassword === data.password) {
+      toast.error("New and old password cannot be same");
+      return null;
+    }
 
-  if (data.newPassword !== data.repeatNewPassword) {
-    toast.error("New and repeat password do not match");
-    return null;
-  }
+    if (data.newPassword !== data.repeatNewPassword) {
+      toast.error("New and repeat password do not match");
+      return null;
+    }
 
-  if (data.image?.size > 500000) {
-    toast.error("Image size is over 0.5 MB");
-    return null;
-  }
+    if (data.image?.size > 500000) {
+      toast.error("Image size is over 0.5 MB");
+      return null;
+    }
 
-  try {
-    await fetchData.patch(`/users/update-user`, formData);
-    toast.success(`Profile updated successfully`);
-    return redirect("/profile");
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
-    return null;
-  }
-};
+    try {
+      await fetchData.patch(`/users/update-user`, formData);
+      queryClient.invalidateQueries();
+      toast.success(`Profile updated successfully`);
+      return redirect("/profile");
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+      return null;
+    }
+  };
 
 const Profile = () => {
   const { user } = useOutletContext();
@@ -47,7 +50,7 @@ const Profile = () => {
 
   if (!user) {
     toast.error("You are not logged in");
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace={true} />;
   }
 
   const { firstName, lastName, email, phone } = user;

@@ -1,17 +1,15 @@
-import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 
-const PageButtons = () => {
-  const { numPages, currentPage } = useLoaderData();
-  const pages = Array.from({ length: numPages }, (_, index) => index + 1);
-
+const PageButtons = ({ numPages, currentPage }) => {
   const { search, pathname } = useLocation();
   const navigate = useNavigate();
 
   const pageChange = (page) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("pageNo", page);
+    console.log(searchParams.toString());
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 

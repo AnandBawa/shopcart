@@ -1,4 +1,4 @@
-import { NavLink, Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import { Logo } from ".";
@@ -8,8 +8,7 @@ import ThemeToggle from "./ThemeToggle";
 import { useHomeContext } from "@/pages/Home";
 
 const Navbar = () => {
-  const { user } = useLoaderData();
-  const { cart } = useHomeContext();
+  const { user, cart } = useHomeContext();
 
   const { totalQuantity } = cart;
 
@@ -26,21 +25,21 @@ const Navbar = () => {
               asChild
               className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
             >
-              <NavLink to="/">Home</NavLink>
+              <Link to="/">Home</Link>
             </Button>
             <Button
               variant="ghost"
               asChild
               className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
             >
-              <NavLink to="/products">Products</NavLink>
+              <Link to="/products">Products</Link>
             </Button>
             <Button
               variant="ghost"
               asChild
               className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
             >
-              <NavLink to="/about">About</NavLink>
+              <Link to="/about">About</Link>
             </Button>
           </div>
         </div>
@@ -55,11 +54,11 @@ const Navbar = () => {
                 asChild
                 className="text-base transition-all ease-in hover:scale-105 hover:text-primary"
               >
-                <NavLink to="/orders">Orders</NavLink>
+                <Link to="/orders">Orders</Link>
               </Button>
             </div>
           )}
-          <NavLink to="/cart">
+          <Link to="/cart">
             <Button
               variant="ghost"
               className="px-1 transition-all ease-in hover:scale-105 hover:text-primary relative"
@@ -71,7 +70,7 @@ const Navbar = () => {
                 </h1>
               )}
             </Button>
-          </NavLink>
+          </Link>
           <ThemeToggle />
           <div className="hidden md:flex">
             <AccountDropdown />
