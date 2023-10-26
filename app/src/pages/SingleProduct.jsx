@@ -64,7 +64,6 @@ export const singleProductAction =
         await fetchData.post(`/products/${params.id}/reviews`, data);
         queryClient.invalidateQueries({
           queryKey: ["singleProduct", params.id],
-          exact: true,
         });
         toast.success(`Review added successfully`);
       } catch (error) {
@@ -79,7 +78,6 @@ export const singleProductAction =
         await fetchData.patch(`/products/${params.id}/reviews/${id}`, data);
         queryClient.invalidateQueries({
           queryKey: ["singleProduct", params.id],
-          exact: true,
         });
         toast.success(`Review updated`);
       } catch (error) {
@@ -92,7 +90,6 @@ export const singleProductAction =
         await fetchData.delete(`/products/${params.id}/reviews/${id}`, data);
         queryClient.invalidateQueries({
           queryKey: ["singleProduct", params.id],
-          exact: true,
         });
         toast.success(`Review deleted`);
       } catch (error) {

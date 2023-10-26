@@ -45,7 +45,7 @@ export const paymentAction =
       delete data.id;
       try {
         await fetchData.post(`/users/payment-method`, data);
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries({ queryKey: ["user"] });
         toast.success(`Payment added successfully`);
       } catch (error) {
         toast.error(error?.response?.data?.msg);
@@ -58,7 +58,7 @@ export const paymentAction =
       delete data.id;
       try {
         await fetchData.patch(`/users/payment-method/${id}`, data);
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries({ queryKey: ["user"] });
         toast.success(`Payment method edited successfully`);
       } catch (error) {
         toast.error(error?.response?.data?.msg);
@@ -68,7 +68,7 @@ export const paymentAction =
     if (action === "delete") {
       try {
         await fetchData.delete(`/users/payment-method/${id}`);
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries({ queryKey: ["user"] });
         toast.success(`Payment method deleted`);
       } catch (error) {
         toast.error(error?.response?.data?.msg);

@@ -38,7 +38,7 @@ export const addressAction =
       delete data.id;
       try {
         await fetchData.post(`/users/address-book`, data);
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries({ queryKey: ["user"] });
         toast.success(`Address added successfully`);
       } catch (error) {
         toast.error(error?.response?.data?.msg);
@@ -51,7 +51,7 @@ export const addressAction =
       delete data.id;
       try {
         await fetchData.patch(`/users/address-book/${id}`, data);
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries({ queryKey: ["user"] });
         toast.success(`Address edited successfully`);
       } catch (error) {
         toast.error(error?.response?.data?.msg);
@@ -62,7 +62,7 @@ export const addressAction =
     if (action === "delete") {
       try {
         await fetchData.delete(`/users/address-book/${id}`);
-        queryClient.invalidateQueries("user");
+        queryClient.invalidateQueries({ queryKey: ["user"] });
         toast.success(`Address deleted`);
       } catch (error) {
         toast.error(error?.response?.data?.msg);
