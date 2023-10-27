@@ -52,6 +52,8 @@ const Home = ({ queryClient }) => {
   const { user } = useQuery(userQuery).data;
   const maxDiscountProducts = useQuery(maxDiscountQuery).data.products;
 
+  console.log(user);
+
   // useState hook to create and set the cart
   const [cart, setCart] = useState(
     localStorage.getItem("cart")
