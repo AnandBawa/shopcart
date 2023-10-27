@@ -7,10 +7,11 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import cloudinary from "cloudinary";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
 import { Strategy as LocalStrategy } from "passport-local";
 import { localAuthStrategy } from "./utils/passportConfig.js";
-import path from "path";
-import { dirname } from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
 // Routers
@@ -99,6 +100,9 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
+app.use(helmet());
+app.use(mongoSanitize());
 
 // Routes
 app.use("/api/v1", authRouter);

@@ -19,7 +19,7 @@ export const checkoutAction =
     try {
       await fetchData.post(`/orders`, parsedData);
       queryClient.invalidateQueries({ queryKey: ["orders"] });
-      toast.success(`Order placed successfully`);
+      toast.success(`Order placed successfully`, { delay: 2000 });
       return "success";
     } catch (error) {
       toast.error("There was an error. Please try again");

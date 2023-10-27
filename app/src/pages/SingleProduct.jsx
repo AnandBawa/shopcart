@@ -249,7 +249,12 @@ const SingleProduct = () => {
       </section>
       <Separator className="mt-1 lg:mt-2" />
       <SimilarProducts similarProducts={similarProducts} />
-      <Reviews reviews={reviews} hasOrdered={hasOrdered} />
+      <Reviews
+        key={reviews}
+        id={reviews}
+        reviews={reviews}
+        hasOrdered={hasOrdered}
+      />
     </div>
   );
 };
