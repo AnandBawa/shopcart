@@ -82,6 +82,7 @@ if (process.env.NODE_ENV === "development") {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.resolve(__dirname, "../app/dist")));
 
+app.set("trust proxy", 1);
 app.use(express.json());
 app.use(session(sessionConfig));
 
@@ -101,22 +102,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-// app.use(
-//   helmet({
-//     contentSecurityPolicy: {
-//       directives: {
-//         "script-src": ["'self'"],
-//         "style-src": ["'self'"],
-//         imgSrc: [
-//           "'self'",
-//           "blob:",
-//           "data:",
-//           "https://res.cloudinary.com/dvw2f3vre/",
-//         ],
-//       },
-//     },
-//   })
-// );
+app.use(helmet());
 app.use(mongoSanitize());
 
 // Routes
