@@ -18,7 +18,7 @@ const maxDiscountQuery = {
 const userQuery = {
   queryKey: ["user"],
   queryFn: async () => {
-    const { data } = await fetchData.get("/users/current-user");
+    const data = await fetchData.get("/users/current-user");
     console.log(data);
     return data;
   },
@@ -52,9 +52,6 @@ const Home = ({ queryClient }) => {
   // always check the login state and get current user details
   const { user } = useQuery(userQuery).data;
   const maxDiscountProducts = useQuery(maxDiscountQuery).data.products;
-
-  console.log(user);
-  console.log(maxDiscountProducts);
 
   // useState hook to create and set the cart
   const [cart, setCart] = useState(

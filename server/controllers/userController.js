@@ -6,13 +6,14 @@ import { formatImage } from "../middleware/multerMiddleware.js";
 
 // Get current logged-in user details, send null if no user is logged-in
 export const getCurrentUser = (req, res) => {
+  console.log("from getCurrentUser");
+  console.log(req.user);
   let user = null;
 
   if (req.user) {
     user = { ...req.user._doc };
     delete user.password;
   }
-  console.log(user);
   res.status(StatusCodes.OK).json({ user: user });
 };
 
