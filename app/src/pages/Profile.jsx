@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import fetchData from "@/lib/fetchData";
 
+// React Router action to update user data based on form submission
 export const profileAction =
   (queryClient) =>
   async ({ request }) => {
@@ -45,9 +46,12 @@ export const profileAction =
 
 const Profile = () => {
   const { user } = useOutletContext();
+
+  // useNavigation hook to disable buttons when form is being submitted
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
+  // redirect if page is accessed without login
   if (!user) {
     toast.error("You are not logged in");
     return <Navigate to="/" replace={true} />;

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLoaderData } from "react-router-dom";
-import { SearchProducts, ProductsGrid } from "@/components";
-import SectionTitle from "@/components/SectionTitle";
+import { SearchProducts, ProductsGrid, SectionTitle } from "@/components";
 import fetchData from "@/lib/fetchData";
 
+// React Query object to fetch products based on search params
 const productsQuery = (params) => {
   const { search, category, subcategory, sort, minPrice, maxPrice, pageNo } =
     params;
@@ -25,6 +25,7 @@ const productsQuery = (params) => {
   };
 };
 
+// React Router loader to get products based on search query and caching using React Query
 export const productsLoader =
   (queryClient) =>
   async ({ request }) => {

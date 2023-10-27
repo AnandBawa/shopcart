@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { SectionTitle, CartItems, CartTotal } from "@/components";
 
 const ShoppingCart = () => {
+  const { user, cart, clearCart } = useOutletContext();
+
+  // use the location hook to save the current URL path that is passed on to Login page. When the user logs in, they are redirected to the page they were on before the login
   const location = useLocation();
   const pathname = location.pathname;
   const search = location.search;
-  const { user, cart, clearCart } = useOutletContext();
 
   if (cart?.items?.length === 0) {
     return (

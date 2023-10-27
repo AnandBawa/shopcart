@@ -6,10 +6,11 @@ import {
 } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { SectionTitle, CartItems, CartTotal, OrderDetails } from "@/components";
 import { Button } from "@/components/ui/button";
+import { SectionTitle, CartItems, CartTotal, OrderDetails } from "@/components";
 import fetchData from "@/lib/fetchData";
 
+// React Query object to fetch order details
 const singleOrderQuery = (id) => {
   return {
     queryKey: ["singleOrder", id],
@@ -20,6 +21,7 @@ const singleOrderQuery = (id) => {
   };
 };
 
+// React Router loader to load order details and caching using React Query
 export const singleOrderLoader =
   (queryClient) =>
   async ({ params }) => {
@@ -35,8 +37,10 @@ export const singleOrderLoader =
   };
 
 const SingleOrder = () => {
+  // useLocation hook to get the order ID from URL
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+
   const { user } = useOutletContext();
 
   if (!user) {

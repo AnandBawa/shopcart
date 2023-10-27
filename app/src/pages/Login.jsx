@@ -8,8 +8,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -21,6 +21,7 @@ import {
 import { FormInput, Logo } from "@/components";
 import fetchData from "@/lib/fetchData";
 
+// React Router action to login the user on login form submission
 export const loginAction =
   (queryClient) =>
   async ({ request }) => {
@@ -41,12 +42,17 @@ export const loginAction =
   };
 
 const Login = () => {
+  // use the useLocation hook to get previous page or default to homepage and pass it to login action as hidden input to redirect to after login
   const location = useLocation();
   const redirectTo = location.state?.from || "/";
+
   const { user } = useOutletContext();
+
+  // useNavigation hook to disable buttons when form is being submitted
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
+  // disable login page access if user is logged in and redirect to home page
   if (user) {
     toast.error("You are already logged in");
     return <Navigate to="/" replace={true} />;

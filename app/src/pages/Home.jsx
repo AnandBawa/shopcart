@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Loading, Navbar } from "@/components";
 import fetchData from "@/lib/fetchData";
 
+// React Query object to fetch top-discounted products
 const maxDiscountQuery = {
   queryKey: ["maxDiscount"],
   queryFn: async () => {
@@ -13,6 +14,7 @@ const maxDiscountQuery = {
   },
 };
 
+// React Query object to fetch current user
 const userQuery = {
   queryKey: ["user"],
   queryFn: async () => {
@@ -21,6 +23,7 @@ const userQuery = {
   },
 };
 
+// React Router loader to load current user and top-discounted products for landing page use and caching using React Query
 export const homeLoader = (queryClient) => async () => {
   try {
     const userData = await queryClient.ensureQueryData(userQuery);
@@ -33,6 +36,7 @@ export const homeLoader = (queryClient) => async () => {
 
 const HomeContext = createContext();
 
+// an empty cart object
 export const baseCart = {
   items: [],
   totalQuantity: 0,
@@ -44,19 +48,25 @@ export const baseCart = {
 };
 
 const Home = ({ queryClient }) => {
+  // always check the login state and get current user details
   const { user } = useQuery(userQuery).data;
   const maxDiscountProducts = useQuery(maxDiscountQuery).data.products;
 
+  // useState hook to create and set the cart
   const [cart, setCart] = useState(
     localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : baseCart
   );
 
+  // useNavigate hook to navigate pages
   const navigate = useNavigate();
+
+  // useNavigation hook to display the loading animation when navigating pages
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
 
+  // logout function
   const logout = async () => {
     await fetchData.post("/logout");
     queryClient.invalidateQueries();
@@ -64,6 +74,7 @@ const Home = ({ queryClient }) => {
     toast.success("Logging out...");
   };
 
+  // add product to cart
   const addItem = (product, quantity) => {
     const updatedCart = { ...cart };
     const checkItemInCart = updatedCart.items.find(
@@ -85,6 +96,7 @@ const Home = ({ queryClient }) => {
     toast.success(`${quantity} unit${quantity > 1 ? "s" : ""} added to cart`);
   };
 
+  // update product quantity
   const editItem = (id, quantity) => {
     const updatedCart = { ...cart };
     updatedCart.items = updatedCart.items.map((cartItem) =>
@@ -99,6 +111,7 @@ const Home = ({ queryClient }) => {
     toast.success(`Quantity updated`);
   };
 
+  // remove product from cart
   const removeItem = (id) => {
     const updatedCart = { ...cart };
     updatedCart.items = updatedCart.items.filter(
@@ -108,11 +121,13 @@ const Home = ({ queryClient }) => {
     toast.success(`Product removed from cart`);
   };
 
+  // clear cart
   const clearCart = () => {
     setCart(baseCart);
     toast.success(`Cart cleared`);
   };
 
+  // calculate totals based on the current products in cart
   const calculateCartTotals = (cart) => {
     const updatedCart = { ...cart };
     updatedCart.totalQuantity = updatedCart.items.reduce(
@@ -129,10 +144,12 @@ const Home = ({ queryClient }) => {
     setCart({ ...updatedCart });
   };
 
+  // save the cart object to local storage on change
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
+  // useEffect hook to load the cart from storage on initial load
   useEffect(() => {
     const cart = localStorage.getItem("cart");
     if (cart) {
@@ -143,6 +160,7 @@ const Home = ({ queryClient }) => {
   return (
     <HomeContext.Provider value={{ user, logout, cart }}>
       <Navbar />
+      {/* display loading animation or pages based on router state */}
       {isLoading ? (
         <Loading />
       ) : (

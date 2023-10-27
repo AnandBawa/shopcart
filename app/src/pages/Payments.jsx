@@ -1,8 +1,9 @@
 import { Form, useOutletContext, redirect, Navigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { toast } from "react-toastify";
-import SectionTitle from "@/components/SectionTitle";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
@@ -29,10 +30,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { SectionTitle } from "@/components";
 import fetchData from "@/lib/fetchData";
 
+// React Router action to handle adding, editing or deleting payment methods
 export const paymentAction =
   (queryClient) =>
   async ({ request }) => {
@@ -80,6 +81,7 @@ export const paymentAction =
 const Payments = () => {
   const { user } = useOutletContext();
 
+  // redirect if page is accessed without login
   if (!user) {
     toast.error("You are not logged in");
     return <Navigate to="/" replace={true} />;

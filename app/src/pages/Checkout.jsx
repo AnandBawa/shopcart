@@ -11,7 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { SectionTitle, CartTotal } from "@/components";
 import fetchData from "@/lib/fetchData";
 
-// React Router action to place an order at checkout page
+// React Router action to place an order at checkout page form submission
 export const checkoutAction =
   (queryClient) =>
   async ({ request }) => {
@@ -25,7 +25,7 @@ export const checkoutAction =
     try {
       await fetchData.post(`/orders`, parsedData);
       queryClient.invalidateQueries({ queryKey: ["orders"] });
-      toast.success(`Order placed successfully`, { delay: 2000 });
+      toast.success(`Order placed successfully`, { delay: 1000 });
       return "success";
     } catch (error) {
       toast.error("There was an error. Please try again");

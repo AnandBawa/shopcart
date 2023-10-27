@@ -25,6 +25,11 @@ import { useHomeContext } from "@/pages/Home";
 const AccountDropdown = () => {
   const { user, logout } = useHomeContext();
 
+  // useLocation hook to save the current URL path that is passed as "from" entry in location.state to Login page. When the user logs in, they are redirected to this "from" page they were on before the login
+  const location = useLocation();
+  const pathname = location.pathname;
+  const search = location.search;
+
   // display the dropdown only is user is logged in
   if (user) {
     return (
@@ -89,11 +94,6 @@ const AccountDropdown = () => {
       </DropdownMenu>
     );
   }
-
-  // useLocation hook to save the current URL path that is passed on to Login page. When the user logs in, they are redirected to the page they were on before the login
-  const location = useLocation();
-  const pathname = location.pathname;
-  const search = location.search;
 
   // if no user is logged in, display a login button
   return (

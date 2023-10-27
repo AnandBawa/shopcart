@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components";
 import fetchData from "@/lib/fetchData";
 
+// React Query object to fetch all orders of current logged-in user
 const ordersQuery = {
   queryKey: ["orders"],
   queryFn: async () => {
@@ -15,6 +16,7 @@ const ordersQuery = {
   },
 };
 
+// React Router loader to load all orders and caching using React Query
 export const ordersLoader = (queryClient) => async () => {
   try {
     const ordersData = await queryClient.ensureQueryData(ordersQuery);
@@ -28,6 +30,7 @@ export const ordersLoader = (queryClient) => async () => {
 const Orders = () => {
   const { user } = useOutletContext();
 
+  // redirect if page is accessed without login
   if (!user) {
     toast.error("You are not logged in");
     return <Navigate to="/" replace={true} />;

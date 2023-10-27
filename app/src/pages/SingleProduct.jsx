@@ -7,13 +7,14 @@ import {
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import fetchData from "@/lib/fetchData";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Reviews, SimilarProducts } from "@/components";
 import { generateSelectOptions } from "@/lib/generateSelectOptions";
+import fetchData from "@/lib/fetchData";
 
+// React Query object to fetch product details
 const singleProductQuery = (id) => {
   return {
     queryKey: ["singleProduct", id],
@@ -24,6 +25,7 @@ const singleProductQuery = (id) => {
   };
 };
 
+// React Query object to fetch similar products
 const similarProductsQuery = (subcategory) => {
   return {
     queryKey: ["similarProducts", subcategory],
@@ -36,6 +38,7 @@ const similarProductsQuery = (subcategory) => {
   };
 };
 
+// React Router loader to load product details and fetch similar products for products scroll and caching using React Query
 export const singleProductLoader =
   (queryClient) =>
   async ({ params }) => {
@@ -54,6 +57,7 @@ export const singleProductLoader =
     }
   };
 
+// React Router action to handle adding, editing or deleting review for product
 export const singleProductAction =
   (queryClient) =>
   async ({ request, params }) => {
@@ -104,12 +108,15 @@ export const singleProductAction =
   };
 
 const SingleProduct = () => {
+  // useLocation hook to get the order ID from URL
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+
   const { product, hasOrdered } = useQuery(singleProductQuery(id)).data;
   const { products: similarProducts } = useQuery(
     similarProductsQuery(product.subcategory)
   ).data;
+
   const {
     _id,
     reviews,
@@ -131,12 +138,14 @@ const SingleProduct = () => {
 
   const { addItem } = useOutletContext();
 
+  // useState hook to save the quantity from select input which will be submitted when clicked on Add to Cart button
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantity = (e) => {
     setQuantity(parseInt(e.target.value));
   };
 
+  // add product and quantity to cart
   const handleClick = () => {
     addItem(product, quantity);
   };

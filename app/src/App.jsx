@@ -18,7 +18,7 @@ import {
   SingleOrder,
   SingleProduct,
 } from "./pages";
-import { ErrorComponent } from "./components";
+import { ErrorComponent } from "@/components";
 
 // Loaders
 import { homeLoader } from "./pages/Home";
@@ -36,6 +36,7 @@ import { profileAction } from "./pages/Profile";
 import { checkoutAction } from "./pages/Checkout";
 import { singleProductAction } from "./pages/SingleProduct";
 
+// default React Query Client with stale time of 5 mins
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -118,7 +119,7 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
-        action: registerAction,
+        action: registerAction(queryClient),
       },
     ],
   },

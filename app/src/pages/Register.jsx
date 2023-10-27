@@ -19,24 +19,31 @@ import {
 import { FormInput, Logo } from "@/components";
 import fetchData from "@/lib/fetchData";
 
-export const registerAction = async ({ request }) => {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  const errors = { msg: "" };
+// React Router action to register the user on form submission
+export const registerAction =
+  (queryClient) =>
+  async ({ request }) => {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    const errors = { msg: "" };
 
-  try {
-    const response = await fetchData.post("/register", data);
-    toast.success("Account registered successfully");
-    toast.success(response?.data?.msg, { delay: 2000 });
-    return redirect("/");
-  } catch (error) {
-    errors.msg = error?.response?.data?.msg;
-    return errors;
-  }
-};
+    try {
+      const response = await fetchData.post("/register", data);
+      queryClient.invalidateQueries();
+      toast.success("Account registered successfully");
+      toast.success(response?.data?.msg, { delay: 2000 });
+      return redirect("/");
+    } catch (error) {
+      errors.msg = error?.response?.data?.msg;
+      return errors;
+    }
+  };
 
 const Register = () => {
+  // useActionData hook to get error messages from server on input validation failure
   const errors = useActionData();
+
+  // useNavigation hook to disable buttons when form is being submitted
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 

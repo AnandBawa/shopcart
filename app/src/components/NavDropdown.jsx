@@ -120,9 +120,3 @@ const NavDropdown = () => {
 };
 
 export default NavDropdown;
-
-{
-  /* <Button variant="ghost">
-  <Menu />
-</Button>; */
-}
