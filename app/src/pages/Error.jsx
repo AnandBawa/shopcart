@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import img404 from "../assets/images/404.svg";
 import imgError from "../assets/images/error.svg";
 
+// Global Error Page that shows if its a 404 error or other errors
 const Error = () => {
   const error = useRouteError();
 
@@ -36,7 +37,7 @@ const Error = () => {
         <img
           src={imgError}
           style={{ width: "90vw", maxWidth: "600px" }}
-          alt="404"
+          alt="Error"
         />
         <h1 className="mt-6 text-2xl tracking-tight sm:text-4xl">
           There was an error...

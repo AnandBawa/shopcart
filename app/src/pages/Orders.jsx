@@ -5,7 +5,7 @@ import day from "dayjs";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components";
-import fetchData from "@/utils/fetchData";
+import fetchData from "@/lib/fetchData";
 
 const ordersQuery = {
   queryKey: ["orders"],

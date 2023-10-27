@@ -2,16 +2,19 @@ import { useState } from "react";
 import { Form, useOutletContext } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 import day from "dayjs";
-import { SectionTitle } from ".";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { SectionTitle } from "@/components";
 
+// Reviews component for each product page where user can review the product if they have order it before and display all other user reviews
 const Reviews = ({ reviews, hasOrdered }) => {
   const { user } = useOutletContext();
   let otherReviews = reviews ? [...reviews] : [];
   let hasReviewed = null;
   let userReviewDate = null;
+
+  // find if logged-in user has reviewed the product
   if (reviews && user) {
     otherReviews = reviews.filter((review) => review.author._id !== user._id);
     hasReviewed = reviews.find((review) => review.author._id === user._id);
@@ -19,8 +22,9 @@ const Reviews = ({ reviews, hasOrdered }) => {
       userReviewDate = day(hasReviewed.updatedAt).format("DD/MMM/YYYY");
     }
   }
-  const [ratingValue, setRatingValue] = useState(hasReviewed?.rating || 0);
 
+  // useState to handle user star rating
+  const [ratingValue, setRatingValue] = useState(hasReviewed?.rating || 0);
   const handleRating = (rate) => {
     setRatingValue(rate);
   };
@@ -28,6 +32,7 @@ const Reviews = ({ reviews, hasOrdered }) => {
   return (
     <div className="pt-4 lg:pt-8">
       <SectionTitle text="Reviews" />
+      {/* display user review or review form if user has ordered the product */}
       {hasOrdered && (
         <div className="mt-4 grid w-full gap-3">
           <Form method="post">
@@ -87,6 +92,7 @@ const Reviews = ({ reviews, hasOrdered }) => {
           </Form>
         </div>
       )}
+      {/* display all reviews */}
       <div className="mt-4">
         <Label htmlFor="reviews" className="text-base tracking-wide">
           User Reviews

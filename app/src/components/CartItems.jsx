@@ -1,10 +1,12 @@
 import { useOutletContext, Link } from "react-router-dom";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
-import { generateSelectOptions } from "@/utils/utils";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { generateSelectOptions } from "@/lib/generateSelectOptions";
 
+// display cart items when in the current cart or the cart items of an existing order
 const CartItems = ({ cart, isOrder }) => {
   const { editItem, removeItem } = useOutletContext();
+
   return (
     <div>
       {cart.items.map((cartItem) => {

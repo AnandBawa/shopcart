@@ -5,11 +5,11 @@ import {
   redirect,
   useOutletContext,
 } from "react-router-dom";
-import { FormRow, SectionTitle } from "@/components";
+import { FormInput, SectionTitle } from "@/components";
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import fetchData from "@/utils/fetchData";
+import fetchData from "@/lib/fetchData";
 
 export const profileAction =
   (queryClient) =>
@@ -60,43 +60,43 @@ const Profile = () => {
       <SectionTitle text="Profile" />
       <Form method="post" className="mt-4" encType="multipart/form-data">
         <div className="p-4 grid md:grid-cols-2 xl:grid-cols-3 gap-4 bg-secondary rounded-xl">
-          <FormRow
+          <FormInput
             type="text"
             name="firstName"
             label="First Name"
             defaultValue={firstName}
           />
-          <FormRow
+          <FormInput
             type="text"
             name="lastName"
             label="Last Name"
             defaultValue={lastName}
           />
-          <FormRow
+          <FormInput
             type="email"
             name="email"
             label="Email"
             defaultValue={email}
           />
-          <FormRow
+          <FormInput
             type="text"
             name="phone"
             label="Phone Number"
             defaultValue={phone}
           />
-          <FormRow type="password" name="newPassword" label="New Password" />
-          <FormRow
+          <FormInput type="password" name="newPassword" label="New Password" />
+          <FormInput
             type="password"
             name="repeatNewPassword"
             label="Repeat New Password"
           />
-          <FormRow
+          <FormInput
             type="file"
             name="image"
             accept="image/*"
             label="Update Avatar (Max Size: 0.5 MB)"
           />
-          <FormRow
+          <FormInput
             type="password"
             name="password"
             label="Current Password *"

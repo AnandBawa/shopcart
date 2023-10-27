@@ -2,16 +2,18 @@ import { useRouteError, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import imgError from "../assets/images/error.svg";
 
-const ErrorElement = () => {
+// individual page Error component
+const ErrorComponent = () => {
   const error = useRouteError();
   console.log(error);
+
   return (
     <main className="grid min-h-[90vh] place-items-center">
       <div className="text-center">
         <img
           src={imgError}
           style={{ width: "90vw", maxWidth: "600px" }}
-          alt="404"
+          alt="Error"
         />
         <h1 className="mt-6 text-2xl tracking-tight sm:text-4xl">
           There was an error...
@@ -28,4 +30,4 @@ const ErrorElement = () => {
   );
 };
 
-export default ErrorElement;
+export default ErrorComponent;

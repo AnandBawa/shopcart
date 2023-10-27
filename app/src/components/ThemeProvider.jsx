@@ -2,9 +2,9 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeProviderContext = createContext();
 
+// function to check default dark mode based on user system settings or previous stored settings
 export const checkDefaultTheme = () => {
   const storedDarkMode = localStorage.getItem("darkTheme");
-
   const prefersDarkMode = window.matchMedia(
     "(prefers-color-scheme:dark)"
   ).matches;
@@ -16,6 +16,7 @@ export const checkDefaultTheme = () => {
   return storedDarkMode === "true";
 };
 
+// Theme Provider Context for theme toggle functionality
 const ThemeProvider = ({ children }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(checkDefaultTheme());
 

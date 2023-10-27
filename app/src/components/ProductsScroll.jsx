@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import { Button } from "./ui/button";
-import ProductCard from "./ProductCard";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import ProductCard from "@/components/ProductCard";
 
+// Products Scroll component that render products passed as props
 const ProductsScroll = ({ products }) => {
   const ref = useRef(null);
 
+  // useRef hook to implement scroll on click of scroll buttons
   const scroll = (scrollOffset) => {
     const scrollRef = ref.current.childNodes[1];
     scrollRef.style.scrollBehavior = "smooth";

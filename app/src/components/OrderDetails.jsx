@@ -1,6 +1,7 @@
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
 import day from "dayjs";
 
+// Order Details component that shows order details for each order
 const OrderDetails = ({ order }) => {
   const { _id, address, payment, createdAt } = order;
   const date = day(createdAt).format("DD/MMM/YYYY");

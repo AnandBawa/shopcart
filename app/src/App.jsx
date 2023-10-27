@@ -18,7 +18,7 @@ import {
   SingleOrder,
   SingleProduct,
 } from "./pages";
-import { ErrorElement } from "./components";
+import { ErrorComponent } from "./components";
 
 // Loaders
 import { homeLoader } from "./pages/Home";
@@ -54,12 +54,12 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <LandingPage />,
-        errorElement: <ErrorElement />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: "products",
         element: <Products />,
-        errorElement: <ErrorElement />,
+        errorElement: <ErrorComponent />,
         loader: productsLoader(queryClient),
       },
       {
@@ -75,24 +75,24 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
-        errorElement: <ErrorElement />,
+        errorElement: <ErrorComponent />,
         element: <ShoppingCart />,
       },
       {
         path: "orders",
         element: <Orders />,
-        errorElement: <ErrorElement />,
+        errorElement: <ErrorComponent />,
         loader: ordersLoader(queryClient),
       },
       {
         path: "orders/:id",
         element: <SingleOrder />,
-        errorElement: <ErrorElement />,
+        errorElement: <ErrorComponent />,
         loader: singleOrderLoader(queryClient),
       },
       {
         path: "about",
-        errorElement: <ErrorElement />,
+        errorElement: <ErrorComponent />,
         element: <About />,
       },
       {

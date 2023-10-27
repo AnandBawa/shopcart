@@ -1,5 +1,6 @@
 import logo from "../assets/images/logo.svg";
 
+// Logo component
 const Logo = ({ width = "auto" }) => {
   return (
     <img

@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { SectionTitle, CartItems, CartTotal, OrderDetails } from "@/components";
 import { Button } from "@/components/ui/button";
-import fetchData from "@/utils/fetchData";
+import fetchData from "@/lib/fetchData";
 
 const singleOrderQuery = (id) => {
   return {

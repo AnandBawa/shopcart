@@ -18,8 +18,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FormRow, Logo } from "@/components";
-import fetchData from "@/utils/fetchData";
+import { FormInput, Logo } from "@/components";
+import fetchData from "@/lib/fetchData";
 
 export const loginAction =
   (queryClient) =>
@@ -66,13 +66,13 @@ const Login = () => {
         <Form method="post">
           <CardContent>
             <div className="grid w-full items-center gap-4">
-              <FormRow
+              <FormInput
                 type="text"
                 name="phone"
                 label="Email / Phone Number"
                 required={true}
               />
-              <FormRow
+              <FormInput
                 type="password"
                 name="password"
                 label="Password"

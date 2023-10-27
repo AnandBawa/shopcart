@@ -1,7 +1,8 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const FormRow = ({
+// a label and input tag combine as FormInput component
+const FormInput = ({
   type,
   name,
   label,
@@ -52,4 +53,4 @@ const FormRow = ({
   );
 };
 
-export default FormRow;
+export default FormInput;

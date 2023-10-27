@@ -21,12 +21,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useHomeContext } from "@/pages/Home";
 
+// Account Dropdown component for the Navbar (right-side) with links to pages that can only be accessed when logged in
 const AccountDropdown = () => {
   const { user, logout } = useHomeContext();
-  const location = useLocation();
-  const pathname = location.pathname;
-  const search = location.search;
 
+  // display the dropdown only is user is logged in
   if (user) {
     return (
       <DropdownMenu>
@@ -91,6 +90,12 @@ const AccountDropdown = () => {
     );
   }
 
+  // useLocation hook to save the current URL path that is passed on to Login page. When the user logs in, they are redirected to the page they were on before the login
+  const location = useLocation();
+  const pathname = location.pathname;
+  const search = location.search;
+
+  // if no user is logged in, display a login button
   return (
     <Button asChild>
       <Link to="/login" state={{ from: pathname + search }}>

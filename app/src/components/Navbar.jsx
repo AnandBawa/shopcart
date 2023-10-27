@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
-import { Button } from "./ui/button";
-import { Logo } from ".";
-import AccountDropdown from "./AccountDropdown";
-import NavDropdown from "./NavDropdown";
-import ThemeToggle from "./ThemeToggle";
-import { useHomeContext } from "@/pages/Home";
+import { Button } from "@/components/ui/button";
+import { Logo } from "@/components";
+import AccountDropdown from "@/components/AccountDropdown";
+import NavDropdown from "@/components/NavDropdown";
+import ThemeToggle from "@/components/ThemeToggle";
+import { useHomeContext } from "../pages/Home";
 
+//Main NavBar that is always visible on the top. Changes depending on screen size
 const Navbar = () => {
   const { user, cart } = useHomeContext();
-
   const { totalQuantity } = cart;
 
   return (

@@ -1,6 +1,7 @@
-import ProductCard from "./ProductCard";
-import PageButtons from "./PageButtons";
+import ProductCard from "@/components/ProductCard";
+import PageButtons from "@/components/PageButtons";
 
+// Product Grid component that displays all the products of a search
 const ProductsGrid = ({ products, totalProducts, numPages, currentPage }) => {
   if (products.length === 0) {
     return (

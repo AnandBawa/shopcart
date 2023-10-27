@@ -1,7 +1,7 @@
 export { default as ThemeProvider } from "./ThemeProvider";
-export { default as FormRow } from "./FormRow";
+export { default as FormInput } from "./FormInput";
 export { default as Logo } from "./Logo";
-export { default as ErrorElement } from "./ErrorElement";
+export { default as ErrorComponent } from "./ErrorComponent";
 export { default as Hero } from "./Hero";
 export { default as Navbar } from "./Navbar";
 export { default as MaxDiscount } from "./MaxDiscount";

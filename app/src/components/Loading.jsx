@@ -1,5 +1,6 @@
 import { Loader2 } from "lucide-react";
 
+// global Loading animation component
 const Loading = () => {
   return (
     <div className="min-h-[90vh] grid place-items-center">

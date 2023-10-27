@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import landing from "../assets/images/landing.svg";
-import Logo from "./Logo";
+import Logo from "@/components/Logo";
 
+// Hero component for landing page
 const Hero = () => {
   return (
     <div className="grid lg:grid-cols-2 gap-8 lg:gap-0 items-center p-6">

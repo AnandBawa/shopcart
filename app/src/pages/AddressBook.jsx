@@ -1,7 +1,8 @@
 import { Form, useOutletContext, redirect, Navigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 import { toast } from "react-toastify";
-import SectionTitle from "@/components/SectionTitle";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -22,10 +23,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import fetchData from "@/utils/fetchData";
+import SectionTitle from "@/components/SectionTitle";
+import fetchData from "@/lib/fetchData";
 
+// React Router action to handle adding, editing or deleting addresses
 export const addressAction =
   (queryClient) =>
   async ({ request }) => {
@@ -74,6 +75,7 @@ export const addressAction =
 const AddressBook = () => {
   const { user } = useOutletContext();
 
+  // redirect if page is accessed without login
   if (!user) {
     toast.error("You are not logged in");
     return <Navigate to="/" replace={true} />;

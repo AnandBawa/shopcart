@@ -1,8 +1,8 @@
-import { SearchProducts, ProductsGrid } from "@/components";
-import SectionTitle from "@/components/SectionTitle";
-import fetchData from "@/utils/fetchData";
 import { useQuery } from "@tanstack/react-query";
 import { useLoaderData } from "react-router-dom";
+import { SearchProducts, ProductsGrid } from "@/components";
+import SectionTitle from "@/components/SectionTitle";
+import fetchData from "@/lib/fetchData";
 
 const productsQuery = (params) => {
   const { search, category, subcategory, sort, minPrice, maxPrice, pageNo } =

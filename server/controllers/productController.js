@@ -144,6 +144,7 @@ export const maxDiscountInCategory = async (req, res) => {
   ]);
 
   const products = result.map((product) => product.products[0]);
+  products.sort((a, b) => b.discount - a.discount);
 
   res.status(StatusCodes.OK).json({ products: products });
 };

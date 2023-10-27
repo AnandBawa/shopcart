@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import fetchData from "@/utils/fetchData";
+import fetchData from "@/lib/fetchData";
 
 export const paymentAction =
   (queryClient) =>

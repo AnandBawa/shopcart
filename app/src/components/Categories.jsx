@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import SectionTitle from "./SectionTitle";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-import { Button } from "./ui/button";
-import { SUB_CATEGORY } from "@/lib/constants";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { SUB_CATEGORY } from "../../../server/utils/constants.js";
+import SectionTitle from "@/components/SectionTitle";
 
+// product Category Scroll component for Landing page
 const Categories = () => {
   const ref = useRef(null);
 
+  // useRef hook to implement scroll on click of scroll buttons
   const scroll = (scrollOffset) => {
     const scrollRef = ref.current.childNodes[1];
     scrollRef.style.scrollBehavior = "smooth";

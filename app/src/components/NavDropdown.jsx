@@ -21,13 +21,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useHomeContext } from "@/pages/Home";
+import { useHomeContext } from "../pages/Home";
 
+// Nav Dropdown component for the Navbar (left-side) with links to all pages conditionally displayed if a user is logged in, only displayed on smaller screens
 const NavDropdown = () => {
+  const { user, logout } = useHomeContext();
+
+  // use the location hook to save the current URL path that is passed on to Login page. When the user logs in, they are redirected to the page they were on before the login
   const location = useLocation();
   const pathname = location.pathname;
   const search = location.search;
-  const { user, logout } = useHomeContext();
 
   return (
     <DropdownMenu>

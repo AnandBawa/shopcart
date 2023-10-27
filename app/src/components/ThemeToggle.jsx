@@ -1,7 +1,8 @@
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useThemeProviderContext } from "./ThemeProvider";
+import { useThemeProviderContext } from "@/components/ThemeProvider";
 
+// Theme Toggle icon and switch on click functionality
 const ThemeToggle = () => {
   const { isDarkTheme, toggleDarkTheme } = useThemeProviderContext();
 

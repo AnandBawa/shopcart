@@ -1,8 +1,9 @@
 import { useOutletContext } from "react-router-dom";
-import ProductsScroll from "./ProductsScroll";
-import SectionTitle from "./SectionTitle";
+import ProductsScroll from "@/components/ProductsScroll";
+import SectionTitle from "@/components/SectionTitle";
 
-const Featured = () => {
+// a product scroll for landing page that displays highest discounted products in each category
+const MaxDiscount = () => {
   const { maxDiscountProducts } = useOutletContext();
 
   return (
@@ -16,4 +17,4 @@ const Featured = () => {
   );
 };
 
-export default Featured;
+export default MaxDiscount;

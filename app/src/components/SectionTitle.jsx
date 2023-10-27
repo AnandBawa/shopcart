@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 
+// a Section Title component
 const SectionTitle = ({ text }) => {
   return (
     <div className="">

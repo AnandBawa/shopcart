@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
 
+// a single Product card component
 const ProductCard = ({ product }) => {
   const { _id, name, category, subcategory, price, origPrice, images } =
     product;
   const discount = Math.floor(((origPrice - price) * 100) / origPrice);
+
   return (
     <Link
       to={`/products/${_id}`}

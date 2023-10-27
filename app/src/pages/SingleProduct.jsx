@@ -1,14 +1,18 @@
-import { redirect, Link, useOutletContext } from "react-router-dom";
+import {
+  redirect,
+  Link,
+  useOutletContext,
+  useLocation,
+} from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import fetchData from "@/utils/fetchData";
+import fetchData from "@/lib/fetchData";
 import { ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Reviews, SimilarProducts } from "@/components";
-import { generateSelectOptions } from "@/utils/utils";
-import { useLocation } from "react-router-dom";
+import { generateSelectOptions } from "@/lib/generateSelectOptions";
 
 const singleProductQuery = (id) => {
   return {
@@ -199,7 +203,7 @@ const SingleProduct = () => {
                 </span>
               </p>
               <p className="text-primary text-xl font-semibold tracking-wide">
-                ${price}
+                ${price.toFixed(2)}
               </p>
               <div className="mt-2">
                 <select

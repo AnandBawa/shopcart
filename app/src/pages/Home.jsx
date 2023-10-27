@@ -2,8 +2,8 @@ import { Outlet, useNavigate, useNavigation } from "react-router-dom";
 import { useState, createContext, useContext, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import fetchData from "@/utils/fetchData";
 import { Loading, Navbar } from "@/components";
+import fetchData from "@/lib/fetchData";
 
 const maxDiscountQuery = {
   queryKey: ["maxDiscount"],

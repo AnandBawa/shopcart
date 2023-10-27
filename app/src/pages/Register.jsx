@@ -16,8 +16,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FormRow, Logo } from "@/components";
-import fetchData from "@/utils/fetchData";
+import { FormInput, Logo } from "@/components";
+import fetchData from "@/lib/fetchData";
 
 export const registerAction = async ({ request }) => {
   const formData = await request.formData();
@@ -63,37 +63,37 @@ const Register = () => {
         <Form method="post">
           <CardContent>
             <div className="grid w-full items-center gap-4">
-              <FormRow
+              <FormInput
                 type="text"
                 name="firstName"
                 label="First Name"
                 required={true}
               />
-              <FormRow
+              <FormInput
                 type="text"
                 name="lastName"
                 label="Last Name"
                 required={true}
               />
-              <FormRow
+              <FormInput
                 type="email"
                 name="email"
                 label="Email"
                 required={true}
               />
-              <FormRow
+              <FormInput
                 type="text"
                 name="phone"
                 label="Phone Number"
                 required={true}
               />
-              <FormRow
+              <FormInput
                 type="password"
                 name="password"
                 label="Password"
                 required={true}
               />
-              <FormRow
+              <FormInput
                 type="password"
                 name="repeatPassword"
                 label="Repeat Password"

@@ -1,5 +1,6 @@
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
 
+// Cart Total component that displays total of a cart
 const CartTotal = ({ cart }) => {
   const { baseTotal, tax, taxAmount, shippingCost, total } = cart;
 

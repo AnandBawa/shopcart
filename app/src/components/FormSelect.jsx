@@ -1,5 +1,6 @@
 import { Label } from "@/components/ui/label";
 
+// a label and select tag combine as Form Select component
 const FormSelect = ({ name, label, defaultValue, list, onChange }) => {
   return (
     <div className="grid w-full items-center gap-1">

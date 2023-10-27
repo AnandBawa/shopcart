@@ -1,7 +1,7 @@
 import { Form, Link, useLoaderData, useSubmit } from "react-router-dom";
-import { FormRow } from ".";
-import FormSelect from "./FormSelect";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import { FormInput } from "@/components";
+import FormSelect from "@/components/FormSelect";
 import {
   CATEGORY,
   SUB_CATEGORY,
@@ -12,14 +12,16 @@ import {
   EXPANSIONCARDS_NETWORKING,
 } from "../../../server/utils/constants.js";
 
+// Search form component for products page
 const SearchProducts = () => {
+  // useSubmit hook to search on value change
   const submit = useSubmit();
   const { searchValues } = useLoaderData();
   const { search, category, subcategory, sort, minPrice, maxPrice } =
     searchValues;
 
+  // display relevant subcategory based on the category selected
   let subcat = [];
-
   if (category === "All" || !category) subcat = SUB_CATEGORY;
   if (category === "Accessories / Other") subcat = ACCESSORIES_OTHER;
   if (category === "Expansion Cards / Networking")
@@ -27,6 +29,7 @@ const SearchProducts = () => {
   if (category === "General") subcat = GENERAL;
   if (category === "Peripherals") subcat = PERIPHERALS;
 
+  // debounce function with 1 second delayed submit for name and price input fields
   let debounceTimer;
   const delaySubmit = (e) => {
     const form = e.currentTarget.form;
@@ -39,7 +42,7 @@ const SearchProducts = () => {
   return (
     <Form className="bg-secondary rounded-xl p-4 mt-4">
       <div className="grid lg:grid-cols-3 gap-4">
-        <FormRow
+        <FormInput
           type="search"
           name="search"
           label="Search by Name"
@@ -66,7 +69,7 @@ const SearchProducts = () => {
           }}
         />
         <div className="grid grid-cols-2 gap-2">
-          <FormRow
+          <FormInput
             type="number"
             min={0}
             name="minPrice"
@@ -74,7 +77,7 @@ const SearchProducts = () => {
             defaultValue={minPrice}
             onChange={delaySubmit}
           />
-          <FormRow
+          <FormInput
             type="number"
             min={0}
             name="maxPrice"
@@ -102,4 +105,5 @@ const SearchProducts = () => {
     </Form>
   );
 };
+
 export default SearchProducts;
