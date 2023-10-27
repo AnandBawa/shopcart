@@ -18,8 +18,7 @@ const maxDiscountQuery = {
 const userQuery = {
   queryKey: ["user"],
   queryFn: async () => {
-    const data = await fetchData.get("/users/current-user");
-    console.log(data);
+    const { data } = await fetchData.get("/users/current-user");
     return data;
   },
 };
