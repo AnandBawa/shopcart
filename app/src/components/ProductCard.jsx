@@ -17,6 +17,7 @@ const ProductCard = ({ product }) => {
           <span className="text-base">%</span>
         </h1>
         <img
+          crossOrigin="anonymous"
           src={images[0].url}
           alt={name}
           className="overflow h-full w-full transition-all ease-in duration-300 hover:scale-110"

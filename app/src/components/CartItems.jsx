@@ -16,6 +16,7 @@ const CartItems = ({ cart, isOrder }) => {
             <div className="grid grid-cols-3 gap-4">
               <Link to={`/products/${_id}`} className="">
                 <img
+                  crossOrigin="anonymous"
                   src={images[0].url}
                   alt={name}
                   className="h-24 w-24 rounded-xl object-cover"

@@ -88,7 +88,10 @@ const Payments = () => {
   return (
     <div className="px-2 mx-auto w-full md:max-w-[65vw] mt-4 lg:mt-8">
       <SectionTitle text="Payment Methods" />
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2 mt-4 place-items-center ">
+      <div
+        key={user.payments}
+        className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2 mt-4 place-items-center "
+      >
         <div className="w-[250px] lg:w-[300px] h-[300px] flex flex-col justify-center items-center bg-secondary rounded-xl">
           <Dialog>
             <DialogTrigger asChild>

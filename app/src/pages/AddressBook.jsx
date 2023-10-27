@@ -84,7 +84,6 @@ const AddressBook = () => {
       <SectionTitle text="Address Book" />
       <div
         key={user.address}
-        id={user.address}
         className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2 mt-4 place-items-center "
       >
         <div className="w-[250px] lg:w-[300px] h-[300px] flex flex-col justify-center items-center bg-secondary rounded-xl">

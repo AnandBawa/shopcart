@@ -6,14 +6,9 @@ import ProductCard from "./ProductCard";
 
 const ProductsScroll = ({ products }) => {
   const ref = useRef(null);
-  let scrollRef = {};
-
-  useEffect(() => {
-    scrollRef = ref.current.childNodes[1];
-    scrollRef.style.scrollBehavior = "smooth";
-  }, []);
 
   const scroll = (scrollOffset) => {
+    const scrollRef = ref.current.childNodes[1];
     scrollRef.style.scrollBehavior = "smooth";
     scrollRef.scrollLeft += scrollOffset;
   };
