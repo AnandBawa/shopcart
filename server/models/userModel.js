@@ -19,7 +19,6 @@ const UserModel = new mongoose.Schema(
           location: String,
         },
       ],
-      default: undefined,
     },
     payments: {
       type: [
@@ -32,7 +31,6 @@ const UserModel = new mongoose.Schema(
           cvc: Number,
         },
       ],
-      default: undefined,
     },
     role: {
       type: String,
@@ -44,7 +42,6 @@ const UserModel = new mongoose.Schema(
         url: String,
         publicId: String,
       },
-      default: undefined,
     },
   },
   { timestamps: true }

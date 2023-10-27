@@ -80,7 +80,7 @@ const Checkout = () => {
           <div>
             <h1 className="font-semibold">Delivery Address</h1>
             <Separator className="my-2" />
-            {user.address.map((address) => {
+            {user?.address?.map((address) => {
               return (
                 <div key={address._id} className="px-2 my-1">
                   <input
@@ -113,7 +113,7 @@ const Checkout = () => {
           <div className="mt-4">
             <h1 className="font-semibold">Payment Method</h1>
             <Separator className="my-2" />
-            {user.payments.map((payment) => {
+            {user?.payments?.map((payment) => {
               return (
                 <div key={payment._id} className="px-2 my-1">
                   <input
