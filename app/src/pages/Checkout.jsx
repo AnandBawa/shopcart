@@ -151,7 +151,7 @@ const Checkout = () => {
             <Button
               disabled
               variant="outline"
-              className="text-destructive font-semibold"
+              className="text-destructive font-semibold whitespace-normal"
             >
               Please add{" "}
               {user.address.length < 1 && user.payments.length < 1

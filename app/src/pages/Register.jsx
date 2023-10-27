@@ -95,12 +95,14 @@ const Register = () => {
                 required={true}
               />
               <FormInput
+                key={Math.random()}
                 type="password"
                 name="password"
                 label="Password"
                 required={true}
               />
               <FormInput
+                key={Math.random()}
                 type="password"
                 name="repeatPassword"
                 label="Repeat Password"

@@ -79,6 +79,7 @@ const Login = () => {
                 required={true}
               />
               <FormInput
+                key={Math.random()}
                 type="password"
                 name="password"
                 label="Password"
