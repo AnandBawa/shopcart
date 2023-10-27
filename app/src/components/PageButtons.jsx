@@ -11,7 +11,6 @@ const PageButtons = ({ numPages, currentPage }) => {
   const pageChange = (page) => {
     const searchParams = new URLSearchParams(search);
     searchParams.set("pageNo", page);
-    console.log(searchParams.toString());
     navigate(`${pathname}?${searchParams.toString()}`);
   };
 
