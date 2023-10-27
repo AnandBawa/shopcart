@@ -28,6 +28,7 @@ export const register = async (req, res) => {
 
 // Login user response after successful authentication using passport-local
 export const login = async (req, res) => {
+  console.log("Login successful");
   res
     .status(StatusCodes.OK)
     .json({ msg: `Welcome back, ${req.user.firstName}` });
