@@ -2,12 +2,14 @@ import { StatusCodes } from "http-status-codes";
 import { hashPassword } from "../utils/passwordUtils.js";
 import User from "../models/userModel.js";
 
+// Register a new user and login after a successful registration
 export const register = async (req, res) => {
   req.logout((err) => {
     if (err) {
       throw new Error("Error logging out, please try again");
     }
   });
+
   const isFirstUser = (await User.countDocuments()) === 0;
   req.body.role = isFirstUser ? "admin" : "user";
 
@@ -24,12 +26,14 @@ export const register = async (req, res) => {
   });
 };
 
+// Login user response after successful authentication using passport-local
 export const login = async (req, res) => {
   res
     .status(StatusCodes.OK)
     .json({ msg: `Welcome back, ${req.user.firstName}` });
 };
 
+// Logout user
 export const logout = async (req, res) => {
   req.logout((err) => {
     if (err) {

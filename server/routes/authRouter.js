@@ -6,6 +6,7 @@ import { authenticateLocal } from "../utils/passportConfig.js";
 
 const authRouter = Router();
 
+// Rate limit routes to prevent abuse
 const apiLimiter = rateLimiter({
   windowMs: 15 * 60 * 1000,
   max: 25,

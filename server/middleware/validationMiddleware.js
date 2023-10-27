@@ -28,49 +28,56 @@ const errorMessages = (errors) => {
   return msg;
 };
 
-// Validate Product ID
+// Validate Product ID and check if product exists
 export const validateProductId = async (req, res, next) => {
   const { id } = req.params;
+
   const isValidId = mongoose.Types.ObjectId.isValid(id);
   if (!isValidId) {
     throw new BadRequestError("Invalid MongoDB ID");
   }
+
   const product = await Product.findById(id);
   if (!product) {
     throw new NotFoundError(`No product found with id ${id}`);
   }
+
   next();
 };
 
-// Validate new Product input
+// Validate new Product input - NOT IMPLEMENTED ON FRONT-END
 export const validateProductInput = async (req, res, next) => {
   const { error } = productSchema.validate(req.body, { abortEarly: false });
   if (error) {
     let msg = errorMessages(error.details);
     throw new BadRequestError(msg);
   }
+
   next();
 };
 
-// Validate new User Registration input
+// Validate new User Registration input and check if email or phone is not in use
 export const validateRegisterInput = async (req, res, next) => {
   const { error } = userSchema.validate(req.body, { abortEarly: false });
   if (error) {
     let msg = errorMessages(error.details);
     throw new BadRequestError(msg);
   }
+
   const user = await User.findOne({
     $or: [{ email: req.body.email }, { phone: req.body.phone }],
   });
   if (user) {
     throw new BadRequestError("Email/phone already in use");
   }
+
   next();
 };
 
-// Validate Review ID
+// Validate Review ID and check if review exists
 export const validateReviewId = async (req, res, next) => {
   const { reviewId } = req.params;
+
   const isValidId = mongoose.Types.ObjectId.isValid(reviewId);
   if (!isValidId) {
     throw new BadRequestError("Invalid MongoDB ID");
@@ -79,6 +86,7 @@ export const validateReviewId = async (req, res, next) => {
   if (!review) {
     throw new NotFoundError(`No product found with id ${reviewId}`);
   }
+
   next();
 };
 
@@ -89,23 +97,31 @@ export const validateReviewInput = async (req, res, next) => {
     let msg = errorMessages(error.details);
     throw new BadRequestError(msg);
   }
+
   next();
 };
 
 // Validate User Profile changes
 export const validateUpdateUserInput = async (req, res, next) => {
+  // check password
   const isMatch = await comparePassword(req.user.password, req.body.password);
   if (!isMatch) {
     throw new UnauthenticatedError("Incorrect current password");
   }
+
+  // check if email is in use by another user
   const userByEmail = await User.findOne({ email: req.body.email });
   if (userByEmail && userByEmail._id.equals(req.user._id) === false) {
     throw new BadRequestError("Email already in use");
   }
+
+  // check if email is in use by another user
   const userByPhone = await User.findOne({ phone: req.body.phone });
   if (userByPhone && userByPhone._id.equals(req.user._id) === false) {
     throw new BadRequestError("Phone already in use");
   }
+
+  // delete details not necessary
   if (req.body.newPassword === "" || req.body.repeatNewPassword === "") {
     delete req.body.newPassword;
     delete req.body.repeatNewPassword;
@@ -114,6 +130,7 @@ export const validateUpdateUserInput = async (req, res, next) => {
   delete data.password;
   delete data.repeatNewPassword;
 
+  // validate entries with schema
   let errorMessage = [];
   for (const [key, value] of Object.entries(data)) {
     const subSchema = userSchema.extract(key);
@@ -127,6 +144,7 @@ export const validateUpdateUserInput = async (req, res, next) => {
   if (errorMessage.length !== 0) {
     throw new BadRequestError(errorMessages(errorMessage));
   }
+
   next();
 };
 
@@ -147,22 +165,27 @@ export const validatePaymentInput = async (req, res, next) => {
     let msg = errorMessages(error.details);
     throw new BadRequestError(msg);
   }
+
   next();
 };
 
-// Validate Order ID
+// Validate Order ID, check if order exists and if order belongs to current user
 export const validateOrderId = async (req, res, next) => {
   const { id } = req.params;
+
   const isValidId = mongoose.Types.ObjectId.isValid(id);
   if (!isValidId) {
     throw new BadRequestError("Invalid MongoDB ID");
   }
+
   const order = await Order.findById(id);
   if (!order) {
     throw new NotFoundError(`No order found with id ${id}`);
   }
+
   if (!order.user.equals(req.user._id)) {
     throw new UnauthorizedError("You are not authorized to view this order");
   }
+
   next();
 };

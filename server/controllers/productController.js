@@ -1,9 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import Product from "../models/productModel.js";
 import orderModel from "../models/orderModel.js";
-import mongoose from "mongoose";
 
-// Get all products
+// Get all products using query parameters and implementing pagination
 export const getAllProducts = async (req, res) => {
   const {
     search,
@@ -60,22 +59,26 @@ export const getAllProducts = async (req, res) => {
   });
 };
 
-// Create a new product
+// Create a new product - NOT IMPLEMENTED ON FRONT-END
 export const createProduct = async (req, res) => {
   req.body.addedBy = req.user._id;
+
   const product = await Product.create(req.body);
+
   res.status(StatusCodes.CREATED).json({ product });
 };
 
-// Get a single product
+// Get details of a product and check if current logged-in user has ordered it before to allow adding a review
 export const getProduct = async (req, res) => {
   const product = await Product.findById(req.params.id);
+
   if (product.reviews) {
     await product.populate({
       path: "reviews",
       populate: { path: "author", select: "firstName" },
     });
   }
+
   let hasOrdered = null;
   if (req.user) {
     const filter = {
@@ -84,10 +87,11 @@ export const getProduct = async (req, res) => {
     };
     hasOrdered = await orderModel.findOne(filter);
   }
+
   res.status(StatusCodes.OK).json({ product, hasOrdered });
 };
 
-// Update a product
+// Update a product - NOT IMPLEMENTED ON FRONT-END
 export const updateProduct = async (req, res) => {
   const updatedProduct = await Product.findByIdAndUpdate(
     req.params.id,
@@ -96,14 +100,16 @@ export const updateProduct = async (req, res) => {
       new: true,
     }
   );
+
   res
     .status(StatusCodes.OK)
     .json({ msg: "Product edited", job: updatedProduct });
 };
 
-// Delete a product
+// Delete a product - NOT IMPLEMENTED ON FRONT-END
 export const deleteProduct = async (req, res) => {
   const removedProduct = await Product.findByIdAndDelete(req.params.id);
+
   res
     .status(StatusCodes.OK)
     .json({ msg: "Product deleted", job: removedProduct });

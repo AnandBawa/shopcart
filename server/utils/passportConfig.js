@@ -3,6 +3,7 @@ import User from "../models/userModel.js";
 import { UnauthenticatedError } from "../errors/customErrors.js";
 import { comparePassword } from "./passwordUtils.js";
 
+// Create Passport-Local strategy
 export const localAuthStrategy = async (phone, password, done) => {
   try {
     const user = await User.findOne({
@@ -23,6 +24,7 @@ export const localAuthStrategy = async (phone, password, done) => {
   }
 };
 
+// Function to authenticate login
 export const authenticateLocal = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);

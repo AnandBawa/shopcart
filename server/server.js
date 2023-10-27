@@ -79,10 +79,9 @@ if (process.env.NODE_ENV === "development") {
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
 app.use(express.static(path.resolve(__dirname, "../app/dist")));
-app.use(express.json());
 
+app.use(express.json());
 app.use(session(sessionConfig));
 
 // Configuring Passport.js

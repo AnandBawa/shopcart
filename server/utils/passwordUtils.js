@@ -1,5 +1,7 @@
 import argon2 from "argon2";
 
+// use argon2 to hash and compare password
+
 export const hashPassword = async (password) => {
   return await argon2.hash(password);
 };
