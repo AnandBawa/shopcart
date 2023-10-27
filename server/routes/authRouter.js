@@ -11,6 +11,7 @@ const apiLimiter = rateLimiter({
   windowMs: 15 * 60 * 1000,
   max: 25,
   message: { msg: "IP rate limit exceeded. Retry in 15 minutes" },
+  validate: { xForwardedForHeader: false },
 });
 
 // Register
