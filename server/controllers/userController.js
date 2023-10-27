@@ -12,7 +12,7 @@ export const getCurrentUser = (req, res) => {
     user = { ...req.user._doc };
     delete user.password;
   }
-
+  console.log(user);
   res.status(StatusCodes.OK).json({ user: user });
 };
 

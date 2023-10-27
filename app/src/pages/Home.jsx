@@ -19,6 +19,7 @@ const userQuery = {
   queryKey: ["user"],
   queryFn: async () => {
     const { data } = await fetchData.get("/users/current-user");
+    console.log(data);
     return data;
   },
 };
