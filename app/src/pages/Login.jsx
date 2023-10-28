@@ -28,6 +28,7 @@ export const loginAction =
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     const redirectTo = data.redirectTo;
+    data.phone = data.phone.toLowerCase();
 
     try {
       delete data.redirectTo;
