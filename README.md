@@ -29,7 +29,7 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 #### Setup
 
 1. Clone the repo and navigate to "server" folder
-2. `npm run setup-project` to set up both the server and client (short for below command which installs pnpm which is then user for package installations)
+2. `npm run setup-project` to set up both the server and client (short for below command which installs pnpm which is then used for package installations)
 
    ```sh
    npm install -g pnpm && pnpm install && cd .. && cd app && pnpm install
