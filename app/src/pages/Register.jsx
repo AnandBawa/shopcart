@@ -26,6 +26,7 @@ export const registerAction =
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
     const errors = { msg: "" };
+    data.email = data.email.toLowerCase();
 
     try {
       const response = await fetchData.post("/register", data);
