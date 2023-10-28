@@ -65,3 +65,4 @@ With the above database and environment variables, the app can be deployed on yo
 - Pagination for Orders and Reviews
 - Admin Role & Test User
 - Add/Edit/Remove Products
+- Add an image carousel for product with multiple images
