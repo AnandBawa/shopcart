@@ -8,7 +8,7 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 2. Interactive Cart
 3. Easy Checkout
 4. Order History
-5. Add/Edit/Delete and view other Reviews
+5. Add/Edit/Delete a Review of product ordered before and view other user Reviews
 6. Add/Edit/Delete Addresses and Payment Methods
 7. Update Personal Info and add an Avatar
 8. Toggle Light/Dark Mode
