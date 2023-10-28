@@ -110,6 +110,7 @@ export const validateUpdateUserInput = async (req, res, next) => {
   }
 
   // check if email is in use by another user
+  req.body.email = req.body.email.toLowerCase();
   const userByEmail = await User.findOne({ email: req.body.email });
   if (userByEmail && userByEmail._id.equals(req.user._id) === false) {
     throw new BadRequestError("Email already in use");

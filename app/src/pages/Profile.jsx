@@ -35,7 +35,7 @@ export const profileAction =
     }
 
     try {
-      await fetchData.patch(`/users/update-user`, data);
+      await fetchData.patch(`/users/update-user`, formData);
       queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.success(`Profile updated successfully`);
       return redirect("/profile");
