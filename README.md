@@ -35,13 +35,22 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
    npm install -g pnpm && pnpm install && cd .. && cd app && pnpm install
    ```
 
-3. `pnpm run dev` to spin up both the server and client (short for below command)
+3. `pnpm run dev` to spin up both the server and client in Development mode (short for below command)
 
    ```sh
    concurrently --kill-others-on-fail \"pnpm run server\" \"pnpm run app\"
    ```
 
-4. `http://localhost:5173/` to open the app
+4. `http://localhost:5173/` in browser to run the app
+5. `pnpm run setup-production-app` to setup a Production ready application (short for below command)
+
+   ```sh
+   pnpm install && cd .. && cd app && pnpm install && pnpm run build
+
+   ```
+
+6. `node server` to launch the app in Production mode
+7. `http://localhost:3000/` in browser to run the app
 
 **Environment Variables:** these need to be saved in an ".env" file inside "server" folder
 
