@@ -228,8 +228,8 @@ const SingleProduct = () => {
                   Add to Cart
                 </Button>
               </div>
-              <Separator className="my-4" />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-2">
+              <Separator className="mt-4 mb-2" />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-1 lg:gap-2 px-2">
                 {details.map((detail) => {
                   let [key, value] = detail;
                   if (typeof value === "boolean" && value) {
@@ -260,7 +260,7 @@ const SingleProduct = () => {
           </div>
         </div>
       </section>
-      <Separator className="mt-1 lg:mt-2" />
+      <Separator className="mt-2 lg:mt-2" />
       <SimilarProducts similarProducts={similarProducts} />
       <Reviews
         key={reviews}
