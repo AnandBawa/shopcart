@@ -17,6 +17,7 @@ export const profileAction =
   async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
+    data.email = data.email.toLowerCase();
 
     if (data.newPassword === data.password) {
       toast.error("New and old password cannot be same");
@@ -34,7 +35,7 @@ export const profileAction =
     }
 
     try {
-      await fetchData.patch(`/users/update-user`, formData);
+      await fetchData.patch(`/users/update-user`, data);
       queryClient.invalidateQueries({ queryKey: ["user"] });
       toast.success(`Profile updated successfully`);
       return redirect("/profile");
