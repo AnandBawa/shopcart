@@ -43,6 +43,20 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 
 4. `http://localhost:5173/` to open the app
 
+**Environment Variables:** these need to be saved in an ".env" file inside "server" folder
+
+1. MONGO_DB_URL
+2. SECRET
+3. CLOUDINARY_NAME
+4. CLOUDINARY_API_KEY
+5. CLOUDINARY_API_SECRET
+6. NODE_ENV
+
+The products database JSON file can be downloaded here:
+[products.json](https://drive.google.com/file/d/1ACLt0boVY9EyIKsnO5WS7jUaZ2FGQeJt/view?usp=sharing). Add as a collection in your database.
+
+With the above database and environment variables, the app can be deployed on your server.
+
 ---
 
 **Features to be added later**
