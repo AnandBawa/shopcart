@@ -50,7 +50,7 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
    ```
 
 6. `node server` to launch the app in Production mode
-7. `http://localhost:3000/` in browser to run the app
+7. `http://localhost:3000/` in browser to run the app (replace 3000 with the port number set as environment variable)
 
 **Environment Variables:** these need to be saved in an ".env" file inside "server" folder
 
@@ -60,6 +60,7 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 4. CLOUDINARY_API_KEY
 5. CLOUDINARY_API_SECRET
 6. NODE_ENV
+7. PORT
 
 The products database JSON file can be downloaded here:
 [products.json](https://drive.google.com/file/d/1ACLt0boVY9EyIKsnO5WS7jUaZ2FGQeJt/view?usp=sharing). Add as a collection in your database.
