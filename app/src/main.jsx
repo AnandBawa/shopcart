@@ -9,10 +9,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <ThemeProvider>
     <App />
     <ToastContainer
-      position="top-center"
+      position="bottom-center"
       transition={Zoom}
       autoClose={4000}
       draggable={false}
+      pauseOnFocusLoss={false}
+      pauseOnHover={false}
+      newestOnTop
     />
   </ThemeProvider>
 );

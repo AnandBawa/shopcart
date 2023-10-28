@@ -102,7 +102,22 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "script-src": ["'self'"],
+        "style-src": ["'self'"],
+        imgSrc: [
+          "'self'",
+          "blob:",
+          "data:",
+          "https://res.cloudinary.com/dvw2f3vre/",
+        ],
+      },
+    },
+  })
+);
 app.use(mongoSanitize());
 
 // Routes
