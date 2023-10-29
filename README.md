@@ -1,4 +1,4 @@
-# Shopping App
+# ShopCart
 
 ShopCart is a full-stack shopping application based on MERN stack. It is designed to be responsive and interactive and has most of the functionality you expect from a shopping website.
 
@@ -50,7 +50,7 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
    ```
 
 6. `node server` to launch the app in Production mode
-7. `http://localhost:3000/` in browser to run the app (replace 3000 with the port number set as environment variable)
+7. `http://localhost:3000/` in browser to run the app (replace default 3000 with the port number set as environment variable)
 
 **Environment Variables:** these need to be saved in an ".env" file inside "server" folder
 
