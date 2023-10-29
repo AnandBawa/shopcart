@@ -20,13 +20,13 @@ const About = () => {
           </div>
           <div className="text-sm  tracking-wide">
             <h2 className="font-medium">Front-End</h2>
-            <li className="text-justify">
+            <li className="text-justify px-2">
               uses React v18+ and is built around React Router v6.4+ framework
               along with React Query v4+ for caching. Tailwind is used heavily
               for CSS.
             </li>
             <h2 className="font-medium mt-2">Back-End</h2>
-            <li>
+            <li className="text-justify px-2">
               built on Express framework for Node. Passport-Local along with
               Argon2 is used for user authentication and password hashing.
               Mongoose is used to model and query MongoDB. Joi for Schema
