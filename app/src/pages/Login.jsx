@@ -43,7 +43,7 @@ export const loginAction =
     }
   };
 
-const Login = () => {
+const Login = ({ queryClient }) => {
   // use the useLocation hook to get previous page or default to homepage and pass it to login action as hidden input to redirect to after login
   const location = useLocation();
   const redirectTo = location.state?.from || "/";
@@ -72,7 +72,7 @@ const Login = () => {
           </CardDescription>
         </CardHeader>
         <div className="flex flex-row place-content-center">
-          <Button asChild>
+          <Button asChild onClick={() => queryClient.invalidateQueries()}>
             <a href="https://shopcart-2hr3.onrender.com/api/v1/github">
               <Github className="mr-2 h-6 w-6" />
               Login with GitHub
