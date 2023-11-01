@@ -37,3 +37,41 @@ export const authenticateLocal = (req, res, next) => {
     });
   })(req, res, next);
 };
+
+// Create Passport-Github strategy
+export const githubAuthStrategy = async (
+  accessToken,
+  refreshToken,
+  profile,
+  done
+) => {
+  const { id, displayName } = profile;
+  const { phone, email, avatar_url } = profile._json;
+  const firstName = displayName.trim().split(" ").at(0);
+  const lastName = displayName.trim().split(" ").at(-1);
+  try {
+    let user = await User.findOne({
+      $or: [{ email: phone }, { phone: phone }, { githubID: id }],
+    });
+    if (!user) {
+      const newUser = await User.create({
+        email: email,
+        phone: phone,
+        githubId: id,
+        image: { url: avatar_url },
+        firstName: firstName,
+        lastName: lastName,
+      });
+      return done(null, newUser);
+    }
+    if (!user.githubId) {
+      await User.findByIdAndUpdate(user._id, { githubId: id });
+      user = await User.findOne({
+        $or: [{ email: phone }, { phone: phone }, { githubID: id }],
+      });
+    }
+    return done(null, user);
+  } catch (error) {
+    return done(error);
+  }
+};

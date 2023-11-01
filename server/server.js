@@ -10,7 +10,11 @@ import cloudinary from "cloudinary";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import { Strategy as LocalStrategy } from "passport-local";
-import { localAuthStrategy } from "./utils/passportConfig.js";
+import { Strategy as GithubStrategy } from "passport-github2";
+import {
+  localAuthStrategy,
+  githubAuthStrategy,
+} from "./utils/passportConfig.js";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -30,6 +34,8 @@ import User from "./models/userModel.js";
 
 dotenv.config();
 const app = express();
+
+console.log(process.env.NODE_ENV);
 
 // Cloudinary config
 cloudinary.config({
@@ -90,6 +96,16 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy({ usernameField: "phone" }, localAuthStrategy));
+passport.use(
+  new GithubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: process.env.GITHUB_CALLBACK_URL,
+    },
+    githubAuthStrategy
+  )
+);
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });

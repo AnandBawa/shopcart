@@ -8,6 +8,7 @@ const UserModel = new mongoose.Schema(
     email: String,
     phone: String,
     password: String,
+    githubId: String,
     cart: { type: mongoose.Mixed, default: undefined },
     address: {
       type: [

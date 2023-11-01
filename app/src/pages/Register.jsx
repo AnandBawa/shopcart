@@ -4,6 +4,8 @@ import {
   redirect,
   useNavigation,
   useActionData,
+  useOutletContext,
+  Navigate,
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
@@ -43,10 +45,16 @@ export const registerAction =
 const Register = () => {
   // useActionData hook to get error messages from server on input validation failure
   const errors = useActionData();
+  const { user } = useOutletContext();
 
   // useNavigation hook to disable buttons when form is being submitted
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+
+  if (user) {
+    toast.error("You are already logged in");
+    return <Navigate to="/" replace={true} />;
+  }
 
   return (
     <div className="min-h-[90vh] grid place-items-center px-2 mt-2">

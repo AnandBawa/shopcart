@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/card";
 import { FormInput, Logo } from "@/components";
 import fetchData from "@/lib/fetchData";
+import { Github } from "lucide-react";
 
 // React Router action to login the user on login form submission
 export const loginAction =
@@ -70,6 +71,24 @@ const Login = () => {
             LOGIN
           </CardDescription>
         </CardHeader>
+        <div className="flex flex-row place-content-center">
+          <Button asChild>
+            <a href="http://localhost:3000/api/v1/github">
+              <Github className="mr-2 h-6 w-6" />
+              Login with GitHub
+            </a>
+          </Button>
+        </div>
+        <div className="relative my-4">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-background" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-secondary px-2 tracking-wide font-medium">
+              Or continue with
+            </span>
+          </div>
+        </div>
         <Form method="post">
           <CardContent>
             <div className="grid w-full items-center gap-4">
