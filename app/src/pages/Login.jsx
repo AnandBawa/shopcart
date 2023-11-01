@@ -73,7 +73,7 @@ const Login = () => {
         </CardHeader>
         <div className="flex flex-row place-content-center">
           <Button asChild>
-            <a href="http://localhost:3000/api/v1/github">
+            <a href="https://shopcart-2hr3.onrender.com/api/v1/github">
               <Github className="mr-2 h-6 w-6" />
               Login with GitHub
             </a>

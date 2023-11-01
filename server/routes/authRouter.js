@@ -28,7 +28,7 @@ authRouter
 authRouter
   .route("/github/callback")
   .get(passport.authenticate("github"), (req, res) =>
-    res.redirect("http://localhost:5173/")
+    res.redirect("https://shopcart-2hr3.onrender.com/")
   );
 
 // Logout
