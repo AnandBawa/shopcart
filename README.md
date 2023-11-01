@@ -13,6 +13,7 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 7. Update Personal Info and add an Avatar
 8. Toggle Light/Dark Mode
 9. Responsive Design to work on most screens
+10. Login via GitHub
 
 > [Deployed App](https://shopcart-2hr3.onrender.com/)
 
@@ -61,6 +62,9 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 5. CLOUDINARY_API_SECRET
 6. NODE_ENV
 7. PORT
+8. GITHUB_CLIENT_ID
+9. GITHUB_CLIENT_SECRET
+10. GITHUB_CALLBACK_URL
 
 The products database JSON file can be downloaded here:
 [products.json](https://drive.google.com/file/d/1ACLt0boVY9EyIKsnO5WS7jUaZ2FGQeJt/view?usp=sharing). Add as a collection in your database.

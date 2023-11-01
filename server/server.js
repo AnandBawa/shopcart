@@ -35,8 +35,6 @@ import User from "./models/userModel.js";
 dotenv.config();
 const app = express();
 
-console.log(process.env.NODE_ENV);
-
 // Cloudinary config
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_NAME,
