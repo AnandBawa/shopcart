@@ -21,7 +21,10 @@ export const userSchema = Joi.object({
     .email({
       minDomainSegments: 2,
     })
-    .required(),
+    .required()
+    .messages({
+      "string.email": "Please enter a valid email",
+    }),
   phone: Joi.string()
     .regex(/^(?=.*[0-9])[0-9]{10}$/)
     .required()
@@ -45,7 +48,10 @@ export const addressSchema = Joi.object({
   add2: Joi.string().required(),
   pin: Joi.string()
     .regex(/^(?=.*[0-9])[0-9-]{4,10}$/)
-    .required(),
+    .required()
+    .messages({
+      "string.pattern.base": "PIN code should be between 4-10 digits",
+    }),
   location: Joi.string().required(),
 });
 
@@ -58,7 +64,10 @@ export const paymentSchema = Joi.object({
   name: Joi.string().required(),
   number: Joi.string()
     .regex(/^(?=.*[0-9])[0-9]{16}$/)
-    .required(),
+    .required()
+    .messages({
+      "string.pattern.base": "Card number should be 16 digits",
+    }),
   expiryMonth: Joi.number().valid(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
   expiryYear: Joi.number().valid(...years),
   cvc: Joi.number().min(100).max(999),
