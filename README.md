@@ -2,6 +2,8 @@
 
 ShopCart is a full-stack shopping application based on MERN stack. It is designed to be responsive and interactive and has most of the functionality you expect from a shopping website.
 
+> [Deployed App](https://shopcart-2hr3.onrender.com/)
+
 **Features**
 
 1. Dynamic Search of Product Catalog with Pagination
@@ -15,8 +17,6 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 9. Responsive Design to work on most screens
 10. GitHub Login option
 
-> [Deployed App](https://shopcart-2hr3.onrender.com/)
-
 **Front-End**
 
 - uses React v18+ and is built around React Router v6.4+ framework along with React Query v4+ for caching. Tailwind is used heavily for CSS.
@@ -24,52 +24,6 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 **Back-End**
 
 - built on Express framework for Node. Passport-Local along with Argon2 is used for user authentication and password hashing. Mongoose is used to model and query MongoDB. Joi for Schema validation and Express Session for session management.
-
----
-
-#### Setup
-
-1. Clone the repo and navigate to "server" folder
-2. `npm run setup-project` to set up both the server and client (short for below command which installs pnpm which is then used for package installations)
-
-   ```sh
-   npm install -g pnpm && pnpm install && cd .. && cd app && pnpm install
-   ```
-
-3. `pnpm run dev` to spin up both the server and client in Development mode (short for below command)
-
-   ```sh
-   concurrently --kill-others-on-fail \"pnpm run server\" \"pnpm run app\"
-   ```
-
-4. `http://localhost:5173/` in browser to run the app
-5. `pnpm run setup-production-app` to setup a Production ready application (short for below command)
-
-   ```sh
-   pnpm install && cd .. && cd app && pnpm install && pnpm run build
-
-   ```
-
-6. `node server` to launch the app in Production mode
-7. `http://localhost:3000/` in browser to run the app (replace default 3000 with the port number set as environment variable)
-
-**Environment Variables:** these need to be saved in an ".env" file inside "server" folder
-
-1. MONGO_DB_URL
-2. SECRET
-3. CLOUDINARY_NAME
-4. CLOUDINARY_API_KEY
-5. CLOUDINARY_API_SECRET
-6. NODE_ENV
-7. PORT
-8. GITHUB_CLIENT_ID
-9. GITHUB_CLIENT_SECRET
-10. GITHUB_CALLBACK_URL
-
-The products database JSON file can be downloaded here:
-[products.json](https://drive.google.com/file/d/1ACLt0boVY9EyIKsnO5WS7jUaZ2FGQeJt/view?usp=sharing). Add as a collection in your database.
-
-With the above database and environment variables, the app can be deployed on your server.
 
 ---
 
