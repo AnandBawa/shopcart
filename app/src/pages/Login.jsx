@@ -72,12 +72,19 @@ const Login = ({ queryClient }) => {
           </CardDescription>
         </CardHeader>
         <div className="flex flex-row place-content-center">
-          <Button asChild onClick={() => queryClient.invalidateQueries()}>
-            <a href="https://shopcart-2hr3.onrender.com/api/v1/github">
+          {isSubmitting ? (
+            <Button disabled>
               <Github className="mr-2 h-6 w-6" />
               Login with GitHub
-            </a>
-          </Button>
+            </Button>
+          ) : (
+            <Button asChild onClick={() => queryClient.invalidateQueries()}>
+              <a href="https://shopcart-2hr3.onrender.com/api/v1/github">
+                <Github className="mr-2 h-6 w-6" />
+                Login with GitHub
+              </a>
+            </Button>
+          )}
         </div>
         <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
