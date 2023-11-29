@@ -3,6 +3,7 @@
 ShopCart is a full-stack shopping application based on MERN stack. It is designed to be responsive and interactive and has most of the functionality you expect from a shopping website.
 
 > [Deployed App](https://shopcart-2hr3.onrender.com/)
+> (Render's free-tier instances spin down with inactivity. So first load of the app can take a few minutes as the render server spins up)
 
 **Features**
 
@@ -23,7 +24,7 @@ ShopCart is a full-stack shopping application based on MERN stack. It is designe
 
 **Back-End**
 
-- built on Express framework for Node. Passport-Local along with Argon2 is used for user authentication and password hashing. Mongoose is used to model and query MongoDB. Joi for Schema validation and Express Session for session management.
+- built on Express framework for Node.js. Express Session for session management. MongoDB is the NoSQL database that is used. Mongoose is used for data modeling and manipulation. Joi is used for data validation. Passport-Local along with Argon2 is used for user authentication and password hashing. Passport-Github strategy allows users to use a social login option of Github.
 
 ---
 
