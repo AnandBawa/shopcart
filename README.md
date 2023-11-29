@@ -2,7 +2,7 @@
 
 ShopCart is a full-stack shopping application based on MERN stack. It is designed to be responsive and interactive and has most of the functionality you expect from a shopping website.
 
-> [Deployed App](https://shopcart-2hr3.onrender.com/)
+> [Deployed App](https://shopcart-2hr3.onrender.com/)  
 > (Render's free-tier instances spin down with inactivity. So first load of the app can take a few minutes as the render server spins up)
 
 **Features**
