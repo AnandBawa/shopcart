@@ -3,6 +3,7 @@ import {
   BadRequestError,
   NotFoundError,
   UnauthenticatedError,
+  UnauthorizedError,
 } from "../errors/customErrors.js";
 import Product from "../models/productModel.js";
 import productSchema from "../schemas/productSchema.js";
