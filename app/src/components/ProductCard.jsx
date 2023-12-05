@@ -33,9 +33,9 @@ const ProductCard = ({ product }) => {
           <Separator className="my-1 bg-background" />
         </div>
         <div className="font-semibold tracking-wide text-primary mb-4">
-          ${price}
+          ${price.toFixed(2)}
         </div>
-        <div className="col-span-2 font-semibold text-sm tracking-wider truncate mb-4">
+        <div className="col-span-2 font-semibold text-sm tracking-wider truncate mb-4 text-right">
           {product.type ? `${product.type} / ${subcategory}` : `${subcategory}`}{" "}
           / {category}
         </div>
