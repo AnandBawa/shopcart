@@ -121,13 +121,8 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         "script-src": ["'self'"],
-        "style-src": ["'self'"],
-        imgSrc: [
-          "'self'",
-          "blob:",
-          "data:",
-          "https://res.cloudinary.com/dvw2f3vre/",
-        ],
+        "style-src": ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "blob:", "data:", "https://res.cloudinary.com"],
       },
     },
   })
