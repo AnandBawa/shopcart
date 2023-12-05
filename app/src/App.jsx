@@ -45,6 +45,7 @@ const queryClient = new QueryClient({
   },
 });
 
+// using BrowserRouter from React Router
 const router = createBrowserRouter([
   {
     path: "/",
