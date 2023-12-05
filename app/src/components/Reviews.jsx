@@ -117,7 +117,7 @@ const Reviews = ({ reviews, hasOrdered }) => {
                   <div className="">
                     <Rating
                       initialValue={review.rating}
-                      readOnly
+                      readonly
                       emptyStyle={{ display: "flex" }}
                       fillStyle={{ display: "-webkit-inline-box" }}
                       size={15}
